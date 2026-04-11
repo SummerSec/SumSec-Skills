@@ -3,9 +3,7 @@ name: skill-optimizer
 description: "优化、审查或诊断 Agent Skills（SKILL.md）。路径A：先审查再规划，用户确认后改目标文件。路径B：只读会话审计（jsonl+静态八维），输出 P0/P1/P2 报告不改文件。触发：优化 skill、skill 质量、重构技能、/optimize-skill、/skill-audit、optimize skills、analyze skills、check my skills、skills 不触发、skill 没生效。默认若用户未说只读且指向具体 skill，走路径A并遵守确认门槛。"
 ---
 
-# Skill Optimizer（合并版）
-
-合并两套能力：**路径 A** 保留「Reviewer + Inversion + 轻量 Generator」的落地改写流程；**路径 B** 吸收 [hqhq1025/skill-optimizer](https://github.com/hqhq1025/skill-optimizer) 的会话数据 + **八维只读审计**与 CSO（描述可被 Agent 稳定检索）检查。细则长的部分放在 [references/session-audit-dimensions.md](references/session-audit-dimensions.md)。
+# Skill Optimizer
 
 ## 路径选择
 
