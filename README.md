@@ -26,7 +26,36 @@ SumSec-Skills/
 
 ## 安装方式
 
-本仓库是**多个 skill 的源码集合**。请始终安装 **`skills/<skill-name>/` 整个目录**（含 `references/` 等），不要只下载单个 `SKILL.md`，否则相对链接会断。推荐使用「克隆仓库 + 复制 / 软链整目录」的方式安装。
+本仓库是**多个 skill 的源码集合**。优先推荐使用 **Claude Code Plugin 安装**；若当前环境不支持，再退回到「克隆仓库 + 复制 / 软链整目录」方式。无论使用哪种方式，都应保留 **`skills/<skill-name>/` 整个目录**（含 `references/` 等），不要只下载单个 `SKILL.md`，否则相对链接会断。
+
+### Claude Code Plugin 安装
+
+本仓库提供：
+
+- `.claude-plugin/plugin.json`
+- `.claude-plugin/marketplace.json`
+
+当前插件信息：
+
+- 插件名：`sumsec`
+- 市场包名：`sumsec-skills`
+- 安装 ID：`sumsec@sumsec-skills`
+
+若你的 Claude Code 版本支持 marketplace 安装，可尝试：
+
+```bash
+claude plugin marketplace add SummerSec/SumSec-Skills
+claude plugin install sumsec@sumsec-skills
+```
+
+更新：
+
+```bash
+claude plugin marketplace update
+claude plugin update sumsec@sumsec-skills
+```
+
+若 CLI 尚不支持该安装方式，仍可使用下文的 `~/.claude/skills/<skill-name>/` 手动安装。
 
 ### 获取源码（推荐）
 
@@ -85,35 +114,6 @@ cp -R /path/to/SumSec-Skills/skills/skill-optimizer .agents/skills/
 mkdir -p .cursor/skills
 cp -R /path/to/SumSec-Skills/skills/skill-optimizer .cursor/skills/
 ```
-
-### Claude Code Plugin 安装
-
-本仓库提供：
-
-- `.claude-plugin/plugin.json`
-- `.claude-plugin/marketplace.json`
-
-当前插件信息：
-
-- 插件名：`sumsec`
-- 市场包名：`sumsec-skills`
-- 安装 ID：`sumsec@sumsec-skills`
-
-若你的 Claude Code 版本支持 marketplace 安装，可尝试：
-
-```bash
-claude plugin marketplace add SummerSec/SumSec-Skills
-claude plugin install sumsec@sumsec-skills
-```
-
-更新：
-
-```bash
-claude plugin marketplace update
-claude plugin update sumsec@sumsec-skills
-```
-
-若 CLI 尚不支持该安装方式，仍可使用上文的 `~/.claude/skills/<skill-name>/` 手动安装。
 
 ### 可选：Vercel Skills CLI
 
