@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills",
-  "description": "SummerSec 个人 Agent Skills 集合：含 skill-optimizer（确认后改写 + 会话八维只读审计）等，skills 位于仓库 skills/ 目录。",
+  "description": "SummerSec personal Agent Skills marketplace package. Currently includes skill-optimizer and can expand with more reusable skills over time.",
   "owner": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "sumsec",
-      "description": "SumSec-Skills 技能包：skill-optimizer 及后续 skills；与 pua 仓库相同的 marketplace 安装范式（sumsec@sumsec-skills）。",
+      "description": "SumSec-Skills plugin package for reusable personal skills, starting with skill-optimizer.",
       "version": "1.0.0",
       "source": "./",
       "author": {

@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
   "version": "1.0.0",
-  "description": "SummerSec personal Agent Skills: skill-optimizer (confirm-then-edit path A; read-only session audit path B), CSO checks, references under skills/.",
+  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer for confirm-then-edit skill refactors and read-only 8-dimension session audits.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -11,10 +11,10 @@
   "license": "Apache-2.0",
   "keywords": [
     "agent-skills",
-    "skill-optimizer",
     "skills",
-    "claude",
+    "skill-optimizer",
+    "claude-code",
     "codex",
-    "cso"
+    "cursor"
   ]
 }
