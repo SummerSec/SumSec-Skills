@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
   "version": "1.0.0",
-  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer for confirm-then-edit skill refactors and read-only 8-dimension session audits.",
+  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer for confirm-then-edit refactors and read-only 8-dimension audits, plus git-commit-pr for safe commit, push, and PR workflows.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -13,6 +13,7 @@
     "agent-skills",
     "skills",
     "skill-optimizer",
+    "git-commit-pr",
     "claude-code",
     "codex",
     "cursor"

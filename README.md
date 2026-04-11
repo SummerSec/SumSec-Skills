@@ -136,6 +136,7 @@ npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
 | 技能目录 | 说明 |
 |----------|------|
 | [skills/skill-optimizer](skills/skill-optimizer/) | 路径 A：确认后改 skill；路径 B：`/optimize-skill` 类只读八维审计 |
+| [skills/git-commit-pr](skills/git-commit-pr/) | 在真实仓库里安全完成 `commit`、`push`、`PR/MR`，优先识别仓库与分支状态 |
 
 ## 许可
 

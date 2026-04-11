@@ -25,5 +25,6 @@
 | 目录 | 用途 |
 |------|------|
 | `skills/skill-optimizer/` | 路径 A：审查、规划、确认后改 skill；路径 B：会话 jsonl + 八维只读审计报告 |
+| `skills/git-commit-pr/` | 在真实仓库中安全完成 commit、push、PR/MR，先检查仓库与分支状态再执行 |
 
 （随仓库增加 skill 时，维护者可在此表追加一行。）
