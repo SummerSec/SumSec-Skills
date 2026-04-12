@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills",
-  "description": "SummerSec personal Agent Skills marketplace package. Currently includes skill-optimizer and git-commit-pr, and can expand with more reusable skills over time.",
+  "description": "SummerSec personal Agent Skills marketplace package. Includes skill-optimizer, git-commit-pr, find-skills, and humanizer-zh, and can expand with more reusable skills over time.",
   "owner": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -8,8 +8,8 @@
   "plugins": [
     {
       "name": "sumsec",
-      "description": "SumSec-Skills plugin package for reusable personal skills, currently including skill-optimizer and git-commit-pr.",
-      "version": "1.0.0",
+      "description": "SumSec-Skills plugin package for reusable personal skills, including skill-optimizer, git-commit-pr, find-skills, and humanizer-zh.",
+      "version": "1.0.1",
       "source": "./",
       "author": {
         "name": "SummerSec",

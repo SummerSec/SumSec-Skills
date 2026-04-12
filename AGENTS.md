@@ -26,5 +26,7 @@
 |------|------|
 | `skills/skill-optimizer/` | 路径 A：审查、规划、确认后改 skill；路径 B：会话 jsonl + 八维只读审计报告 |
 | `skills/git-commit-pr/` | 在真实仓库中安全完成 commit、push、PR/MR，先检查仓库与分支状态再执行 |
+| `skills/find-skills/` | 帮助用户从开放 skills 生态发现、搜索与安装可复用技能（Skills CLI、`skills.sh`） |
+| `skills/humanizer-zh/` | 编辑或审阅文本时去除典型 AI 写作痕迹，使表达更自然、更像人类书写 |
 
 （随仓库增加 skill 时，维护者可在此表追加一行。）
