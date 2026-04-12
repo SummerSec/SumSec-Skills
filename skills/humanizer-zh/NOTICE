@@ -1,0 +1,10 @@
+本目录中的以下内容合并自第三方项目 **humanize-chinese**
+（https://github.com/voidborne-d/humanize-chinese ，README 声明为 **MIT** 许可）：
+
+- `scripts/`（含 `patterns_cn.json`、`ngram_freq_cn.json` 等）
+- `examples/`
+- `evals/`
+- `claude-code/`
+
+上述文件的著作权与许可条件以原仓库为准。`SKILL.md` 中「深度指南」主体仍基于
+blader/humanizer 等来源的中文改编；本 `NOTICE` 仅说明 CLI 相关文件的合并来源。

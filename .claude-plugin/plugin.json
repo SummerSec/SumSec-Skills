@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
-  "version": "1.0.1",
-  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer (confirm-then-edit and read-only 8-dimension audits), git-commit-pr (safe commit, push, PR), find-skills (discover and install skills from the open ecosystem), and humanizer-zh (reduce AI writing patterns in edited text).",
+  "version": "1.0.2",
+  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer (confirm-then-edit and read-only 8-dimension audits), git-commit-pr (safe commit, push, PR), find-skills (discover and install skills from the open ecosystem), and humanizer-zh (bundled Python CLI for Chinese AI-text detect/humanize/academic plus long-form editing guidance).",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"

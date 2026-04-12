@@ -1,0 +1,37 @@
+{
+  "name": "humanizer-zh",
+  "version": "2.2.0",
+  "description": "Chinese AI-text de-slopping: bundled zero-dep Python CLI (detect/humanize/academic/style) from voidborne-d/humanize-chinese; SKILL v2.2.0 adds anti-AI-review pass (draft → self-check → final) per op7418/Humanizer-zh#14, plus long-form guidance from blader/humanizer / Wikipedia Signs of AI writing.",
+  "main": "SKILL.md",
+  "scripts": {
+    "detect": "python scripts/detect_cn.py",
+    "humanize": "python scripts/humanize_cn.py",
+    "compare": "python scripts/compare_cn.py",
+    "style": "python scripts/style_cn.py",
+    "academic": "python scripts/academic_cn.py"
+  },
+  "keywords": [
+    "ai",
+    "chinese",
+    "humanize",
+    "detector",
+    "skill",
+    "aigc",
+    "知网",
+    "humanizer",
+    "deai",
+    "text-humanizer"
+  ],
+  "author": "SummerSec (skill bundle in SumSec-Skills)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SummerSec/SumSec-Skills.git"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills/tree/main/skills/humanizer-zh",
+  "cli_upstream": {
+    "name": "humanize-chinese",
+    "repository": "https://github.com/voidborne-d/humanize-chinese",
+    "license": "MIT"
+  }
+}

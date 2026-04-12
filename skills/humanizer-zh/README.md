@@ -1,20 +1,35 @@
 # Humanizer-zh: AI 写作去痕工具（中文版）
 
 > **声明：**
-> - 本项目的核心文件翻译自 [blader/humanizer](https://github.com/blader/humanizer/tree/main)
-> - 实用工具部分（核心规则、快速检查清单、质量评分）参考了 [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)
+> - **深度编辑指南**（`SKILL.md` 主体）翻译自 [blader/humanizer](https://github.com/blader/humanizer/tree/main)，并参考 [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)
 > - 原项目基于维基百科的 [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) 指南
+> - **本地 CLI**（`scripts/`、`examples/`、`evals/`、`claude-code/`）合并自 [voidborne-d/humanize-chinese](https://github.com/voidborne-d/humanize-chinese)（MIT，详见仓库内 [NOTICE](NOTICE)）
+> - **「反 AI 审查」二遍流程**（初稿 → 自问残留痕迹 → 终稿）与 `SKILL.md` 加长示例，同步自 [op7418/Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14) 对上游 humanizer v2.2.0 的合并思路
 
 ---
 
 ## 项目简介
 
-Humanizer-zh 是一个用于去除文本中 AI 生成痕迹的工具，帮助你将 AI 生成的内容改写得更自然、更像人类书写的文本。
+Humanizer-zh 用于去除文本中的 AI 生成痕迹，包含两条路径：
 
-本项目适用于：
-- 编辑和审阅 AI 生成的内容
-- 提升文章的人性化程度
-- 学习识别 AI 写作的常见模式
+1. **Python CLI（零 pip 依赖）**：对中文文本做 0–100 评分、改写、学术降 AIGC、风格转换等，适合批量与可复现流程。
+2. **Agent / 对话内指南**：按 `SKILL.md` 的「深度指南」逐条识别模式并改写，适合无法执行脚本的场景。
+
+对话内指南还强调 **最终「反 AI 审查」**：在人性化初稿之后，再问「仍有哪些明显的 AI 痕迹？」并据此修订为终稿，减少「改完仍像机翻」的残留。
+
+适用场景包括：编辑审阅、论文/营销文案去「机器味」、学习常见 AI 句式等。
+
+## 本地 CLI 速览
+
+在 **`humanizer-zh` 目录**下执行（需本机已安装 **Python 3**）：
+
+```bash
+python scripts/detect_cn.py examples/sample_general.txt -s
+python scripts/humanize_cn.py examples/sample_general.txt -o out.txt
+python scripts/academic_cn.py examples/sample_academic.txt --compare
+```
+
+完整参数、工作流与评分含义见 `SKILL.md` 开头「本地 CLI 工具」一节；规则与词库在 `scripts/patterns_cn.json`。
 
 ## 安装
 
@@ -40,11 +55,14 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
    - **macOS/Linux**: `~/.claude/skills/`
    - **Windows**: `%USERPROFILE%\.claude\skills\`
 
-3. 确保文件夹结构如下：
+3. 确保文件夹结构如下（须保留整个目录，含 `references/` 与 `scripts/`）：
    ```
    ~/.claude/skills/humanizer-zh/
-   ├── SKILL.md       # 技能定义文件（中文版）
-   └── README.md      # 说明文档
+   ├── SKILL.md
+   ├── README.md
+   ├── references/
+   ├── scripts/
+   └── …
    ```
 
 ### 验证安装
@@ -158,10 +176,20 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 
 ## 文件说明
 
-- **`SKILL.md`** - 中文版技能定义文件
+- **`SKILL.md`** - 技能入口：仅 `name` + `description` 的 frontmatter；CLI 与深度指南主流程；**必读链接**指向 `references/`
+- **`references/pattern-catalog.md`** - 核心速查、个性与灵魂、24 类模式与示例（深度改稿前打开）
+- **`references/example-anti-ai-review.md`** - 加长「初稿→审查→终稿」完整示例
+- **`references/attribution.md`** - 上游来源与文档版本
+- **`references/agent-environment.md`** - 建议工具列表（原 YAML `allowed-tools`）
 - **`README.md`** - 本说明文档
+- **`scripts/`** - 检测、改写、学术、风格等 Python 脚本及 `patterns_cn.json`、`ngram_freq_cn.json`
+- **`examples/`** - 示例输入文本
+- **`evals/`** - 评测用数据
+- **`claude-code/`** - 可复制到业务仓库 `.claude/commands/` 的斜杠命令说明
+- **`package.json`** - 可选 `npm run detect|humanize|...` 快捷方式（底层仍为 `python scripts/...`）
+- **`NOTICE`** - CLI 相关文件的第三方来源说明
 
-**注：** 英文原版请参考 [blader/humanizer](https://github.com/blader/humanizer)
+**注：** 英文原版 humanizer 请参考 [blader/humanizer](https://github.com/blader/humanizer)
 
 ## 手动使用方法
 
@@ -172,6 +200,7 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 3. **保留核心含义** - 确保信息完整性
 4. **维持适当语调** - 匹配文本应有的风格
 5. **注入真实个性** - 让文字有"人味"
+6. **最终反 AI 审查** - 对初稿自问「仍有哪些明显的 AI 痕迹？」，再修订为终稿（详见 `SKILL.md` 中「处理流程」与「完整示例」）
 
 ### 关键原则
 
@@ -186,13 +215,18 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 - **允许一些混乱** - 完美的结构反而显得机械
 - **对感受要具体** - 用具体细节替代抽象概括
 
-#### 示例对比
+#### 示例对比（初稿 → 审查 → 终稿）
 
 **改写前（AI 味道）：**
 > 新的软件更新作为公司致力于创新的证明。此外，它提供了无缝、直观和强大的用户体验——确保用户能够高效地完成目标。这不仅仅是一次更新，而是我们思考生产力方式的革命。
 
-**改写后（人性化）：**
+**初稿改写（人性化）：**
 > 软件更新添加了批处理、键盘快捷键和离线模式。来自测试用户的早期反馈是积极的，大多数报告任务完成速度更快。
+
+**反 AI 审查：** 节奏仍偏匀整；「来自测试用户的早期反馈是积极的」带报告腔，略像模板句。
+
+**终稿改写：**
+> 这次更新加了批处理和键盘快捷键。测试用户说比之前快，主要是批处理省了重复操作的时间。
 
 **变化：**
 - 删除了夸大的象征意义（"作为……的证明"）
@@ -200,6 +234,16 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 - 删除了三段式法则（"无缝、直观和强大"）
 - 删除了否定式排比（"不仅仅是……而是……"）
 - 添加了具体功能和真实反馈
+- 经二次审查去掉残留的报告腔与过匀节奏
+
+更长、多模式叠合的完整示例见 `SKILL.md` 末尾「完整示例」一节。
+
+## 版本历史
+
+- **2.2.0+**（SumSec-Skills 内演进）— 按 skill-optimizer 路径 A：**frontmatter 仅 `name`/`description`**；24 类模式与长示例迁至 `references/`；工具与来源元数据迁至 `references/agent-environment.md`、`references/attribution.md`
+- **2.2.0**（见 `SKILL.md` 深度指南与根目录 `package.json`）— 同步 [Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14)：最终「反 AI 审查」+ 三段式交付（初稿 / 痕迹列举 / 终稿），加长完整示例
+- **2.1.0** — 合并 [humanize-chinese](https://github.com/voidborne-d/humanize-chinese) 本地 CLI 与资源
+- **1.x** — 基于 blader/humanizer 的深度指南中文改编
 
 ## 常见 AI 词汇警示列表
 
@@ -225,6 +269,8 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 
 ## 参考资源
 
+- [op7418/Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14) - 反 AI 审查工作流与示例的来源 PR
+- [voidborne-d/humanize-chinese](https://github.com/voidborne-d/humanize-chinese) - 本目录 CLI 与配套资源的上游
 - [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) - 原始指南来源
 - [WikiProject AI Cleanup](https://en.wikipedia.org/wiki/Wikipedia:WikiProject_AI_Cleanup) - 维基百科 AI 清理项目
 - [blader/humanizer](https://github.com/blader/humanizer) - 原始英文版项目
