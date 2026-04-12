@@ -6,7 +6,7 @@
 
 - 所有 skill 位于仓库根目录下的 **`skills/<skill-name>/`**。
 - 每个 skill 的入口为 **`skills/<skill-name>/SKILL.md`**，顶部 YAML frontmatter 中的 **`description`** 用于判断是否与本任务相关。
-- 当用户任务与某个 skill 的 `description` 匹配时：**先读取并遵循该 `SKILL.md`**，再按需读取其同目录下 **`references/`**、**`scripts/`**、**`assets/`** 中由 `SKILL.md` 直接链接的文件；不要在未阅读 skill 的情况下用通用流程替代。
+- 当用户任务与某个 skill 的 `description` 匹配时：**先读取并遵循该 `SKILL.md`**，再按需读取其同目录下 **`references/`**、**`scripts/`**、**`assets/`**、**`rules/`** 等由 `SKILL.md` 直接链接的文件；不要在未阅读 skill 的情况下用通用流程替代。
 - 执行 skill 时遵守其中的确认门槛、工作流顺序与输出格式要求。
 
 ## 布局约定
@@ -28,5 +28,6 @@
 | `skills/git-commit-pr/` | 在真实仓库中安全完成 commit、push、PR/MR，先检查仓库与分支状态再执行 |
 | `skills/find-skills/` | 帮助用户从开放 skills 生态发现、搜索与安装可复用技能（Skills CLI、`skills.sh`） |
 | `skills/humanizer-zh/` | 本地 CLI（humanize-chinese）+ 深度指南 v2.2：含「反 AI 审查」二遍（初稿→自问残留→终稿）；无法用脚本时按 SKILL 维基式规则编辑 |
+| `skills/remotion-best-practices/` | Remotion（React 视频）领域实践：按 `SKILL.md` 索引按需加载 `rules/*.md`（composition、动画、字幕、FFmpeg、图表等） |
 
 （随仓库增加 skill 时，维护者可在此表追加一行。）

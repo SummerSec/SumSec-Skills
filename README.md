@@ -139,6 +139,7 @@ npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
 | [skills/git-commit-pr](skills/git-commit-pr/) | 在真实仓库里安全完成 `commit`、`push`、`PR/MR`，优先识别仓库与分支状态 |
 | [skills/find-skills](skills/find-skills/) | 按任务帮用户发现、搜索并安装 Agent skill（Skills CLI、开放生态与 `skills.sh`） |
 | [skills/humanizer-zh](skills/humanizer-zh/) | 去 AI 味：本地 CLI（humanize-chinese）+ 深度指南 v2.2（反 AI 审查：初稿→痕迹自检→终稿，见 op7418/Humanizer-zh#14） |
+| [skills/remotion-best-practices](skills/remotion-best-practices/) | Remotion 最佳实践：按任务加载 `rules/` 下专题（composition、时间轴、字幕、FFmpeg、图表、转场等） |
 
 ## 许可
 
