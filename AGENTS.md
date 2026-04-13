@@ -29,5 +29,6 @@
 | `skills/find-skills/` | 帮助用户从开放 skills 生态发现、搜索与安装可复用技能（Skills CLI、`skills.sh`） |
 | `skills/humanizer-zh/` | 本地 CLI（humanize-chinese）+ 深度指南 v2.2：含「反 AI 审查」二遍（初稿→自问残留→终稿）；无法用脚本时按 SKILL 维基式规则编辑 |
 | `skills/remotion-best-practices/` | Remotion（React 视频）领域实践：按 `SKILL.md` 索引按需加载 `rules/*.md`（composition、动画、字幕、FFmpeg、图表等） |
+| `skills/creating-blog-web-ppt/` | 将 Markdown 文章转为网页版 PPT（slide-writer 对齐 + `blog-sumsec` 主题）；同目录落盘、SUMSEC 回链等见 `references/` |
 
 （随仓库增加 skill 时，维护者可在此表追加一行。）
