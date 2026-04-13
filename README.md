@@ -140,6 +140,7 @@ npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
 | [skills/find-skills](skills/find-skills/) | 按任务帮用户发现、搜索并安装 Agent skill（Skills CLI、开放生态与 `skills.sh`） |
 | [skills/humanizer-zh](skills/humanizer-zh/) | 去 AI 味：本地 CLI（humanize-chinese）+ 深度指南 v2.2（反 AI 审查：初稿→痕迹自检→终稿，见 op7418/Humanizer-zh#14） |
 | [skills/remotion-best-practices](skills/remotion-best-practices/) | Remotion 最佳实践：按任务加载 `rules/` 下专题（composition、时间轴、字幕、FFmpeg、图表、转场等） |
+| [skills/creating-blog-web-ppt](skills/creating-blog-web-ppt/) | 文章转网页版 PPT：slide-writer 工作流 + 博客主题 `blog-sumsec`，与 BlogPapers 同目录输出约定 |
 
 ## 许可
 
