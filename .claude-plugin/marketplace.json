@@ -9,7 +9,7 @@
     {
       "name": "sumsec",
       "description": "SumSec-Skills plugin package for reusable personal skills, including skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, and multi-platform-plugin-guide.",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "source": "./",
       "author": {
         "name": "SummerSec",

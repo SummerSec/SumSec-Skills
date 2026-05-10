@@ -7,6 +7,12 @@ SummerSec 个人自定义 Agent Skills 仓库：集中存放、版本化管理�
 ```text
 SumSec-Skills/
 ├── .claude-plugin/        # Claude Code plugin 元数据
+├── .cursor-plugin/        # Cursor plugin 元数据
+├── .codex-plugin/         # OpenAI Codex CLI plugin 元数据
+├── .agents/plugins/       # Codex 仓库级 marketplace（marketplace.json）
+├── .cursor/rules/         # Cursor 规则（本仓维护约定）
+├── package.json           # 与多平台 manifest 的 version 对齐（private）
+├── plugin.json            # 仓库级插件摘要（多工具可读）
 ├── AGENTS.md              # 在本仓库内工作时给 Agent 的指引
 ├── README.md
 ├── skills/
@@ -56,6 +62,24 @@ claude plugin update sumsec@sumsec-skills
 ```
 
 若 CLI 尚不支持该安装方式，仍可使用下文的 `~/.claude/skills/<skill-name>/` 手动安装。
+
+### Cursor Plugin（IDE 插件）
+
+本仓库在根目录提供 Cursor 清单，与官方 [Plugins reference](https://cursor.com/docs/reference/plugins) 一致：
+
+- `.cursor-plugin/plugin.json`：声明 `skills: "./skills/"` 与 `rules: "./.cursor/rules/"`
+- `.cursor-plugin/marketplace.json`：单插件 marketplace，`source` 为仓库根 `./`
+
+在已克隆仓库上验证结构后，可将本 Git 仓库作为 Cursor marketplace 源添加（以 Cursor 当前 UI / CLI 为准），或继续使用下文的「复制/软链单 skill」方式。
+
+### Codex CLI Plugin
+
+OpenAI Codex 会从仓库读取 `.codex-plugin/plugin.json` 与 `skills/`（见 [Build plugins](https://developers.openai.com/codex/plugins/build)）：
+
+- `.codex-plugin/plugin.json`：`skills` 指向 `./skills/`
+- `.agents/plugins/marketplace.json`：仓库级 curated 列表，`source.path` 为 `./`（插件根即本仓库根）
+
+安装方式以 Codex 文档为准（例如 `codex plugin marketplace add …` 指向本仓库后启用 `sumsec`）。
 
 ### 获取源码（推荐）
 
@@ -141,7 +165,7 @@ npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
 | [skills/humanizer-zh](skills/humanizer-zh/) | 去 AI 味：本地 CLI（humanize-chinese）+ 深度指南 v2.2（反 AI 审查：初稿→痕迹自检→终稿，见 op7418/Humanizer-zh#14） |
 | [skills/remotion-best-practices](skills/remotion-best-practices/) | Remotion 最佳实践：按任务加载 `rules/` 下专题（composition、时间轴、字幕、FFmpeg、图表、转场等） |
 | [skills/creating-blog-web-ppt](skills/creating-blog-web-ppt/) | 文章转网页版 PPT：slide-writer 工作流 + 博客主题 `blog-sumsec`，与 BlogPapers 同目录输出约定 |
-| [skills/multi-platform-plugin-guide](skills/multi-platform-plugin-guide/) | 多平台插件与 manifest 版本对齐备忘（源自 AI Inner OS；本仓以 `.claude-plugin/` 与根 `plugin.json` 为主） |
+| [skills/multi-platform-plugin-guide](skills/multi-platform-plugin-guide/) | 多平台插件与 manifest 版本对齐备忘；**本仓**以 `package.json`、`plugin.json`、`.claude-plugin/`、`.cursor-plugin/`、`.codex-plugin/`、`.agents/plugins/` 为发布清单（见该 SKILL 文末） |
 
 ## 许可
 

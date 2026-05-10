@@ -1,0 +1,25 @@
+{
+  "name": "sumsec-skills-cursor",
+  "metadata": {
+    "description": "Cursor marketplace entry for SumSec-Skills: bundled skills under ./skills/."
+  },
+  "owner": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "plugins": [
+    {
+      "name": "sumsec",
+      "description": "Personal reusable Agent Skills collection (Cursor plugin bundle).",
+      "version": "1.0.6",
+      "source": "./",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      },
+      "category": "productivity",
+      "tags": ["agent-skills", "skills"],
+      "skills": "./skills/"
+    }
+  ]
+}

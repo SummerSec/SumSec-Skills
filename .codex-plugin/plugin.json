@@ -1,0 +1,34 @@
+{
+  "name": "sumsec",
+  "version": "1.0.6",
+  "description": "SummerSec personal Agent Skills: skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide.",
+  "author": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "skills",
+    "skill-optimizer",
+    "git-commit-pr",
+    "find-skills",
+    "humanizer-zh",
+    "remotion-best-practices",
+    "creating-blog-web-ppt",
+    "multi-platform-plugin-guide",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SumSec Skills",
+    "shortDescription": "Personal Agent Skills collection for Codex.",
+    "longDescription": "Bundles multiple skills under ./skills/; install via repo marketplace or Claude-style marketplace.",
+    "developerName": "SummerSec",
+    "category": "Productivity",
+    "capabilities": ["Read"],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills"
+  }
+}

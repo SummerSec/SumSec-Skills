@@ -16,9 +16,15 @@
 
 ## 插件元数据维护
 
-- 若仓库存在 `.claude-plugin/plugin.json` 与 `.claude-plugin/marketplace.json`，则在**发布新版本、调整插件名/描述、或新增/删除重要 skill** 时，同步检查并更新这两个文件。
-- 版本号、描述、关键词、marketplace 中的插件列表应与仓库当前实际内容保持一致，避免 README、skills 目录与插件元数据脱节。
-- 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先更新相应字段。
+- **发布新版本、调整插件名/描述、或新增/删除重要 skill** 时，同步检查下列清单（详见 `skills/multi-platform-plugin-guide/SKILL.md` 文末 *SumSec-Skills 发布清单*）：
+  - `package.json`（根，`version`）
+  - `plugin.json`（根）
+  - `.claude-plugin/plugin.json`、`.claude-plugin/marketplace.json`（含 `plugins[].version`）
+  - `.cursor-plugin/plugin.json`、`.cursor-plugin/marketplace.json`（含条目 `version`）
+  - `.codex-plugin/plugin.json`
+  - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；与插件路径 `./` 一致即可）
+- 版本号、描述、关键词应与仓库当前 **skills/** 与 README 技能表一致，避免脱节。
+- 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
 
 ## 当前技能一览
 
@@ -30,6 +36,6 @@
 | `skills/humanizer-zh/` | 本地 CLI（humanize-chinese）+ 深度指南 v2.2：含「反 AI 审查」二遍（初稿→自问残留→终稿）；无法用脚本时按 SKILL 维基式规则编辑 |
 | `skills/remotion-best-practices/` | Remotion（React 视频）领域实践：按 `SKILL.md` 索引按需加载 `rules/*.md`（composition、动画、字幕、FFmpeg、图表等） |
 | `skills/creating-blog-web-ppt/` | 将 Markdown 文章转为网页版 PPT（slide-writer 对齐 + `blog-sumsec` 主题）；同目录落盘、SUMSEC 回链等见 `references/` |
-| `skills/multi-platform-plugin-guide/` | 多平台插件打包备忘（Claude / Codex / Cursor 等 manifest、版本号、hooks）；权威段落以 AI Inner OS 主仓 `CLAUDE.md` 为准 |
+| `skills/multi-platform-plugin-guide/` | 多平台插件打包备忘（Claude / Codex / Cursor manifest、版本号、hooks）；**本仓**落地路径见该 SKILL 文末 *SumSec-Skills 发布清单*；完整矩阵仍以 AI Inner OS 主仓 `CLAUDE.md` 为准 |
 
 （随仓库增加 skill 时，维护者可在此表追加一行。）

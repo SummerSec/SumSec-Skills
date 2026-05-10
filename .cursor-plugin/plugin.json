@@ -1,7 +1,8 @@
 {
   "name": "sumsec",
+  "displayName": "SumSec Skills",
   "version": "1.0.6",
-  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer, git-commit-pr, find-skills, humanizer-zh (Chinese AI-text CLI + guidance), remotion-best-practices (Remotion/React video rules index), creating-blog-web-ppt (Markdown to HTML slides), and multi-platform-plugin-guide (cross-client plugin manifests and version bumps).",
+  "description": "SummerSec personal Agent Skills: skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -19,9 +20,12 @@
     "remotion-best-practices",
     "creating-blog-web-ppt",
     "multi-platform-plugin-guide",
-    "remotion",
     "claude-code",
     "codex",
     "cursor"
-  ]
+  ],
+  "category": "productivity",
+  "tags": ["agent-skills", "skills", "cursor"],
+  "skills": "./skills/",
+  "rules": "./.cursor/rules/"
 }

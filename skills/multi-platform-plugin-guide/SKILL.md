@@ -45,6 +45,10 @@ description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖
 | Codex 仓库级 marketplace | `.agents/plugins/marketplace.json` |
 | Cursor 插件清单 | `.cursor-plugin/plugin.json` |
 | Cursor marketplace 入口 | `.cursor-plugin/marketplace.json` |
+| OpenClaw 插件清单 | `openclaw.plugin.json` |
+| OpenClaw 插件入口 | `openclaw/index.js` |
+| OpenCode 插件入口 | `opencode/plugins/inner-os.js` |
+| Hermes Skill | `hermes/skills/inner-os/SKILL.md` |
 | 仓库级元数据 | `plugin.json` |
 
 ## 版本同步清单
@@ -97,8 +101,49 @@ description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖
 - Codex：`SessionStart` 输出 stdout；`PostToolUse` 使用 `hookSpecificOutput.additionalContext`；不使用 `PreToolUse` 注入上下文。
 - Bash 命令目标摘要截断为 80 字符。
 
-## 其他平台提示
+## OpenClaw 插件规范摘要
+
+- 插件清单：`openclaw.plugin.json`，保持 `id`、`version`、`main`、`description` 对 OpenClaw 有效。
+- 插件入口：`openclaw/index.js`，必须纳入 `npm run check`。
+- Skill 内容：`openclaw/skills/inner-os/SKILL.md`，保持 AgentSkills 兼容。
+- 插件分发的 skills 优先级低于 workspace、project、personal、managed 等位置；不要假设插件 skill 会覆盖用户或工作区 skill。
+- 保持 `openclaw/README.md`、`docs/install-openclaw.md` 与 `openclaw.plugin.json`、`openclaw/index.js`、`openclaw/skills/inner-os/SKILL.md` 一致。
+
+## OpenCode 插件规范摘要
+
+- 插件入口：`opencode/plugins/inner-os.js`，这是独立插件，不复用 `hooks/lib/`。
+- 静态指令：`opencode/inner-os-rules.md`；配置示例位于 `opencode/`。
+- OpenCode 插件通常从 `.opencode/plugins/`、`~/.config/opencode/plugins/` 或 `opencode.json` 配置的 npm 包加载。
+- OpenCode 插件代码应遵循官方 plugin API 和事件名；不要把 Claude/Codex 的 lifecycle hook 写成 OpenCode 行为。
+- 保持 `opencode/README.md`、`docs/install-opencode.md`、`scripts/install.js` 与插件入口和指令文件路径一致。
+
+## Hermes 插件规范摘要
+
+- 当前仓库通过 `hermes/skills/inner-os/SKILL.md` 和 `hermes/hermes.md` 支持 Hermes。
+- Hermes skill 应保留 Hermes 专用 frontmatter，例如 version、category、tags 等字段。
+- `hermes/hermes.md` 是项目 context-file 变体，必须与 canonical protocol 和 persona markers 保持同步。
+- 不要假设 Hermes 支持 Claude Code、Codex 或 Cursor 的 JavaScript hook 模型。
+- 保持 `hermes/README.md`、`docs/install-hermes.md` 与 skill/context-file 安装路径一致。
+
+## 共享维护提示
 
 - **全局安装**：`scripts/install.js` 会把共享核心复制到 `~/.inner-os/` 并生成各平台配置，详见 `CLAUDE.md` 的 *Global Install Script*。
-- **OpenCode**：`opencode/plugins/inner-os.js` 是独立插件，详见 `CLAUDE.md` 的 *OpenCode Plugin*。
 - **协议唯一来源**：`protocol/SKILL.md`。各平台静态副本需要手动同步，详见 `CLAUDE.md` 的 *Single Source of Truth*。
+
+## SumSec-Skills 发布清单（本仓）
+
+**SumSec-Skills** 为「多 skill 源码集合」仓库，已落地的多平台 manifest **不含** OpenClaw / OpenCode / Hermes 专用文件（无 `openclaw.plugin.json`、`opencode/`、`hermes/` 等）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
+
+1. `package.json`（根）
+2. `plugin.json`（根）
+3. `.claude-plugin/plugin.json`
+4. `.claude-plugin/marketplace.json` → `plugins[0].version`
+5. `.cursor-plugin/plugin.json`
+6. `.cursor-plugin/marketplace.json` → `plugins[0].version`
+7. `.codex-plugin/plugin.json`
+
+**Codex**：`.agents/plugins/marketplace.json` 中 `source.path` 为 `./`（插件根即仓库根）；该文件通常无 `version` 字段，与 OpenAI 文档一致即可。
+
+**Cursor**：可选规则位于 `.cursor/rules/`（`sumsec-skills-repo.mdc`），在 `.cursor-plugin/plugin.json` 中通过 `rules` 引用。
+
+各平台字段语义、hooks 与完整矩阵仍以本文前半与 **AI Inner OS** 主仓 `CLAUDE.md` 为准；上表仅约束 **本仓库** 内实际存在的路径。
