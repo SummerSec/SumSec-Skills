@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
-  "version": "1.0.3",
-  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer for confirm-then-edit refactors and read-only 8-dimension audits, plus git-commit-pr for safe commit, push, and PR workflows.",
+  "version": "1.0.5",
+  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, and multi-platform-plugin-guide.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -14,6 +14,11 @@
     "skills",
     "skill-optimizer",
     "git-commit-pr",
+    "find-skills",
+    "humanizer-zh",
+    "remotion-best-practices",
+    "creating-blog-web-ppt",
+    "multi-platform-plugin-guide",
     "claude-code",
     "codex",
     "cursor"
