@@ -1,6 +1,6 @@
 ---
 name: skill-optimizer
-description: "优化、审查或诊断 Agent Skills（SKILL.md）。路径A：先审查再规划，用户确认后改目标文件。路径B：只读会话审计（jsonl+静态八维），输出 P0/P1/P2 报告不改文件。触发：优化 skill、skill 质量、重构技能、/optimize-skill、/skill-audit、optimize skills、analyze skills、check my skills、skills 不触发、skill 没生效。默认若用户未说只读且指向具体 skill，走路径A并遵守确认门槛。"
+description: "用于优化、审查或诊断 Agent Skills（SKILL.md）：优化 skill、skill 质量、重构技能、/optimize-skill、/skill-audit、optimize skills、analyze skills、check my skills、skills 不触发、skill 没生效。"
 ---
 
 # Skill Optimizer
@@ -53,7 +53,8 @@ description: "优化、审查或诊断 Agent Skills（SKILL.md）。路径A：�
 
 - [references/review-checklist.md](references/review-checklist.md)
 - [references/skill-design-review-framework.md](references/skill-design-review-framework.md)
-- 需对照官方取舍时：[技能创作最佳实践 - Claude API Docs](<references/技能创作最佳实践 - Claude API Docs.md>)
+- **官方基准**：优化时应参考 [技能创作最佳实践 - Claude API Docs](<references/技能创作最佳实践 - Claude API Docs.md>) 与 [Claude Code Extend Claude with skills](https://code.claude.com/docs/en/skills)；本 skill 的 checklist 用于补充执行细节，不替代官方规范
+- 需对照 Claude Code skills 新特性时：[references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md)
 - **可选加项**：用 [session-audit-dimensions.md](references/session-audit-dimensions.md) 的 **4.4 静态质量** 表做 CSO / YAML / 长度检查（无会话也可做）
 
 Review 关注点保持与原 skill 一致：name、description、模式匹配、确认门槛、渐进披露、输出可执行性等。
@@ -69,6 +70,9 @@ Review 关注点保持与原 skill 一致：name、description、模式匹配、
 ### Step 5: Verify
 
 - frontmatter 仅 `name`、`description`；`name` 与目录一致；`description` 可独立表达触发条件
+- 已按 [技能创作最佳实践 - Claude API Docs](<references/技能创作最佳实践 - Claude API Docs.md>) 校验简洁性、渐进披露、命名、description、文件引用与测试建议
+- 已按 [Claude Code Extend Claude with skills](https://code.claude.com/docs/en/skills) 校验技能位置、命令兼容、扩展 frontmatter、调用控制、动态上下文、subagent、可见性覆盖与分发要求
+- 若目标面向 Claude Code，可按 [references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md) 执行专项检查
 - 正文更短更清晰；路径 A 的确认门槛仍在说明中写清
 - 若借鉴了 4.4：description 含 `: ` 时 YAML 用双引号包裹等
 
