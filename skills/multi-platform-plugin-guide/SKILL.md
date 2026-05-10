@@ -93,6 +93,21 @@ description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖
 - 当前启用事件：`SessionStart`、`PostToolUse`、`Stop`。不要把未支持的 hook 写成已启用行为。
 - 保持 `codex/README.md`、`docs/install-codex.md` 与 manifest 和 `codex/hooks.json` 一致。
 
+## Codex 与 Cursor：marketplace 的 `source` 与「从 Git 安装」
+
+两家的 **marketplace 条目语法不同**，不要强行把 Codex 的写法套到 Cursor 上。
+
+### Codex（`.agents/plugins/marketplace.json`）
+
+- 官方支持 **Git 拉取**：插件条目可使用 **`"source": "url"`**，并配合 **`url`**（如 `https://github.com/owner/repo.git`）与 **`ref`**（如 `main`），由 Codex 安装到缓存目录。见 [Build plugins — Git-backed entries](https://developers.openai.com/codex/plugins/build)。
+- **本地 checkout**：使用 **`"source": "local"`** + **`path": "./"`**（`path` 相对 marketplace 所在仓库根），适合只在克隆目录里调试、不提交该条目的场景。
+
+### Cursor（`.cursor-plugin/marketplace.json`）
+
+- 官方 schema 中，插件条目里的 **`source`** 字段表示 **当前已被 Cursor 作为 marketplace 来源纳入的那份 Git 工作副本里的相对路径**（多插件仓里常见为子目录名，如 `docker`；**单插件占满整仓根** 时为 **`"./"`**），用于在该路径下查找 **`.cursor-plugin/plugin.json`** 并与条目字段合并。见 [Plugins Reference — Multi-plugin repositories / How resolution works](https://cursor.com/docs/reference/plugins)。
+- **没有** Codex 那种 **`source: { "source": "url", "url": "...", "ref": "..." }`**。所谓「从 Git 安装」是指：用户或管理员 **用 GitHub 仓库 URL 导入整个 marketplace 仓库**（例如 Team marketplace Import）；导入后，`source: "./"` 自然指向**该次 Git 检出**的根目录，而不是在 JSON 里再写一遍 clone URL 当作 `source`。
+- **推荐补强**：在 marketplace 的插件条目上增加官方支持的 **`repository`**（及 **`homepage`**）字符串，写明 canonical Git URL（如 `https://github.com/SummerSec/SumSec-Skills.git`），避免维护者误以为必须把 `source` 改成 URL 才算「对齐 Codex、默认从 Git」——语义上由 **导入来源 + `repository`** 共同表达即可。
+
 ## 跨平台 hook 行为摘要
 
 - Hook 脚本应包裹 `try/catch`，失败时静默，不中断主会话。
@@ -144,6 +159,6 @@ description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖
 
 **Codex**：`.agents/plugins/marketplace.json` 中插件条目默认使用 **`source: "url"`**（`https://github.com/SummerSec/SumSec-Skills.git` + `ref: main`），即从 **Git 安装**到 Codex 缓存；本地开发若需指向工作区副本，可临时改为 `source: "local"` + `path: "./"`（勿提交该临时改动）。
 
-**Cursor**：`.cursor-plugin/marketplace.json` 的 `plugins[]` 使用 **`source: "./"`**（插件在导入后的仓库根）；并在同条目中声明 **`repository`**（Git URL）标明来源。**不提供** Codex 风格的 `source: { "source": "url", ... }`。可选规则位于 `.cursor/rules/`，由 `.cursor-plugin/plugin.json` 的 `rules` 引用。
+**Cursor**：`.cursor-plugin/marketplace.json` 与 **「Codex 与 Cursor：marketplace 的 `source` 与『从 Git 安装』」** 一节保持一致（`source: "./"` + 条目级 `repository` 等）。**SumSec-Skills** 下可选规则在 `.cursor/rules/`，由 `.cursor-plugin/plugin.json` 的 `rules` 引用。
 
 各平台字段语义、hooks 与完整矩阵仍以本文前半与 **AI Inner OS** 主仓 `CLAUDE.md` 为准；上表仅约束 **本仓库** 内实际存在的路径。
