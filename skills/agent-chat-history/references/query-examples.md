@@ -1,6 +1,6 @@
 # 按日期查询示例
 
-**若已给定日期**：优先运行 skill 内脚本（少占对话 token）：`python scripts/query_history.py --date YYYY-MM-DD [--json]`（在 `agent-chat-history/` 目录下执行）。
+**若已给定日期**：优先运行 skill 内脚本（少占对话 token）：`python scripts/query_history.py --date YYYY-MM-DD [--json]`；**只要用户提示词**时加 `--prompts-only [--include-claude-global-history]`（在 `agent-chat-history/` 目录下执行）。
 
 以下手工示例假设目标日为 **2026-05-10**（本地日历日），请替换为实际需要。时间边界建议：**本地时区当天 00:00:00 至次日 00:00:00 前**。
 
