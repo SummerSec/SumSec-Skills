@@ -11,7 +11,7 @@
     {
       "name": "sumsec",
       "description": "Personal reusable Agent Skills collection (Cursor plugin bundle).",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "source": "./",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
