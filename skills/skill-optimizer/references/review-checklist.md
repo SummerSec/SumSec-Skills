@@ -1,6 +1,6 @@
 # Skill Review Checklist
 
-按需审查，不必每次穷举所有项目。若用户已指定优化方向，先覆盖对应部分。本清单补充 `技能创作最佳实践 - Claude API Docs.md`，不替代官方规范。
+按需审查，不必每次穷举所有项目。若用户已指定优化方向，先覆盖对应部分。本清单补充 `技能创作最佳实践 - Claude API Docs.md` 与 `https://code.claude.com/docs/en/skills`，不替代官方规范。
 
 ## 1. Triggering
 
@@ -50,13 +50,28 @@
 - 是否缺少稳定执行所需的模板、脚本或参考资料
 - `assets/` 是否只放输出资源，不放说明文档
 - 是否创建了不必要的 README、CHANGELOG 等噪音文件
+- 脚本路径是否使用 `${CLAUDE_SKILL_DIR}` 或相对路径，避免写死本机绝对路径
+- 若使用动态上下文注入，是否控制输出规模、避免破坏性命令，并说明 shell / policy 前提
 
 常见优化：
 
 - 把重复命令封装到 `scripts/`
 - 删除与 skill 执行无关的辅助文档
 
-## 5. Output Contract
+## 5. Claude Code Feature Compatibility
+
+面向 Claude Code 的 skill 默认检查本节；细节见 [claude-code-skills-checklist.md](claude-code-skills-checklist.md)。
+
+- commands 兼容：若从 `.claude/commands/*.md` 迁移，同名 skill 优先级、调用方式和参数行为是否清楚
+- frontmatter 新字段：`disable-model-invocation`、`user-invocable`、`allowed-tools`、`context`、`agent`、`paths`、`shell` 等是否都有明确必要性
+- 调用控制：有副作用或高风险流程是否改为手动触发；背景知识型 skill 是否适合隐藏用户菜单
+- 参数替换：`$ARGUMENTS`、`$N`、命名参数、`${CLAUDE_SKILL_DIR}` 是否使用正确
+- 动态上下文：`` !`command` `` / ` ```! ` 是否只用于安全、有限、实时上下文
+- Subagent：`context: fork` 是否包含完整任务与输出格式，而不只是背景规则
+- 可见性排障：`skillOverrides`、路径匹配、目录 watch、description 截断是否会影响触发
+- 分发：project / personal / plugin / managed 位置是否与目标受众匹配
+
+## 6. Output Contract
 
 - 输出是否可直接给用户或下游 agent 使用
 - 是否区分“审查结论”“优化计划”“最终修改结果”
@@ -69,7 +84,7 @@
 - 固定最终汇报模板
 - 把用户可选回复写清楚
 
-## 6. Prioritization
+## 7. Prioritization
 
 默认按这个顺序排序问题：
 
