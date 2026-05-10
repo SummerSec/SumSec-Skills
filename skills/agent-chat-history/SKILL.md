@@ -29,7 +29,7 @@ python scripts/query_history.py --date YYYY-MM-DD --prompts-only --json
 | `--max-cursor-blob-mb N` | Cursor 单条 SQLite value 体积上限（默认 8MB） |
 | `--sqlite-keys` | **非** `--prompts-only` 时：列出 `state.vscdb` 中含 chat/composer 的 key |
 
-脚本逻辑自洽，路径规则与 [references/storage-paths.md](references/storage-paths.md) 一致；手工命令与边界说明见 [references/query-examples.md](references/query-examples.md)。
+脚本逻辑自洽，路径规则与 [references/storage-paths.md](references/storage-paths.md) 一致；**脚本参数与 JSON 结构详见** [references/query-history-script.md](references/query-history-script.md)；手工命令与边界说明见 [references/query-examples.md](references/query-examples.md)。
 
 ## 何时仍需要读正文 / references
 
