@@ -166,7 +166,7 @@ npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
 | [skills/remotion-best-practices](skills/remotion-best-practices/) | Remotion 最佳实践：按任务加载 `rules/` 下专题（composition、时间轴、字幕、FFmpeg、图表、转场等） |
 | [skills/creating-blog-web-ppt](skills/creating-blog-web-ppt/) | 文章转网页版 PPT：slide-writer 工作流 + 博客主题 `blog-sumsec`，与 BlogPapers 同目录输出约定 |
 | [skills/multi-platform-plugin-guide](skills/multi-platform-plugin-guide/) | 多平台插件与 manifest 版本对齐备忘；**本仓**以 `package.json`、`plugin.json`、`.claude-plugin/`、`.cursor-plugin/`、`.codex-plugin/`、`.agents/plugins/` 为发布清单（见该 SKILL 文末） |
-| [skills/local-agent-chat-history-zh](skills/local-agent-chat-history-zh/) | 按日期查本机 Claude Code / Codex / Cursor 历史对话：路径表与 JSONL、SQLite 查询示例（只读） |
+| [skills/agent-chat-history](skills/agent-chat-history/) | 按日期查本机 Claude Code / Codex / Cursor 历史对话：路径表与 JSONL、SQLite 查询示例（只读） |
 
 ## 许可
 

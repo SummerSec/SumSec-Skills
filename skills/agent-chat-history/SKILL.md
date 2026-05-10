@@ -1,9 +1,9 @@
 ---
-name: local-agent-chat-history-zh
+name: agent-chat-history
 description: 在本地机器（Windows、macOS、Linux）上按指定日期检索 Claude Code、OpenAI Codex CLI、Cursor 等工具的对话与会话留存位置；说明 JSONL、SQLite 与按文件时间筛选及跨平台路径差异。适用于用户要查看某天历史、导出聊天、排查记录丢失或做只读审计时。
 ---
 
-# 本地 Agent 历史对话按日检索（中文）
+# agent-chat-history：本地 Agent 历史对话按日检索（中文）
 
 ## 目标
 

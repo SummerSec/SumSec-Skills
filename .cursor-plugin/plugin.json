@@ -1,8 +1,8 @@
 {
   "name": "sumsec",
   "displayName": "SumSec Skills",
-  "version": "1.0.9",
-  "description": "SummerSec personal Agent Skills: skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide, local-agent-chat-history-zh.",
+  "version": "1.0.10",
+  "description": "SummerSec personal Agent Skills: skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide, agent-chat-history.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -20,7 +20,7 @@
     "remotion-best-practices",
     "creating-blog-web-ppt",
     "multi-platform-plugin-guide",
-    "local-agent-chat-history-zh",
+    "agent-chat-history",
     "claude-code",
     "codex",
     "cursor"
