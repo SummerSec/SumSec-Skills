@@ -1,7 +1,7 @@
 {
   "name": "sumsec-skills-cursor",
   "metadata": {
-    "description": "Cursor marketplace entry for SumSec-Skills: bundled skills under ./skills/."
+    "description": "SumSec-Skills Cursor marketplace: single plugin at repo root. Add/import marketplace from Git https://github.com/SummerSec/SumSec-Skills (branch main) — components load from that checkout; entry `source` is `./` per Cursor schema (path inside cloned repo), not a duplicate Git clone spec."
   },
   "owner": {
     "name": "SummerSec",
@@ -11,8 +11,10 @@
     {
       "name": "sumsec",
       "description": "Personal reusable Agent Skills collection (Cursor plugin bundle).",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "source": "./",
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "author": {
         "name": "SummerSec",
         "url": "https://github.com/SummerSec"

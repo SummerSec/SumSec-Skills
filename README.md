@@ -68,9 +68,9 @@ claude plugin update sumsec@sumsec-skills
 本仓库在根目录提供 Cursor 清单，与官方 [Plugins reference](https://cursor.com/docs/reference/plugins) 一致：
 
 - `.cursor-plugin/plugin.json`：声明 `skills: "./skills/"` 与 `rules: "./.cursor/rules/"`
-- `.cursor-plugin/marketplace.json`：单插件 marketplace，`source` 为仓库根 `./`
+- `.cursor-plugin/marketplace.json`：单插件 marketplace；**`source` 仍为 `./`**（[官方约定](https://cursor.com/docs/reference/plugins)：条目指向**已导入的 Git 仓库根**下的插件目录）。**`repository`** 字段写明 canonical Git：`https://github.com/SummerSec/SumSec-Skills.git`，与 Codex 的「从 Git 安装」语义对齐；Cursor 不提供与 Codex 相同的 `source: url` 对象形态。
 
-在已克隆仓库上验证结构后，可将本 Git 仓库作为 Cursor marketplace 源添加（以 Cursor 当前 UI / CLI 为准），或继续使用下文的「复制/软链单 skill」方式。
+在 Dashboard **Import** 本 GitHub 仓库为 Team marketplace（或等价流程）后，内容由该 Git 检出提供；本地开发仍可直接打开本仓库。亦可使用下文的「复制/软链单 skill」方式。
 
 ### Codex CLI Plugin
 

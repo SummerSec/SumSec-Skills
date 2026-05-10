@@ -144,6 +144,6 @@ description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖
 
 **Codex**：`.agents/plugins/marketplace.json` 中插件条目默认使用 **`source: "url"`**（`https://github.com/SummerSec/SumSec-Skills.git` + `ref: main`），即从 **Git 安装**到 Codex 缓存；本地开发若需指向工作区副本，可临时改为 `source: "local"` + `path: "./"`（勿提交该临时改动）。
 
-**Cursor**：可选规则位于 `.cursor/rules/`（`sumsec-skills-repo.mdc`），在 `.cursor-plugin/plugin.json` 中通过 `rules` 引用。
+**Cursor**：`.cursor-plugin/marketplace.json` 的 `plugins[]` 使用 **`source: "./"`**（插件在导入后的仓库根）；并在同条目中声明 **`repository`**（Git URL）标明来源。**不提供** Codex 风格的 `source: { "source": "url", ... }`。可选规则位于 `.cursor/rules/`，由 `.cursor-plugin/plugin.json` 的 `rules` 引用。
 
 各平台字段语义、hooks 与完整矩阵仍以本文前半与 **AI Inner OS** 主仓 `CLAUDE.md` 为准；上表仅约束 **本仓库** 内实际存在的路径。
