@@ -1,5 +1,7 @@
 # `query_history.py` 说明
 
+**与 [SKILL.md](../SKILL.md) 分工**：`SKILL.md` 负责何时触发、执行顺序与最小命令；本文档负责**全参数**、两种模式细节、各端筛选逻辑与 **JSON 输出形状**，按需打开即可。
+
 本仓库 skill **`agent-chat-history`** 下的只读查询脚本，按**本地日历日**（本地时区当天 00:00～次日 00:00）粗筛 Claude Code、OpenAI Codex CLI、Cursor 相关数据。
 
 ## 运行方式
