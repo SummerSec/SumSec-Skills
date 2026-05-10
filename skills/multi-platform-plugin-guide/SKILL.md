@@ -142,7 +142,7 @@ description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖
 6. `.cursor-plugin/marketplace.json` → `plugins[0].version`
 7. `.codex-plugin/plugin.json`
 
-**Codex**：`.agents/plugins/marketplace.json` 中 `source.path` 为 `./`（插件根即仓库根）；该文件通常无 `version` 字段，与 OpenAI 文档一致即可。
+**Codex**：`.agents/plugins/marketplace.json` 中插件条目默认使用 **`source: "url"`**（`https://github.com/SummerSec/SumSec-Skills.git` + `ref: main`），即从 **Git 安装**到 Codex 缓存；本地开发若需指向工作区副本，可临时改为 `source: "local"` + `path: "./"`（勿提交该临时改动）。
 
 **Cursor**：可选规则位于 `.cursor/rules/`（`sumsec-skills-repo.mdc`），在 `.cursor-plugin/plugin.json` 中通过 `rules` 引用。
 

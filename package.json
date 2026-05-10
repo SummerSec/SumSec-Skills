@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "description": "SummerSec personal Agent Skills monorepo; version field mirrors plugin manifests for multi-platform releases.",
   "license": "Apache-2.0",

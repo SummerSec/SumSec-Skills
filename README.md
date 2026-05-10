@@ -77,7 +77,7 @@ claude plugin update sumsec@sumsec-skills
 OpenAI Codex 会从仓库读取 `.codex-plugin/plugin.json` 与 `skills/`（见 [Build plugins](https://developers.openai.com/codex/plugins/build)）：
 
 - `.codex-plugin/plugin.json`：`skills` 指向 `./skills/`
-- `.agents/plugins/marketplace.json`：仓库级 curated 列表，`source.path` 为 `./`（插件根即本仓库根）
+- `.agents/plugins/marketplace.json`：仓库级 curated 列表；**默认**插件条目为 **`source: "url"`**（从 GitHub `SummerSec/SumSec-Skills` 的 `main` 安装，与 [Build plugins](https://developers.openai.com/codex/plugins/build) 中 *Git-backed* 说明一致）。本地调试若要让 Codex 读当前 checkout，可暂改为 `source: "local"` + `path: "./"`。
 
 安装方式以 Codex 文档为准（例如 `codex plugin marketplace add …` 指向本仓库后启用 `sumsec`）。
 

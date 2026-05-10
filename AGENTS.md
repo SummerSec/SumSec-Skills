@@ -22,7 +22,7 @@
   - `.claude-plugin/plugin.json`、`.claude-plugin/marketplace.json`（含 `plugins[].version`）
   - `.cursor-plugin/plugin.json`、`.cursor-plugin/marketplace.json`（含条目 `version`）
   - `.codex-plugin/plugin.json`
-  - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；与插件路径 `./` 一致即可）
+  - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；**默认** Git `url` + `ref`；本地调试才用 `local`）
 - 版本号、描述、关键词应与仓库当前 **skills/** 与 README 技能表一致，避免脱节。
 - 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
 

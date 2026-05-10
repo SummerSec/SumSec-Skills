@@ -7,8 +7,9 @@
     {
       "name": "sumsec",
       "source": {
-        "source": "local",
-        "path": "./"
+        "source": "url",
+        "url": "https://github.com/SummerSec/SumSec-Skills.git",
+        "ref": "main"
       },
       "policy": {
         "installation": "AVAILABLE",
