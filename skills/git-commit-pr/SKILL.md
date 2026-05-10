@@ -1,8 +1,8 @@
------
+---
 name: git-commit-pr
-description: This skill should be used when the user wants to commit code changes and create a Pull Request or Merge Request. Trigger keywords include "提交PR", "提交MR", "创建PR", "创建MR", "提代码", "发MR", "commit and PR", "commit and MR", "提交并创建PR", "提交并创建MR".
-allowed-tools: Read, Edit, Write, Bash, Grep, Glob, Skill
------
+description: "用于安全提交、推送或创建 PR/MR：提交代码、推送分支、创建 PR、创建 MR、提交PR、提交MR、发MR、commit and PR、commit and push。"
+disable-model-invocation: true
+---
 # Git Commit & PR 自动化助手
 
 用于在真实仓库里安全地完成 `commit`、`push`、`PR/MR`。  
@@ -124,13 +124,7 @@ allowed-tools: Read, Edit, Write, Bash, Grep, Glob, Skill
   1. 仓库内最近提交有明显主流风格，优先复用
   2. 相邻模块有稳定风格，优先跟随相邻模块
   3. 仓库风格混合但不明显时，再使用约定式提交
-- 当前仓库（`BlogPapers`）已观察到的风格：
-  - **主风格**：`emoji + 简短主题`
-  - 常见示例：`🍭Update Sitemap && AboutMe && Git Svg`
-  - 常见示例：`🪄Restore normal article shell when PPT is closed`
-  - 常见示例：`🎨Unify article and PPT backgrounds`
-  - **兼容风格 1**：`emoji + 中文说明`，例如 `🤖 sync Cloudflare DNS 表（subdomain.md）`
-  - **兼容风格 2**：约定式提交，例如 `feat(nav): ...`、`style: ...`、`fix(stats): ...`
+- 当前仓库若近期提交明显偏向某一风格，优先跟随；否则使用约定式提交，例如 `docs(skill-name): ...`、`fix(skill-name): ...`。
 - 在本仓库中拟定 subject 时：
   - 尽量保持单行
   - 不加句号
@@ -301,8 +295,7 @@ allowed-tools: Read, Edit, Write, Bash, Grep, Glob, Skill
 ## 最佳实践
 
 - **分支命名**：遵循团队规范，建议使用 `<type>/<description>`，如 `feat/login`。
-- **Commit Message**：先观察仓库最近提交，再决定是否使用 emoji 风格或[约定式提交](https://www.conventionalcommits.org/)。对于本仓库，默认优先 `emoji + 简短主题`，不要机械统一成 conventional commits。
-- **本仓库推荐模板**：`🎨Refine xxx`、`🔧Fix xxx`、`📝Update xxx`、`✨Add xxx`、`🍭Update Sitemap && AboutMe && Git Svg` 这类短主题优先；若周边历史明显使用 `feat(scope): xxx`，再切换到 conventional 格式。
+- **Commit Message**：先观察仓库最近提交，再决定是否使用[约定式提交](https://www.conventionalcommits.org/)或仓库内已有风格。本仓库近期多用 `type(scope): summary`，例如 `docs(skill-optimizer): ...`。
 - **PR 标题**：默认可复用最近 commit subject，但若一个分支有多次提交，PR 标题应更概括，避免只是照搬最后一条 commit。
 - **PR 描述**：包含变更内容、测试方法、影响范围、关联 Issue。
 - **推送前验证**：尽量在 push 前完成最小必要验证，不要把明显失败留给 CI。

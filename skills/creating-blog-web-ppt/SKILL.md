@@ -1,6 +1,7 @@
 ---
 name: creating-blog-web-ppt
-description: 当用户要求把本仓库中的 Markdown 文章转成网页版 PPT、HTML slides、演讲稿页面或独立演示页，尤其希望输出与原文同目录、同 basename 时使用。主题与工作流对齐 FeeiCN/slide-writer；博客站主题见 vendor/slide-writer/themes/blog-sumsec.md（与上游主题同目录）。
+description: "用于把本仓库 Markdown 文章转成网页版 PPT、HTML slides、演讲稿页面或独立演示页：同目录、同 basename、SUMSEC 回链、全屏按钮、画布不超视口、slide-writer 主题流程。"
+disable-model-invocation: true
 ---
 
 # 创建文章网页版 PPT（slide-writer 对齐 + 博客主题增补）
@@ -22,6 +23,8 @@ description: 当用户要求把本仓库中的 Markdown 文章转成网页版 PP
 - 指向 `references/` 与 `vendor/slide-writer/themes/` 中的细节文件
 
 细节不要堆回主文件；需要时再读对应 reference。
+
+`vendor/slide-writer/` 是上游快照加本仓主题增补，默认只作为参考和模板来源读取；不要在优化本 skill 时顺手改写 vendored `SKILL.md`，除非用户明确要求同步上游快照或修 vendor 内部规则。
 
 ## 何时使用
 

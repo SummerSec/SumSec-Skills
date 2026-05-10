@@ -7,11 +7,13 @@
 ## 运行方式
 
 - **Python**：建议 3.10+（使用 `pathlib`、`typing` 等标准写法）。
-- **工作目录**：在 skill 根目录 `agent-chat-history/` 下执行，保证相对路径 `scripts/query_history.py` 可用：
+- **脚本路径**：优先用 `${CLAUDE_SKILL_DIR}` 定位；若当前环境不支持该变量，再进入 skill 根目录 `agent-chat-history/` 执行相对路径：
 
 ```bash
-cd /path/to/skills/agent-chat-history
-python scripts/query_history.py --date 2026-05-10
+python "${CLAUDE_SKILL_DIR}/scripts/query_history.py" --date 2026-05-10
+# fallback:
+# cd /path/to/skills/agent-chat-history
+# python scripts/query_history.py --date 2026-05-10
 ```
 
 - **只读**：不写入、不删除任何用户数据；Cursor 使用 SQLite URI `mode=ro` 打开 `state.vscdb`。

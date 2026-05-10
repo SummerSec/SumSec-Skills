@@ -1,13 +1,14 @@
 ---
 name: remotion-best-practices
 description: >
-  Remotion（React 程序化视频）最佳实践与排错指引：composition、时间轴与 interpolate、资源与字幕、图表与转场、FFmpeg 与静音检测等。
-  适用于编写或审查 Remotion 代码、create-video 脚手架、Remotion Studio、still 单帧渲染、以及按主题加载本目录 rules/ 下细分规则时。
+  用于编写、审查或排错 Remotion（React 程序化视频）代码：composition、时间轴、interpolate、字幕、资源、图表、转场、FFmpeg、静音检测、create-video、Remotion Studio。
 ---
 
 ## When to use
 
 Use this skill whenever you are dealing with Remotion code to obtain the domain-specific knowledge.
+
+Load only the rule files relevant to the current task. Do not read the whole `rules/` directory unless the user asks for a broad audit.
 
 ## New project setup
 

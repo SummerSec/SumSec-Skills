@@ -1,6 +1,6 @@
 ---
 name: find-skills
-description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.
+description: "用于发现、比较或安装可复用 Agent Skills：find a skill、is there a skill、how do I do X、npx skills、skills.sh、想扩展 Agent 能力。"
 ---
 
 # Find Skills
@@ -21,6 +21,8 @@ Use this skill when the user:
 ## What is the Skills CLI?
 
 The Skills CLI (`npx skills`) is the package manager for the open agent skills ecosystem. Skills are modular packages that extend agent capabilities with specialized knowledge, workflows, and tools.
+
+Claude Code skills and custom commands now share the same `/name` invocation surface. When recommending a reusable workflow, prefer a skill directory with `SKILL.md` over a standalone command file if supporting files, frontmatter, or automatic invocation matter. Official reference: https://code.claude.com/docs/en/skills
 
 **Key commands:**
 

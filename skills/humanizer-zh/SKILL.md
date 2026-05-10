@@ -2,8 +2,8 @@
 name: humanizer-zh
 description: >
   去 AI 味、降 AIGC、人性化、humanize chinese、论文降重、知网维普万方、AI 检测、文本去机器味。
-  有 Python 时优先用本 skill 内零依赖 CLI（评分、改写、学术、风格）；无 CLI 时在对话中按深度指南改稿。
-  二十四类模式与长示例在 references 直链 Markdown 中，深度改稿前须打开 pattern-catalog。
+  适用于中文文本改写、AI 痕迹检测、学术降重、风格转换；有 Python 时优先用本 skill 内零依赖 CLI，无 CLI 时按深度指南改稿。
+disable-model-invocation: true
 ---
 
 # Humanizer-zh：中文 AI 文本去痕（CLI + 深度指南）
@@ -24,29 +24,29 @@ description: >
 
 ## 本地 CLI 工具
 
-在 **本 skill 根目录**（与 `scripts/` 同级的目录）下执行。要求 **Python 3**。
+要求 **Python 3**。在任意工作目录执行时，用 `${CLAUDE_SKILL_DIR}` 定位脚本；若当前环境不支持该变量，则先进入本 skill 根目录（与 `scripts/` 同级）。
 
 ```bash
 # 检测（20+ 维度，0-100 分）
-python scripts/detect_cn.py text.txt
-python scripts/detect_cn.py text.txt -v          # 详细 + 最可疑句子
-python scripts/detect_cn.py text.txt -s          # 仅评分
-python scripts/detect_cn.py text.txt -j          # JSON 输出
+python "${CLAUDE_SKILL_DIR}/scripts/detect_cn.py" text.txt
+python "${CLAUDE_SKILL_DIR}/scripts/detect_cn.py" text.txt -v          # 详细 + 最可疑句子
+python "${CLAUDE_SKILL_DIR}/scripts/detect_cn.py" text.txt -s          # 仅评分
+python "${CLAUDE_SKILL_DIR}/scripts/detect_cn.py" text.txt -j          # JSON 输出
 
 # 改写
-python scripts/humanize_cn.py text.txt -o clean.txt
-python scripts/humanize_cn.py text.txt --scene social -a
-python scripts/humanize_cn.py text.txt --style xiaohongshu
+python "${CLAUDE_SKILL_DIR}/scripts/humanize_cn.py" text.txt -o clean.txt
+python "${CLAUDE_SKILL_DIR}/scripts/humanize_cn.py" text.txt --scene social -a
+python "${CLAUDE_SKILL_DIR}/scripts/humanize_cn.py" text.txt --style xiaohongshu
 
 # 风格转换
-python scripts/style_cn.py text.txt --style zhihu -o out.txt
+python "${CLAUDE_SKILL_DIR}/scripts/style_cn.py" text.txt --style zhihu -o out.txt
 
 # 前后对比
-python scripts/compare_cn.py text.txt --scene tech -a
+python "${CLAUDE_SKILL_DIR}/scripts/compare_cn.py" text.txt --scene tech -a
 
 # 学术论文 AIGC 降重
-python scripts/academic_cn.py paper.txt -o clean.txt --compare
-python scripts/academic_cn.py paper.txt -o clean.txt -a --compare
+python "${CLAUDE_SKILL_DIR}/scripts/academic_cn.py" paper.txt -o clean.txt --compare
+python "${CLAUDE_SKILL_DIR}/scripts/academic_cn.py" paper.txt -o clean.txt -a --compare
 ```
 
 ### 评分量表
@@ -75,10 +75,10 @@ python scripts/academic_cn.py paper.txt -o clean.txt -a --compare
 ### 推荐工作流
 
 ```bash
-python scripts/detect_cn.py document.txt -v
-python scripts/compare_cn.py document.txt -a -o clean.txt
-python scripts/detect_cn.py clean.txt -s
-python scripts/style_cn.py clean.txt --style zhihu -o final.txt   # 可选
+python "${CLAUDE_SKILL_DIR}/scripts/detect_cn.py" document.txt -v
+python "${CLAUDE_SKILL_DIR}/scripts/compare_cn.py" document.txt -a -o clean.txt
+python "${CLAUDE_SKILL_DIR}/scripts/detect_cn.py" clean.txt -s
+python "${CLAUDE_SKILL_DIR}/scripts/style_cn.py" clean.txt --style zhihu -o final.txt   # 可选
 ```
 
 改写后再跑 `detect_cn.py -s` 做快速验收；分数只是启发，**定稿前务必通读**，确认术语与引用未被误伤。

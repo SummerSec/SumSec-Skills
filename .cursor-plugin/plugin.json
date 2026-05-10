@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
   "displayName": "SumSec Skills",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "SummerSec personal Agent Skills: skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide, agent-chat-history.",
   "author": {
     "name": "SummerSec",

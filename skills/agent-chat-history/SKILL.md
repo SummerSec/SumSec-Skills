@@ -1,24 +1,25 @@
 ---
 name: agent-chat-history
 description: 按 YYYY-MM-DD 在 Windows/macOS/Linux 检索本机聊天与 Agent 会话历史（Claude Code 项目 jsonl、Codex CLI history.jsonl、Cursor workspaceStorage 与 state.vscdb）；可只导出用户提示词。用户要查看或导出某日记录、按天筛 jsonl/SQLite、只抽提示词、排查历史丢失或做只读审计时使用。
+disable-model-invocation: true
 ---
 
 # agent-chat-history：本地 Agent 历史对话按日检索（中文）
 
 ## 执行顺序（Agent 照做）
 
-1. **已有日期 `YYYY-MM-DD`**：进入 skill 根目录 `agent-chat-history/`，运行下方命令；需要给下游贴结果时优先 **`--json`**。
+1. **已有日期 `YYYY-MM-DD`**：用 `${CLAUDE_SKILL_DIR}` 定位脚本并运行下方命令；若当前环境不支持该变量，再进入 skill 根目录 `agent-chat-history/` 执行；需要给下游贴结果时优先 **`--json`**。
 2. **没有日期**：只问用户一句，确认要查询的 **`YYYY-MM-DD`（本地时区日界）**，再问是否只要提示词、是否限定某一客户端。
 3. **任务匹配**：只要用户提示词 → `--prompts-only`（可加 `--include-claude-global-history`）；只要路径/文件线索 → 默认列表模式，必要时加 `--sqlite-keys`。
 4. **无命中或偏少**：提示尝试 `--claude-scan all`；仍不对则读 [references/storage-paths.md](references/storage-paths.md) 核对自定义安装路径。
 
 ## 优先：固定日期用脚本（省 token）
 
-**不要先把本文件整篇读进上下文。** 在仓库或已安装 skill 的 `agent-chat-history/` 下执行：
+**不要先把本文件整篇读进上下文。** 优先直接执行脚本：
 
 ```bash
-python scripts/query_history.py --date YYYY-MM-DD
-python scripts/query_history.py --date YYYY-MM-DD --prompts-only --json
+python "${CLAUDE_SKILL_DIR}/scripts/query_history.py" --date YYYY-MM-DD
+python "${CLAUDE_SKILL_DIR}/scripts/query_history.py" --date YYYY-MM-DD --prompts-only --json
 ```
 
 常用参数（**完整表与 JSON 形状见** [references/query-history-script.md](references/query-history-script.md)）：

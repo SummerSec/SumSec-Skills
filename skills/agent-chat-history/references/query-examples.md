@@ -1,6 +1,6 @@
 # 按日期查询示例
 
-**若已给定日期**：优先运行 skill 内脚本（少占对话 token）：`python scripts/query_history.py --date YYYY-MM-DD [--json]`；**只要用户提示词**时加 `--prompts-only [--include-claude-global-history]`（在 `agent-chat-history/` 目录下执行）。
+**若已给定日期**：优先运行 skill 内脚本（少占对话 token）：`python "${CLAUDE_SKILL_DIR}/scripts/query_history.py" --date YYYY-MM-DD [--json]`；**只要用户提示词**时加 `--prompts-only [--include-claude-global-history]`。若当前环境不支持 `${CLAUDE_SKILL_DIR}`，再进入 `agent-chat-history/` 目录执行相对路径。
 
 脚本全参数、两种模式与各端筛选规则见 [query-history-script.md](query-history-script.md)。
 

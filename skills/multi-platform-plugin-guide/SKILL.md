@@ -1,11 +1,13 @@
 ---
 name: multi-platform-plugin-guide
-description: 用于开发和审查 AI Inner OS 的多平台插件包装，覆盖 Claude Code、Codex、Cursor、OpenClaw、OpenCode、Hermes 以及仓库级 manifest。适用于修改版本号、hooks.json、marketplace JSON、插件清单或适配文档。若与仓库 CLAUDE.md 冲突，以 CLAUDE.md 为准。
+description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单：package.json、plugin.json、Claude/Cursor/Codex manifest、marketplace JSON、版本号、描述、关键词、安装文档。"
 ---
 
 # 多平台插件开发指南（AI Inner OS）
 
-**权威来源**：仓库根目录 [`CLAUDE.md`](../../../CLAUDE.md)。重点参考其中 *Plugin Registration*、各平台插件规范、*Key Patterns*、*Global Install Script* 和 *OpenCode Plugin* 等章节。若本技能与 `CLAUDE.md` 不一致，优先更新 `CLAUDE.md`，再同步本技能。
+**本仓入口**：优先执行文末 **SumSec-Skills 发布清单（本仓）**。前半部分保留 AI Inner OS 多平台矩阵作为参考；本仓实际只落地 Claude / Cursor / Codex 相关 manifest。
+
+**上游矩阵参考**：AI Inner OS 主仓根目录 `CLAUDE.md`。若本技能的通用平台说明与 AI Inner OS 主仓不一致，先更新上游矩阵，再同步本技能。
 
 ## 何时使用
 
