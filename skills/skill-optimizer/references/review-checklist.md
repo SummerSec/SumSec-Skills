@@ -60,10 +60,10 @@
 
 ## 5. Claude Code Feature Compatibility
 
-面向 Claude Code 的 skill 默认检查本节；细节见 [claude-code-skills-checklist.md](claude-code-skills-checklist.md)。
+面向 Claude Code 的 skill 默认检查本节；**Step 5 Verify 时用 [claude-code-skills-checklist.md](claude-code-skills-checklist.md) 逐项核对。**
 
 - commands 兼容：若从 `.claude/commands/*.md` 迁移，同名 skill 优先级、调用方式和参数行为是否清楚
-- frontmatter 新字段：`disable-model-invocation`、`user-invocable`、`allowed-tools`、`context`、`agent`、`paths`、`shell` 等是否都有明确必要性
+- frontmatter 扩展字段：`disable-model-invocation`、`user-invocable`、`allowed-tools`、`context`、`agent`、`paths`、`shell` 等是否都有明确必要性
 - 调用控制：有副作用或高风险流程是否改为手动触发；背景知识型 skill 是否适合隐藏用户菜单
 - 参数替换：`$ARGUMENTS`、`$N`、命名参数、`${CLAUDE_SKILL_DIR}` 是否使用正确
 - 动态上下文：`` !`command` `` / ` ```! ` 是否只用于安全、有限、实时上下文

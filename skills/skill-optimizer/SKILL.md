@@ -55,7 +55,7 @@ disable-model-invocation: true
 - [references/review-checklist.md](references/review-checklist.md)（常规检查；面向 Claude Code 的 skill 默认覆盖新特性）
 - [references/skill-design-review-framework.md](references/skill-design-review-framework.md)
 - **官方基准**：优化时应参考 [技能创作最佳实践 - Claude API Docs](<references/技能创作最佳实践 - Claude API Docs.md>) 与 [Claude Code Extend Claude with skills](https://code.claude.com/docs/en/skills)；本 skill 的 checklist 用于补充执行细节，不替代官方规范
-- 细查 Claude Code skills 新特性时：[references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md)
+- Claude Code skill 必读 [references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md) 了解检查维度，Step 5 Verify 时逐项核对
 - **可选加项**：用 [session-audit-dimensions.md](references/session-audit-dimensions.md) 的 **4.4 静态质量** 表做 CSO / YAML / 长度检查（无会话也可做）
 
 Review 关注点保持与原 skill 一致：name、description、模式匹配、确认门槛、渐进披露、输出可执行性等。
