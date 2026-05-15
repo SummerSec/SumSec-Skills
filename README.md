@@ -167,6 +167,7 @@ npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
 | [skills/creating-blog-web-ppt](skills/creating-blog-web-ppt/) | 文章转网页版 PPT：slide-writer 工作流 + 博客主题 `blog-sumsec`，与 BlogPapers 同目录输出约定 |
 | [skills/multi-platform-plugin-guide](skills/multi-platform-plugin-guide/) | 多平台插件与 manifest 版本对齐备忘；**本仓**以 `package.json`、`plugin.json`、`.claude-plugin/`、`.cursor-plugin/`、`.codex-plugin/`、`.agents/plugins/` 为发布清单（见该 SKILL 文末） |
 | [skills/agent-chat-history](skills/agent-chat-history/) | 按日期查本机 Claude Code / Codex / Cursor 历史对话：路径表与 JSONL、SQLite 查询示例（只读） |
+| [skills/draw-image-generation](skills/draw-image-generation/) | 调用 Right.Codes `/v1/images/generations` API（OpenAI 兼容）生成 AI 图片；支持文生图、图生图、参考图、多尺寸 |
 
 ## 许可
 

@@ -38,5 +38,6 @@
 | `skills/creating-blog-web-ppt/` | 将 Markdown 文章转为网页版 PPT（slide-writer 对齐 + `blog-sumsec` 主题）；同目录落盘、SUMSEC 回链等见 `references/` |
 | `skills/multi-platform-plugin-guide/` | 多平台插件打包备忘（Claude / Codex / Cursor manifest、版本号、hooks）；**本仓**落地路径见该 SKILL 文末 *SumSec-Skills 发布清单*；完整矩阵仍以 AI Inner OS 主仓 `CLAUDE.md` 为准 |
 | `skills/agent-chat-history/` | 按日期检索本机 Claude Code / Codex / Cursor 等历史路径与查询方式；脚本支持 `--prompts-only` 只抽用户提示词（JSONL、SQLite；只读指引） |
+| `skills/draw-image-generation/` | 调用 Right.Codes `/v1/images/generations` API（OpenAI 兼容）生成 AI 图片；支持文生图、图生图、参考图、多尺寸 |
 
 （随仓库增加 skill 时，维护者可在此表追加一行。）
