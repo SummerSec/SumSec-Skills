@@ -52,7 +52,11 @@ SumSec-Skills/
 │       ├── agent-sdk-dev/  (claude-plugins-official)
 │       ├── skill-optimizer/  (本仓库)
 │       └── multi-platform-plugin-guide/SKILL.md
-├── .claude-plugin/           # 根 marketplace（注册所有插件）
+├── openclaw.plugin.json       # OpenClaw 插件清单
+├── openclaw/                  # OpenClaw 插件入口 & skills
+├── opencode/                  # OpenCode 插件入口 & rules
+├── hermes/                    # Hermes skills & context
+├── .claude-plugin/            # 根 marketplace（注册所有插件）
 │   ├── plugin.json
 │   └── marketplace.json
 ├── .cursor-plugin/
@@ -67,7 +71,7 @@ SumSec-Skills/
 
 ## 插件元数据维护
 
-- **发布新版本、调整插件名/描述、或新增/删除重要 skill** 时，同步检查下列清单（详见 `platform-guide/skills/multi-platform-plugin-guide/SKILL.md` 文末 *SumSec-Skills 发布清单*）：
+- **发布新版本、调整插件名/描述、或新增/删除重要 skill** 时，同步检查下列清单（详见 `agents-dev/skills/multi-platform-plugin-guide/SKILL.md` 文末 *SumSec-Skills 发布清单*）：
   - `package.json`（根，`version`）
   - `plugin.json`（根）
   - `.claude-plugin/plugin.json`、`.claude-plugin/marketplace.json`（含每个 `plugins[].version`）
@@ -75,6 +79,7 @@ SumSec-Skills/
   - `.codex-plugin/plugin.json`
   - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；**默认** Git `url` + `ref`；本地调试才用 `local`）
   - 每插件 `writing-zh/`、`media-tools/`、`dev-tools/`、`agents-dev/` 下的 `.claude-plugin/plugin.json`
+  - `openclaw.plugin.json`、`opencode/plugins/sumsec-skills.js`、`hermes/skills/sumsec-skills/SKILL.md`（OpenClaw/OpenCode/Hermes 版本）
 - 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致，避免脱节。
 - 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
 

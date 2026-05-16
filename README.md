@@ -33,7 +33,11 @@ SumSec-Skills/
 │       ├── agent-sdk-dev/         Agent SDK 开发
 │       ├── skill-optimizer/       Skill 审计优化
 │       └── multi-platform-plugin-guide/  版本对齐
-├── .claude-plugin/           # 根 marketplace
+├── openclaw.plugin.json       # OpenClaw 插件清单
+├── openclaw/                  # OpenClaw 插件入口 & skills
+├── opencode/                  # OpenCode 插件入口 & rules
+├── hermes/                    # Hermes skills & context
+├── .claude-plugin/            # 根 marketplace
 ├── .cursor-plugin/
 ├── .codex-plugin/
 ├── .agents/plugins/
@@ -65,12 +69,15 @@ SumSec-Skills/
 ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 ```
 
-| 客户端 | skill 目录 |
-|--------|-----------|
-| Claude Code | `~/.claude/skills/<name>/` |
-| Cursor | `~/.cursor/skills/<name>/` |
-| OpenAI Codex CLI | `~/.codex/skills/<name>/` |
-| 通用 | `~/.agents/skills/<name>/` |
+| 客户端 | skill 目录/安装方式 |
+|--------|-------------------|
+| Claude Code | `/plugin install <plugin>@sumsec-skills` |
+| Cursor | `.cursor-plugin/marketplace.json` 导入 |
+| OpenAI Codex CLI | `.agents/plugins/marketplace.json` Git 安装 |
+| OpenClaw | `openclaw.plugin.json` + `openclaw/` 插件加载 |
+| OpenCode | `opencode/plugins/sumsec-skills.js` 插件注册 |
+| Hermes | `hermes/skills/sumsec-skills/SKILL.md` 复制加载 |
+| 通用 symlink | `~/.agents/skills/<name>/ -> <plugin>/skills/<name>/` |
 
 ## 技能一览
 
