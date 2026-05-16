@@ -1,11 +1,9 @@
 {
   "name": "agents-dev",
   "version": "1.0.17",
-  "description": "Agent 寮€鍙戠敓鎬佹彃浠讹細skill-creator锛堟妧鑳藉垱寤猴級銆乸lugin-dev锛堟彃浠跺紑鍙戞妧鑳介摼锛夈€乭ookify锛圚ook 缂栧啓锛夈€乧laude-md-management锛圕LAUDE.md 娌荤悊锛夈€乤gent-sdk-dev锛圓gent SDK锛夈€乵ulti-platform-plugin-guide锛堢増鏈榻愶級銆?,
+  "description": "Agent 开发生态插件：skill-creator（技能创建）、plugin-dev（插件开发技能链）、hookify（Hook 编写）、claude-md-management（CLAUDE.md 治理）、agent-sdk-dev（Agent SDK）、multi-platform-plugin-guide（版本对齐）",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
   }
 }
-
-

@@ -1,11 +1,9 @@
 {
   "name": "media-tools",
   "version": "1.0.17",
-  "description": "濯掍綋鐢熸垚鎻掍欢锛欰I 鍥剧墖鐢熸垚锛坉raw-image-generation锛変笌 Remotion 瑙嗛鍒朵綔鏈€浣冲疄璺碉紙remotion-best-practices锛夈€?,
+  "description": "媒体生成插件：AI 图片生成（draw-image-generation）与 Remotion 视频制作最佳实践（remotion-best-practices）",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
   }
 }
-
-

@@ -1,11 +1,9 @@
 {
   "name": "writing-zh",
   "version": "1.0.17",
-  "description": "涓枃鍐欎綔杈呭姪鎻掍欢锛氬幓 AI 鍛崇殑鏂囨湰娑﹁壊锛坔umanizer-zh锛変笌 Markdown 杞綉椤?PPT锛坈reating-blog-web-ppt锛夈€?,
+  "description": "中文写作辅助插件：去 AI 味的文本润色（humanizer-zh）与 Markdown 转网页 PPT（creating-blog-web-ppt）",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
   }
 }
-
-
