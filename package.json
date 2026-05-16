@@ -1,9 +1,9 @@
 {
   "name": "sumsec-skills",
   "version": "1.0.17",
-  "private": true,
   "description": "SummerSec personal Agent Skills monorepo; version field mirrors plugin manifests for multi-platform releases.",
   "license": "Apache-2.0",
+  "main": "opencode/plugins/sumsec-skills.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/SummerSec/SumSec-Skills.git"

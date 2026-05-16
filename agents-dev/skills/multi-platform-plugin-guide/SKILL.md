@@ -163,7 +163,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 10. `dev-tools/.claude-plugin/plugin.json`
 11. `agents-dev/.claude-plugin/plugin.json`
 12. `openclaw.plugin.json` — OpenClaw manifest
-13. `opencode/plugins/sumsec-skills.js` — OpenCode plugin entry (inline `version`)
+13. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
 14. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
 
 

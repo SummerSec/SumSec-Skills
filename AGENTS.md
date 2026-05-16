@@ -79,7 +79,7 @@ SumSec-Skills/
   - `.codex-plugin/plugin.json`
   - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；**默认** Git `url` + `ref`；本地调试才用 `local`）
   - 每插件 `writing-zh/`、`media-tools/`、`dev-tools/`、`agents-dev/` 下的 `.claude-plugin/plugin.json`
-  - `openclaw.plugin.json`、`opencode/plugins/sumsec-skills.js`、`hermes/skills/sumsec-skills/SKILL.md`（OpenClaw/OpenCode/Hermes 版本）
+  - `openclaw.plugin.json`、`opencode/plugins/sumsec-skills.mjs`、`hermes/skills/sumsec-skills/SKILL.md`（OpenClaw/OpenCode/Hermes 版本）
 - 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致，避免脱节。
 - 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
 
