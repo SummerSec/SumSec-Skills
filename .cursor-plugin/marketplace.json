@@ -11,7 +11,7 @@
     {
       "name": "writing-zh",
       "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides).",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./writing-zh",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -25,7 +25,7 @@
     {
       "name": "media-tools",
       "description": "Media generation: draw-image-generation (AI images), remotion-best-practices (React video).",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./media-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -39,7 +39,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr, skill-optimizer, agent-chat-history.",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./dev-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -53,7 +53,7 @@
     {
       "name": "agents-dev",
       "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, multi-platform-plugin-guide.",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./agents-dev",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -64,20 +64,8 @@
       "category": "developer-tools",
       "tags": ["agent-skills", "skills", "dev"]
     },
-    {
-      "name": "platform-guide",
-      "description": "Platform reference (multi-platform-plugin-guide migrated to agents-dev).",
-      "version": "1.0.15",
-      "source": "./platform-guide",
-      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
-      "homepage": "https://github.com/SummerSec/SumSec-Skills",
-      "author": {
-        "name": "SummerSec",
-        "url": "https://github.com/SummerSec"
-      },
-      "category": "documentation",
-      "tags": ["agent-skills", "skills", "guide"]
-    }
+
   ]
 }
+
 

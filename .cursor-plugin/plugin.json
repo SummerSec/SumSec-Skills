@@ -1,8 +1,8 @@
 ﻿{
   "name": "sumsec",
   "displayName": "SumSec Skills",
-  "version": "1.0.15",
-  "description": "SumSec-Skills Cursor plugin bundle. Sub-plugins: writing-zh, media-tools, dev-tools, agents-dev, platform-guide. Skills and rules are loaded from plugin subdirectories.",
+  "version": "1.0.16",
+  "description": "SumSec-Skills Cursor plugin bundle. Sub-plugins: writing-zh, media-tools, dev-tools, agents-dev. Skills and rules are loaded from plugin subdirectories.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -17,7 +17,6 @@
     "media-tools",
     "dev-tools",
     "agents-dev",
-    "platform-guide",
     "claude-code",
     "codex",
     "cursor"
@@ -27,4 +26,5 @@
   "skills": "./",
   "rules": "./.cursor/rules/"
 }
+
 

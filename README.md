@@ -33,7 +33,6 @@ SumSec-Skills/
 │       ├── agent-sdk-dev/         Agent SDK 开发
 │       ├── skill-optimizer/       Skill 审计优化
 │       └── multi-platform-plugin-guide/  版本对齐
-├── platform-guide/          # 平台发布参考
 ├── .claude-plugin/           # 根 marketplace
 ├── .cursor-plugin/
 ├── .codex-plugin/
@@ -56,7 +55,6 @@ SumSec-Skills/
 /plugin install media-tools@sumsec-skills
 /plugin install dev-tools@sumsec-skills
 /plugin install agents-dev@sumsec-skills
-/plugin install platform-guide@sumsec-skills
 ```
 
 ### 手动安装（软链接）
@@ -96,6 +94,9 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 |------|------|
 | [git-commit-pr](dev-tools/skills/git-commit-pr/) | 安全完成 commit、push、PR/MR |
 | [agent-chat-history](dev-tools/skills/agent-chat-history/) | 按日期查本机 Agent 历史对话 |
+| [context7-cli](dev-tools/skills/context7-cli/) | context7 CLI：查询库文档 |
+| [context7-mcp](dev-tools/skills/context7-mcp/) | context7 MCP 服务器集成 |
+| [find-docs](dev-tools/skills/find-docs/) | 查找库文档（context7） |
 
 ### agents-dev（Agent 开发生态）
 
@@ -114,12 +115,6 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [agent-sdk-dev](agents-dev/skills/agent-sdk-dev/) | claude-plugins-official | Agent SDK 开发 |
 | [skill-optimizer](agents-dev/skills/skill-optimizer/) | 本仓库 | Skill 审计优化（路径 A 改 / 路径 B 只读八维） |
 | [multi-platform-plugin-guide](agents-dev/skills/multi-platform-plugin-guide/) | 本仓库 | 多平台版本对齐与发布清单 |
-
-### platform-guide（平台参考）
-
-| 技能 | 说明 |
-|------|------|
-| — | 原 multi-platform-plugin-guide 已迁移至 agents-dev |
 
 ## 许可
 

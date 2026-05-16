@@ -1,3 +1,6 @@
 [submodule "claude-plugins-official"]
 	path = claude-plugins-official
 	url = git@github.com:anthropics/claude-plugins-official.git
+[submodule "context7"]
+	path = context7
+	url = https://github.com/upstash/context7.git

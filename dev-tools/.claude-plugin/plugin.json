@@ -1,7 +1,7 @@
 ﻿{
   "name": "dev-tools",
-  "version": "1.0.15",
-  "description": "寮€鍙戝伐鍏锋彃浠讹細Git 鎻愪氦涓?PR 绠＄悊锛坓it-commit-pr锛夈€佹湰鍦?Agent 瀵硅瘽鍘嗗彶妫€绱紙agent-chat-history锛夈€?,
+  "version": "1.0.16",
+  "description": "开发工具插件：Git 提交与 PR 管理（git-commit-pr）、Agent 对话历史检索（agent-chat-history）、库文档查询（context7-cli、context7-mcp、find-docs）。",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"

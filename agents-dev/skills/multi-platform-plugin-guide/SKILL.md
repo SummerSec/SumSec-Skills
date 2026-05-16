@@ -162,7 +162,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 9. `media-tools/.claude-plugin/plugin.json`
 10. `dev-tools/.claude-plugin/plugin.json`
 11. `agents-dev/.claude-plugin/plugin.json`
-12. `platform-guide/.claude-plugin/plugin.json`
+
 
 **Codex**：`.agents/plugins/marketplace.json` 中插件条目默认使用 **`source: "url"`**（`https://github.com/SummerSec/SumSec-Skills.git` + `ref: main`），即从 **Git 安装**到 Codex 缓存；本地开发若需指向工作区副本，可临时改为 `source: "local"` + `path: "./"`（勿提交该临时改动）。
 

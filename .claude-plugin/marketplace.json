@@ -1,6 +1,6 @@
 ﻿{
   "name": "sumsec-skills",
-  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev, platform-guide. Install what you need.",
+  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev. Install what you need.",
   "owner": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -9,7 +9,7 @@
     {
       "name": "writing-zh",
       "description": "Chinese writing tools: humanizer-zh (de-AIify text) and creating-blog-web-ppt (Markdown to HTML slides).",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./writing-zh",
       "author": {
         "name": "SummerSec",
@@ -19,7 +19,7 @@
     {
       "name": "media-tools",
       "description": "Media generation: draw-image-generation (AI images via Right.Codes API) and remotion-best-practices (React video).",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./media-tools",
       "author": {
         "name": "SummerSec",
@@ -29,7 +29,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr, skill-optimizer (audit & fix skills), agent-chat-history (browse local agent logs).",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./dev-tools",
       "author": {
         "name": "SummerSec",
@@ -39,18 +39,8 @@
     {
       "name": "agents-dev",
       "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, and multi-platform-plugin-guide.",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "source": "./agents-dev",
-      "author": {
-        "name": "SummerSec",
-        "url": "https://github.com/SummerSec"
-      }
-    },
-    {
-      "name": "platform-guide",
-      "description": "Platform reference (multi-platform-plugin-guide migrated to agents-dev).",
-      "version": "1.0.15",
-      "source": "./platform-guide",
       "author": {
         "name": "SummerSec",
         "url": "https://github.com/SummerSec"
@@ -58,4 +48,5 @@
     }
   ]
 }
+
 

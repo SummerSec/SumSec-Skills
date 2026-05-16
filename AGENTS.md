@@ -52,12 +52,6 @@ SumSec-Skills/
 │       ├── agent-sdk-dev/  (claude-plugins-official)
 │       ├── skill-optimizer/  (本仓库)
 │       └── multi-platform-plugin-guide/SKILL.md
-├── platform-guide/          # 平台发布参考插件
-│   ├── .claude-plugin/plugin.json
-│   ├── CLAUDE.md
-│   ├── README.md
-│   └── skills/
-│       └── multi-platform-plugin-guide/SKILL.md
 ├── .claude-plugin/           # 根 marketplace（注册所有插件）
 │   ├── plugin.json
 │   └── marketplace.json
@@ -80,7 +74,7 @@ SumSec-Skills/
   - `.cursor-plugin/plugin.json`、`.cursor-plugin/marketplace.json`（含每个条目 `version`）
   - `.codex-plugin/plugin.json`
   - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；**默认** Git `url` + `ref`；本地调试才用 `local`）
-  - 每插件 `writing-zh/`、`media-tools/`、`dev-tools/`、`agents-dev/`、`platform-guide/` 下的 `.claude-plugin/plugin.json`
+  - 每插件 `writing-zh/`、`media-tools/`、`dev-tools/`、`agents-dev/` 下的 `.claude-plugin/plugin.json`
 - 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致，避免脱节。
 - 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
 
@@ -92,6 +86,5 @@ SumSec-Skills/
 | media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、claude-md-management、agent-sdk-dev、skill-optimizer、版本对齐 |
-| platform-guide | `platform-guide/` | 多平台插件发布参考 |
 
 （随仓库增加插件时，维护者可在此表追加一行。）
