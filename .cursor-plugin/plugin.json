@@ -1,8 +1,8 @@
-{
+﻿{
   "name": "sumsec",
   "displayName": "SumSec Skills",
-  "version": "1.0.14",
-  "description": "SummerSec personal Agent Skills: skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide, agent-chat-history, draw-image-generation.",
+  "version": "1.0.15",
+  "description": "SumSec-Skills Cursor plugin bundle. Sub-plugins: writing-zh, media-tools, dev-tools, agents-dev, platform-guide. Skills and rules are loaded from plugin subdirectories.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -13,21 +13,18 @@
   "keywords": [
     "agent-skills",
     "skills",
-    "skill-optimizer",
-    "git-commit-pr",
-    "find-skills",
-    "humanizer-zh",
-    "remotion-best-practices",
-    "creating-blog-web-ppt",
-    "multi-platform-plugin-guide",
-    "agent-chat-history",
-    "draw-image-generation",
+    "writing-zh",
+    "media-tools",
+    "dev-tools",
+    "agents-dev",
+    "platform-guide",
     "claude-code",
     "codex",
     "cursor"
   ],
   "category": "productivity",
   "tags": ["agent-skills", "skills", "cursor"],
-  "skills": "./skills/",
+  "skills": "./",
   "rules": "./.cursor/rules/"
 }
+

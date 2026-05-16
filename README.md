@@ -1,174 +1,126 @@
 # SumSec-Skills
 
-SummerSec 个人自定义 Agent Skills 仓库：集中存放、版本化管理可在多工具间复用的技能说明（`SKILL.md` 及引用资源）。
+SummerSec 个人 **Agent Skills 集合**，按类别分插件管理。
 
-## 目录结构
+## 仓库布局
 
-```text
+```
 SumSec-Skills/
-├── .claude-plugin/        # Claude Code plugin 元数据
-├── .cursor-plugin/        # Cursor plugin 元数据
-├── .codex-plugin/         # OpenAI Codex CLI plugin 元数据
-├── .agents/plugins/       # Codex 仓库级 marketplace（marketplace.json）
-├── .cursor/rules/         # Cursor 规则（本仓维护约定）
-├── package.json           # 与多平台 manifest 的 version 对齐（private）
-├── plugin.json            # 仓库级插件摘要（多工具可读）
-├── AGENTS.md              # 在本仓库内工作时给 Agent 的指引
+├── writing-zh/              # 中文写作插件
+│   └── skills/
+│       ├── humanizer-zh/       去 AI 味润色
+│       └── creating-blog-web-ppt/  文章转网页 PPT
+├── media-tools/             # 媒体生成插件
+│   └── skills/
+│       ├── draw-image-generation/   AI 图片生成
+│       └── remotion-best-practices/ Remotion 视频
+├── dev-tools/               # 开发工具插件
+│   └── skills/
+│       ├── git-commit-pr/         Git 提交与 PR
+│       └── agent-chat-history/    对话历史检索
+├── agents-dev/              # Agent 开发生态插件
+│   └── skills/
+│       ├── skill-creator/         技能创建
+│       ├── writing-rules/         Hook 编写
+│       ├── agent-development/     Agent 开发
+│       ├── command-development/   命令开发
+│       ├── hook-development/      Hook 开发
+│       ├── mcp-integration/       MCP 集成
+│       ├── plugin-settings/       插件设置
+│       ├── plugin-structure/      插件结构
+│       ├── skill-development/     技能开发
+│       ├── claude-md-improver/    CLAUDE.md 改进
+│       ├── agent-sdk-dev/         Agent SDK 开发
+│       ├── skill-optimizer/       Skill 审计优化
+│       └── multi-platform-plugin-guide/  版本对齐
+├── platform-guide/          # 平台发布参考
+├── .claude-plugin/           # 根 marketplace
+├── .cursor-plugin/
+├── .codex-plugin/
+├── .agents/plugins/
+├── .cursor/rules/
+├── AGENTS.md
 ├── README.md
-├── skills/
-│   └── <skill-name>/
-│       ├── SKILL.md       # 必填：frontmatter + 正文工作流
-│       ├── references/    # 可选：由 SKILL.md 链接的长文档
-│       ├── scripts/       # 可选：可执行脚本
-│       └── assets/        # 可选：模板、示例文件等
+├── package.json
+└── plugin.json
 ```
 
-## 约定
+## 安装
 
-- **frontmatter** 仅使用 `name` 与 `description`（与常见 Cursor / Claude skill 规范一致）。
-- **`name`**：小写连字符，与文件夹名一致。
-- **`description`**：同时写清「做什么」与「何时用」，便于 Agent 自动选用。
-- 细节与检查清单尽量下沉到 **`references/`**，避免单文件过长。
-
-## 安装方式
-
-本仓库是**多个 skill 的源码集合**。优先推荐使用 **Claude Code Plugin 安装**；若当前环境不支持，再退回到「克隆仓库 + 复制 / 软链整目录」方式。无论使用哪种方式，都应保留 **`skills/<skill-name>/` 整个目录**（含 `references/` 等），不要只下载单个 `SKILL.md`，否则相对链接会断。
-
-### Claude Code Plugin 安装
-
-本仓库提供：
-
-- `.claude-plugin/plugin.json`
-- `.claude-plugin/marketplace.json`
-
-当前插件信息：
-
-- 插件名：`sumsec`
-- 市场包名：`sumsec-skills`
-- 安装 ID：`sumsec@sumsec-skills`
-
-若你的 Claude Code 版本支持 marketplace 安装，可尝试：
+### Claude Code
 
 ```bash
-claude plugin marketplace add SummerSec/SumSec-Skills
-claude plugin install sumsec@sumsec-skills
+/plugin marketplace add https://github.com/SummerSec/SumSec-Skills.git
+
+/plugin install writing-zh@sumsec-skills
+/plugin install media-tools@sumsec-skills
+/plugin install dev-tools@sumsec-skills
+/plugin install agents-dev@sumsec-skills
+/plugin install platform-guide@sumsec-skills
 ```
 
-更新：
+### 手动安装（软链接）
+
+将 `<plugin>/skills/<skill-name>/` 链接到对应客户端 skill 目录：
 
 ```bash
-claude plugin marketplace update
-claude plugin update sumsec@sumsec-skills
+ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 ```
 
-若 CLI 尚不支持该安装方式，仍可使用下文的 `~/.claude/skills/<skill-name>/` 手动安装。
+| 客户端 | skill 目录 |
+|--------|-----------|
+| Claude Code | `~/.claude/skills/<name>/` |
+| Cursor | `~/.cursor/skills/<name>/` |
+| OpenAI Codex CLI | `~/.codex/skills/<name>/` |
+| 通用 | `~/.agents/skills/<name>/` |
 
-### Cursor Plugin（IDE 插件）
+## 技能一览
 
-本仓库在根目录提供 Cursor 清单，与官方 [Plugins reference](https://cursor.com/docs/reference/plugins) 一致：
+### writing-zh（中文写作）
 
-- `.cursor-plugin/plugin.json`：声明 `skills: "./skills/"` 与 `rules: "./.cursor/rules/"`
-- `.cursor-plugin/marketplace.json`：单插件 marketplace；**`source` 仍为 `./`**（[官方约定](https://cursor.com/docs/reference/plugins)：条目指向**已导入的 Git 仓库根**下的插件目录）。**`repository`** 字段写明 canonical Git：`https://github.com/SummerSec/SumSec-Skills.git`，与 Codex 的「从 Git 安装」语义对齐；Cursor 不提供与 Codex 相同的 `source: url` 对象形态。
+| 技能 | 说明 |
+|------|------|
+| [humanizer-zh](writing-zh/skills/humanizer-zh/) | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
+| [creating-blog-web-ppt](writing-zh/skills/creating-blog-web-ppt/) | Markdown 文章转网页 PPT（slide-writer + blog-sumsec 主题） |
 
-在 Dashboard **Import** 本 GitHub 仓库为 Team marketplace（或等价流程）后，内容由该 Git 检出提供；本地开发仍可直接打开本仓库。亦可使用下文的「复制/软链单 skill」方式。
+### media-tools（媒体生成）
 
-### Codex CLI Plugin
+| 技能 | 说明 |
+|------|------|
+| [draw-image-generation](media-tools/skills/draw-image-generation/) | 调用 Right.Codes API 生成 AI 图片 |
+| [remotion-best-practices](media-tools/skills/remotion-best-practices/) | Remotion React 视频最佳实践 |
 
-OpenAI Codex 会从仓库读取 `.codex-plugin/plugin.json` 与 `skills/`（见 [Build plugins](https://developers.openai.com/codex/plugins/build)）：
+### dev-tools（开发工具）
 
-- `.codex-plugin/plugin.json`：`skills` 指向 `./skills/`
-- `.agents/plugins/marketplace.json`：仓库级 curated 列表；**默认**插件条目为 **`source: "url"`**（从 GitHub `SummerSec/SumSec-Skills` 的 `main` 安装，与 [Build plugins](https://developers.openai.com/codex/plugins/build) 中 *Git-backed* 说明一致）。本地调试若要让 Codex 读当前 checkout，可暂改为 `source: "local"` + `path: "./"`。
+| 技能 | 说明 |
+|------|------|
+| [git-commit-pr](dev-tools/skills/git-commit-pr/) | 安全完成 commit、push、PR/MR |
+| [agent-chat-history](dev-tools/skills/agent-chat-history/) | 按日期查本机 Agent 历史对话 |
 
-安装方式以 Codex 文档为准（例如 `codex plugin marketplace add …` 指向本仓库后启用 `sumsec`）。
+### agents-dev（Agent 开发生态）
 
-### 获取源码（推荐）
+| 技能 | 来源 | 说明 |
+|------|------|------|
+| [skill-creator](agents-dev/skills/skill-creator/) | claude-plugins-official | 技能创建全流程 |
+| [writing-rules](agents-dev/skills/writing-rules/) | hookify | Hook 编写与 rules 生成 |
+| [agent-development](agents-dev/skills/agent-development/) | plugin-dev | Agent 开发 |
+| [command-development](agents-dev/skills/command-development/) | plugin-dev | 命令开发 |
+| [hook-development](agents-dev/skills/hook-development/) | plugin-dev | Hook 开发 |
+| [mcp-integration](agents-dev/skills/mcp-integration/) | plugin-dev | MCP 集成 |
+| [plugin-settings](agents-dev/skills/plugin-settings/) | plugin-dev | 插件设置 |
+| [plugin-structure](agents-dev/skills/plugin-structure/) | plugin-dev | 插件结构 |
+| [skill-development](agents-dev/skills/skill-development/) | plugin-dev | 技能开发 |
+| [claude-md-improver](agents-dev/skills/claude-md-improver/) | claude-md-management | CLAUDE.md 改进 |
+| [agent-sdk-dev](agents-dev/skills/agent-sdk-dev/) | claude-plugins-official | Agent SDK 开发 |
+| [skill-optimizer](agents-dev/skills/skill-optimizer/) | 本仓库 | Skill 审计优化（路径 A 改 / 路径 B 只读八维） |
+| [multi-platform-plugin-guide](agents-dev/skills/multi-platform-plugin-guide/) | 本仓库 | 多平台版本对齐与发布清单 |
 
-```bash
-git clone https://github.com/SummerSec/SumSec-Skills.git
-cd SumSec-Skills
-```
+### platform-guide（平台参考）
 
-之后在仓库外也可通过 `git pull` 更新，再同步到各工具目录（若使用软链则只需拉取仓库）。
-
-### 通用：复制或软链整目录到全局技能路径
-
-将 `skills/<skill-name>/` 放到下列**其一**（按你实际使用的客户端选择）。
-
-| 环境 | 全局路径示例 |
-|------|----------------|
-| Cursor（个人技能） | `~/.cursor/skills/<skill-name>/` |
-| Cursor（项目内，与官方文档一致时） | `.cursor/skills/<skill-name>/` |
-| Claude Code | `~/.claude/skills/<skill-name>/` |
-| OpenAI Codex CLI | `~/.codex/skills/<skill-name>/` |
-| 多工具共享约定 | `~/.agents/skills/<skill-name>/` |
-| OpenClaw | `~/.openclaw/skills/<skill-name>/` |
-| Google Antigravity | `~/.gemini/antigravity/skills/<skill-name>/` |
-| OpenCode | `~/.config/opencode/skills/<skill-name>/` |
-| CodeBuddy | `~/.codebuddy/skills/<skill-name>/` |
-
-**Linux / macOS**（在已克隆的仓库根目录，以 `skill-optimizer` 为例）：
-
-```bash
-ln -sf "$(pwd)/skills/skill-optimizer" ~/.cursor/skills/skill-optimizer
-ln -sf "$(pwd)/skills/skill-optimizer" ~/.claude/skills/skill-optimizer
-```
-
-**Windows PowerShell**（目录联接无需管理员；把 `$repo` 换成你的克隆路径）：
-
-```powershell
-$repo = "D:\ghproject\SumSec-Skills"
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cursor\skills" | Out-Null
-New-Item -ItemType Junction -Path "$env:USERPROFILE\.cursor\skills\skill-optimizer" -Target "$repo\skills\skill-optimizer"
-```
-
-也可用 `robocopy` / 资源管理器**复制**整文件夹到上表路径，效果相同。
-
-### 项目级安装（仅当前业务仓库）
-
-在具体项目里放一份 skill，只在该项目生效。
-
-```bash
-mkdir -p .agents/skills
-cp -R /path/to/SumSec-Skills/skills/skill-optimizer .agents/skills/
-```
-
-若 Cursor 使用项目级 `.cursor/skills/`，可改为：
-
-```bash
-mkdir -p .cursor/skills
-cp -R /path/to/SumSec-Skills/skills/skill-optimizer .cursor/skills/
-```
-
-### 可选：Vercel Skills CLI
-
-若环境已支持通过 CLI 从 GitHub 安装 skill，可尝试：
-
-```bash
-npx skills add SummerSec/SumSec-Skills --skill skill-optimizer
-```
-
-若命令不存在、报错或只拉下部分文件，请改回「克隆仓库 + 复制/软链整目录」。
-
-### 安装后未生效
-
-部分客户端不会热加载新 skill，安装后**重启** Cursor / Claude Code / Codex 等再试。
-
-具体加载规则以各工具官方文档为准。
-
-## 已有技能
-
-| 技能目录 | 说明 |
-|----------|------|
-| [skills/skill-optimizer](skills/skill-optimizer/) | 路径 A：确认后改 skill；路径 B：`/optimize-skill` 类只读八维审计 |
-| [skills/git-commit-pr](skills/git-commit-pr/) | 在真实仓库里安全完成 `commit`、`push`、`PR/MR`，优先识别仓库与分支状态 |
-| [skills/find-skills](skills/find-skills/) | 按任务帮用户发现、搜索并安装 Agent skill（Skills CLI、开放生态与 `skills.sh`） |
-| [skills/humanizer-zh](skills/humanizer-zh/) | 去 AI 味：本地 CLI（humanize-chinese）+ 深度指南 v2.2（反 AI 审查：初稿→痕迹自检→终稿，见 op7418/Humanizer-zh#14） |
-| [skills/remotion-best-practices](skills/remotion-best-practices/) | Remotion 最佳实践：按任务加载 `rules/` 下专题（composition、时间轴、字幕、FFmpeg、图表、转场等） |
-| [skills/creating-blog-web-ppt](skills/creating-blog-web-ppt/) | 文章转网页版 PPT：slide-writer 工作流 + 博客主题 `blog-sumsec`，与 BlogPapers 同目录输出约定 |
-| [skills/multi-platform-plugin-guide](skills/multi-platform-plugin-guide/) | 多平台插件与 manifest 版本对齐备忘；**本仓**以 `package.json`、`plugin.json`、`.claude-plugin/`、`.cursor-plugin/`、`.codex-plugin/`、`.agents/plugins/` 为发布清单（见该 SKILL 文末） |
-| [skills/agent-chat-history](skills/agent-chat-history/) | 按日期查本机 Claude Code / Codex / Cursor 历史对话：路径表与 JSONL、SQLite 查询示例（只读） |
-| [skills/draw-image-generation](skills/draw-image-generation/) | 调用 Right.Codes `/v1/images/generations` API（OpenAI 兼容）生成 AI 图片；支持文生图、图生图、参考图、多尺寸 |
+| 技能 | 说明 |
+|------|------|
+| — | 原 multi-platform-plugin-guide 已迁移至 agents-dev |
 
 ## 许可
 
-见仓库根目录 [LICENSE](LICENSE)。
+Apache-2.0

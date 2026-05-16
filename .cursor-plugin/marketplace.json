@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "sumsec-skills-cursor",
   "metadata": {
-    "description": "SumSec-Skills Cursor marketplace: single plugin at repo root. Add/import marketplace from Git https://github.com/SummerSec/SumSec-Skills (branch main) — components load from that checkout; entry `source` is `./` per Cursor schema (path inside cloned repo), not a duplicate Git clone spec."
+    "description": "SumSec-Skills Cursor marketplace: multi-plugin collection organized by category. Add/import marketplace from Git https://github.com/SummerSec/SumSec-Skills (branch main) 鈥?components load from that checkout."
   },
   "owner": {
     "name": "SummerSec",
@@ -9,10 +9,10 @@
   },
   "plugins": [
     {
-      "name": "sumsec",
-      "description": "Personal reusable Agent Skills collection (Cursor plugin bundle).",
-      "version": "1.0.14",
-      "source": "./",
+      "name": "writing-zh",
+      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides).",
+      "version": "1.0.15",
+      "source": "./writing-zh",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "author": {
@@ -20,8 +20,64 @@
         "url": "https://github.com/SummerSec"
       },
       "category": "productivity",
-      "tags": ["agent-skills", "skills"],
-      "skills": "./skills/"
+      "tags": ["agent-skills", "skills", "writing"]
+    },
+    {
+      "name": "media-tools",
+      "description": "Media generation: draw-image-generation (AI images), remotion-best-practices (React video).",
+      "version": "1.0.15",
+      "source": "./media-tools",
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      },
+      "category": "productivity",
+      "tags": ["agent-skills", "skills", "media"]
+    },
+    {
+      "name": "dev-tools",
+      "description": "Developer tools: git-commit-pr, skill-optimizer, agent-chat-history.",
+      "version": "1.0.15",
+      "source": "./dev-tools",
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      },
+      "category": "developer-tools",
+      "tags": ["agent-skills", "skills", "dev"]
+    },
+    {
+      "name": "agents-dev",
+      "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, multi-platform-plugin-guide.",
+      "version": "1.0.15",
+      "source": "./agents-dev",
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      },
+      "category": "developer-tools",
+      "tags": ["agent-skills", "skills", "dev"]
+    },
+    {
+      "name": "platform-guide",
+      "description": "Platform reference (multi-platform-plugin-guide migrated to agents-dev).",
+      "version": "1.0.15",
+      "source": "./platform-guide",
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      },
+      "category": "documentation",
+      "tags": ["agent-skills", "skills", "guide"]
     }
   ]
 }
+

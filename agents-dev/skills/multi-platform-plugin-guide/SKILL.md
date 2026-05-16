@@ -149,15 +149,20 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 ## SumSec-Skills 发布清单（本仓）
 
-**SumSec-Skills** 为「多 skill 源码集合」仓库，已落地的多平台 manifest **不含** OpenClaw / OpenCode / Hermes 专用文件（无 `openclaw.plugin.json`、`opencode/`、`hermes/` 等）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
+**SumSec-Skills** 为「多 plugin 源码集合」仓库，按类别分为五个插件目录，每插件有自己的 `.claude-plugin/plugin.json`。已落地的多平台 manifest **不含** OpenClaw / OpenCode / Hermes 专用文件（无 `openclaw.plugin.json`、`opencode/`、`hermes/` 等）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
 
 1. `package.json`（根）
 2. `plugin.json`（根）
 3. `.claude-plugin/plugin.json`
-4. `.claude-plugin/marketplace.json` → `plugins[0].version`
+4. `.claude-plugin/marketplace.json` → 每个 `plugins[].version`
 5. `.cursor-plugin/plugin.json`
-6. `.cursor-plugin/marketplace.json` → `plugins[0].version`
+6. `.cursor-plugin/marketplace.json` → 每个条目 `version`
 7. `.codex-plugin/plugin.json`
+8. `writing-zh/.claude-plugin/plugin.json`
+9. `media-tools/.claude-plugin/plugin.json`
+10. `dev-tools/.claude-plugin/plugin.json`
+11. `agents-dev/.claude-plugin/plugin.json`
+12. `platform-guide/.claude-plugin/plugin.json`
 
 **Codex**：`.agents/plugins/marketplace.json` 中插件条目默认使用 **`source: "url"`**（`https://github.com/SummerSec/SumSec-Skills.git` + `ref: main`），即从 **Git 安装**到 Codex 缓存；本地开发若需指向工作区副本，可临时改为 `source: "local"` + `path: "./"`（勿提交该临时改动）。
 

@@ -1,29 +1,10 @@
-{
+﻿{
   "name": "sumsec",
-  "version": "1.0.14",
-  "description": "SummerSec personal Agent Skills collection. Includes skill-optimizer, git-commit-pr, find-skills, humanizer-zh (Chinese AI-text CLI + guidance), remotion-best-practices (Remotion/React video rules index), creating-blog-web-ppt (Markdown to HTML slides), multi-platform-plugin-guide (cross-client plugin manifests), agent-chat-history (browse local agent chat by date), and draw-image-generation (AI image generation via Right.Codes API).",
+  "version": "1.0.15",
+  "description": "SumSec-Skills root manifest. Sub-plugins: writing-zh, media-tools, dev-tools, platform-guide. Install individual plugins from marketplace.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
-  },
-  "homepage": "https://github.com/SummerSec/SumSec-Skills",
-  "repository": "https://github.com/SummerSec/SumSec-Skills",
-  "license": "Apache-2.0",
-  "keywords": [
-    "agent-skills",
-    "skills",
-    "skill-optimizer",
-    "git-commit-pr",
-    "find-skills",
-    "humanizer-zh",
-    "remotion-best-practices",
-    "creating-blog-web-ppt",
-    "multi-platform-plugin-guide",
-    "agent-chat-history",
-    "draw-image-generation",
-    "remotion",
-    "claude-code",
-    "codex",
-    "cursor"
-  ]
+  }
 }
+

@@ -1,16 +1,56 @@
-{
+﻿{
   "name": "sumsec-skills",
-  "description": "SummerSec personal Agent Skills marketplace package. Includes skill-optimizer, git-commit-pr, find-skills, humanizer-zh (CLI + guidance), remotion-best-practices, creating-blog-web-ppt (HTML slides from Markdown), multi-platform-plugin-guide, agent-chat-history, draw-image-generation, and can expand with more reusable skills over time.",
+  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev, platform-guide. Install what you need.",
   "owner": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
   },
   "plugins": [
     {
-      "name": "sumsec",
-      "description": "SumSec-Skills plugin package for reusable personal skills, including skill-optimizer, git-commit-pr, find-skills, humanizer-zh, remotion-best-practices, creating-blog-web-ppt, multi-platform-plugin-guide, agent-chat-history, and draw-image-generation.",
-      "version": "1.0.14",
-      "source": "./",
+      "name": "writing-zh",
+      "description": "Chinese writing tools: humanizer-zh (de-AIify text) and creating-blog-web-ppt (Markdown to HTML slides).",
+      "version": "1.0.15",
+      "source": "./writing-zh",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      }
+    },
+    {
+      "name": "media-tools",
+      "description": "Media generation: draw-image-generation (AI images via Right.Codes API) and remotion-best-practices (React video).",
+      "version": "1.0.15",
+      "source": "./media-tools",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      }
+    },
+    {
+      "name": "dev-tools",
+      "description": "Developer tools: git-commit-pr, skill-optimizer (audit & fix skills), agent-chat-history (browse local agent logs).",
+      "version": "1.0.15",
+      "source": "./dev-tools",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      }
+    },
+    {
+      "name": "agents-dev",
+      "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, and multi-platform-plugin-guide.",
+      "version": "1.0.15",
+      "source": "./agents-dev",
+      "author": {
+        "name": "SummerSec",
+        "url": "https://github.com/SummerSec"
+      }
+    },
+    {
+      "name": "platform-guide",
+      "description": "Platform reference (multi-platform-plugin-guide migrated to agents-dev).",
+      "version": "1.0.15",
+      "source": "./platform-guide",
       "author": {
         "name": "SummerSec",
         "url": "https://github.com/SummerSec"
@@ -18,3 +58,4 @@
     }
   ]
 }
+

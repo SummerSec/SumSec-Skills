@@ -6,5 +6,5 @@ alwaysApply: true
 在本仓库（SumSec-Skills）中改动技能、插件 manifest 或安装文档时：
 
 1. 先读根目录 **AGENTS.md**（技能发现、布局、**多平台插件元数据**同步要求）。
-2. 发布或 bump 版本时，按 **skills/multi-platform-plugin-guide/SKILL.md** 中的 *SumSec-Skills 发布清单* 同步所有 manifest 与 `package.json`。
-3. 技能正文入口为 **`skills/<skill-name>/SKILL.md`**；不要只复制单个 `SKILL.md` 以免相对链接断裂。
+ 2. 发布或 bump 版本时，按 **agents-dev/skills/multi-platform-plugin-guide/SKILL.md** 中的 *SumSec-Skills 发布清单* 同步所有 manifest 与 `package.json`。
+3. 技能正文入口为 **`<plugin>/skills/<skill-name>/SKILL.md`**；不要只复制单个 `SKILL.md` 以免相对链接断裂。

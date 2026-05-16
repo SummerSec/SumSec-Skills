@@ -4,40 +4,94 @@
 
 ## 发现与使用
 
-- 所有 skill 位于仓库根目录下的 **`skills/<skill-name>/`**。
-- 每个 skill 的入口为 **`skills/<skill-name>/SKILL.md`**，顶部 YAML frontmatter 中的 **`description`** 用于判断是否与本任务相关。
+- 所有 skill 按类别分组在插件目录下：**`<plugin>/skills/<skill-name>/`**。
+- 每个 skill 的入口为 **`<plugin>/skills/<skill-name>/SKILL.md`**，顶部 YAML frontmatter 中的 **`description`** 用于判断是否与本任务相关。
 - 当用户任务与某个 skill 的 `description` 匹配时：**先读取并遵循该 `SKILL.md`**，再按需读取其同目录下 **`references/`**、**`scripts/`**、**`assets/`**、**`rules/`** 等由 `SKILL.md` 直接链接的文件；不要在未阅读 skill 的情况下用通用流程替代。
 - 执行 skill 时遵守其中的确认门槛、工作流顺序与输出格式要求。
 
 ## 布局约定
 
-- `name`：小写字母、数字、连字符；与目录名 `skill-name` 一致。
-- 正文保持可执行、可检查；大段参考资料放在 `references/`，并在 `SKILL.md` 中链接。
+```
+SumSec-Skills/
+├── writing-zh/              # 中文写作插件
+│   ├── .claude-plugin/plugin.json
+│   ├── CLAUDE.md
+│   ├── README.md
+│   └── skills/
+│       ├── humanizer-zh/SKILL.md
+│       └── creating-blog-web-ppt/SKILL.md
+├── media-tools/             # 媒体生成插件
+│   ├── .claude-plugin/plugin.json
+│   ├── CLAUDE.md
+│   ├── README.md
+│   └── skills/
+│       ├── draw-image-generation/SKILL.md
+│       └── remotion-best-practices/SKILL.md
+├── dev-tools/               # 开发工具插件
+│   ├── .claude-plugin/plugin.json
+│   ├── CLAUDE.md
+│   ├── README.md
+│   └── skills/
+│       ├── git-commit-pr/SKILL.md
+│       └── agent-chat-history/SKILL.md
+├── agents-dev/              # Agent 开发生态插件
+│   ├── .claude-plugin/plugin.json
+│   ├── CLAUDE.md
+│   ├── README.md
+│   └── skills/
+│       ├── skill-creator/  (claude-plugins-official)
+│       ├── writing-rules/  (hookify)
+│       ├── agent-development/  (plugin-dev)
+│       ├── command-development/  (plugin-dev)
+│       ├── hook-development/  (plugin-dev)
+│       ├── mcp-integration/  (plugin-dev)
+│       ├── plugin-settings/  (plugin-dev)
+│       ├── plugin-structure/  (plugin-dev)
+│       ├── skill-development/  (plugin-dev)
+│       ├── claude-md-improver/  (claude-md-management)
+│       ├── agent-sdk-dev/  (claude-plugins-official)
+│       ├── skill-optimizer/  (本仓库)
+│       └── multi-platform-plugin-guide/SKILL.md
+├── platform-guide/          # 平台发布参考插件
+│   ├── .claude-plugin/plugin.json
+│   ├── CLAUDE.md
+│   ├── README.md
+│   └── skills/
+│       └── multi-platform-plugin-guide/SKILL.md
+├── .claude-plugin/           # 根 marketplace（注册所有插件）
+│   ├── plugin.json
+│   └── marketplace.json
+├── .cursor-plugin/
+├── .codex-plugin/
+├── .agents/plugins/
+├── .cursor/rules/
+├── AGENTS.md
+├── README.md
+├── package.json
+└── plugin.json
+```
 
 ## 插件元数据维护
 
-- **发布新版本、调整插件名/描述、或新增/删除重要 skill** 时，同步检查下列清单（详见 `skills/multi-platform-plugin-guide/SKILL.md` 文末 *SumSec-Skills 发布清单*）：
+- **发布新版本、调整插件名/描述、或新增/删除重要 skill** 时，同步检查下列清单（详见 `platform-guide/skills/multi-platform-plugin-guide/SKILL.md` 文末 *SumSec-Skills 发布清单*）：
   - `package.json`（根，`version`）
   - `plugin.json`（根）
-  - `.claude-plugin/plugin.json`、`.claude-plugin/marketplace.json`（含 `plugins[].version`）
-  - `.cursor-plugin/plugin.json`、`.cursor-plugin/marketplace.json`（含条目 `version`）
+  - `.claude-plugin/plugin.json`、`.claude-plugin/marketplace.json`（含每个 `plugins[].version`）
+  - `.cursor-plugin/plugin.json`、`.cursor-plugin/marketplace.json`（含每个条目 `version`）
   - `.codex-plugin/plugin.json`
   - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；**默认** Git `url` + `ref`；本地调试才用 `local`）
-- 版本号、描述、关键词应与仓库当前 **skills/** 与 README 技能表一致，避免脱节。
+  - 每插件 `writing-zh/`、`media-tools/`、`dev-tools/`、`agents-dev/`、`platform-guide/` 下的 `.claude-plugin/plugin.json`
+- 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致，避免脱节。
 - 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
 
-## 当前技能一览
+## 当前插件一览
 
-| 目录 | 用途 |
-|------|------|
-| `skills/skill-optimizer/` | 路径 A：审查、规划、确认后改 skill；路径 B：会话 jsonl + 八维只读审计报告 |
-| `skills/git-commit-pr/` | 在真实仓库中安全完成 commit、push、PR/MR，先检查仓库与分支状态再执行 |
-| `skills/find-skills/` | 帮助用户从开放 skills 生态发现、搜索与安装可复用技能（Skills CLI、`skills.sh`） |
-| `skills/humanizer-zh/` | 本地 CLI（humanize-chinese）+ 深度指南 v2.2：含「反 AI 审查」二遍（初稿→自问残留→终稿）；无法用脚本时按 SKILL 维基式规则编辑 |
-| `skills/remotion-best-practices/` | Remotion（React 视频）领域实践：按 `SKILL.md` 索引按需加载 `rules/*.md`（composition、动画、字幕、FFmpeg、图表等） |
-| `skills/creating-blog-web-ppt/` | 将 Markdown 文章转为网页版 PPT（slide-writer 对齐 + `blog-sumsec` 主题）；同目录落盘、SUMSEC 回链等见 `references/` |
-| `skills/multi-platform-plugin-guide/` | 多平台插件打包备忘（Claude / Codex / Cursor manifest、版本号、hooks）；**本仓**落地路径见该 SKILL 文末 *SumSec-Skills 发布清单*；完整矩阵仍以 AI Inner OS 主仓 `CLAUDE.md` 为准 |
-| `skills/agent-chat-history/` | 按日期检索本机 Claude Code / Codex / Cursor 等历史路径与查询方式；脚本支持 `--prompts-only` 只抽用户提示词（JSONL、SQLite；只读指引） |
-| `skills/draw-image-generation/` | 调用 Right.Codes `/v1/images/generations` API（OpenAI 兼容）生成 AI 图片；支持文生图、图生图、参考图、多尺寸 |
+| 插件 | 目录 | 用途 |
+|------|------|------|
+| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT |
+| media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
+| dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史 |
+| agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、claude-md-management、agent-sdk-dev、skill-optimizer、版本对齐 |
+| platform-guide | `platform-guide/` | 多平台插件发布参考 |
 
-（随仓库增加 skill 时，维护者可在此表追加一行。）
+（随仓库增加插件时，维护者可在此表追加一行。）
