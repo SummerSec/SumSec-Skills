@@ -19,3 +19,4 @@ Agent 开发生态技能集合。继承自 claude-plugins-official 及本仓库 
 | `agent-sdk-dev` | `skills/agent-sdk-dev/` | Agent SDK 开发（claude-plugins-official 插件） |
 | `skill-optimizer` | `skills/skill-optimizer/SKILL.md` | Skill 审计优化：路径 A 确认后改；路径 B 只读八维报告 |
 | `multi-platform-plugin-guide` | `skills/multi-platform-plugin-guide/SKILL.md` | 多平台插件发布指南与版本对齐 |
+| `claude-automation-recommender` | `skills/claude-automation-recommender/SKILL.md` | Claude Code 自动化推荐（claude-code-setup 插件） |
