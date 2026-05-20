@@ -19,7 +19,8 @@ SumSec-Skills/
 │   ├── README.md
 │   └── skills/
 │       ├── humanizer-zh/SKILL.md
-│       └── creating-blog-web-ppt/SKILL.md
+│       ├── creating-blog-web-ppt/SKILL.md
+│       └── khazix-writer/SKILL.md  (khazix-skills)
 ├── media-tools/             # 媒体生成插件
 │   ├── .claude-plugin/plugin.json
 │   ├── CLAUDE.md
@@ -59,10 +60,13 @@ SumSec-Skills/
 ├── .claude-plugin/            # 根 marketplace（注册所有插件）
 │   ├── plugin.json
 │   └── marketplace.json
+├── .claude/skills/            # 项目级 skill（仓库自身工具）
+│   └── sync-skills/           # submodule skill 同步管理
 ├── .cursor-plugin/
 ├── .codex-plugin/
 ├── .agents/plugins/
 ├── .cursor/rules/
+├── khazix-skills/             # submodule: KKKKhazix/khazix-skills
 ├── AGENTS.md
 ├── README.md
 ├── package.json
@@ -87,9 +91,42 @@ SumSec-Skills/
 
 | 插件 | 目录 | 用途 |
 |------|------|------|
-| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT |
+| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT、卡兹克写作风格 |
 | media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、claude-md-management、agent-sdk-dev、skill-optimizer、版本对齐 |
 
 （随仓库增加插件时，维护者可在此表追加一行。）
+
+## Git Submodule 与 Skill 同步
+
+本仓库通过 git submodule 引用第三方 skill 源，再用同步脚本复制到对应插件目录（替代 symlink，确保跨机器可用）。
+
+| Submodule | 路径 | 来源 |
+|-----------|------|------|
+| claude-plugins-official | `claude-plugins-official/` | `git@github.com:anthropics/claude-plugins-official.git` |
+| context7 | `context7/` | `https://github.com/upstash/context7.git` |
+| khazix-skills | `khazix-skills/` | `https://github.com/KKKKhazix/khazix-skills.git` |
+
+**同步机制**：
+- 映射表：`.claude/skills/sync-skills/scripts/skill-map.json`
+- 同步脚本：`.claude/skills/sync-skills/scripts/sync-skills.py`
+- 新机器 clone 后执行：`git submodule update --init --recursive && python .claude/skills/sync-skills/scripts/sync-skills.py`
+- 添加新映射：`python .claude/skills/sync-skills/scripts/sync-skills.py --add "<source>" "<target>"`
+
+同步产生的目标目录已在 `.gitignore` 中忽略，不提交副本。
+
+### 新增 Skill 时必须同步更新的文件
+
+无论是从 submodule 同步还是本仓库新建 skill，添加后都需要同步更新以下位置的说明：
+
+1. **映射表**（仅 submodule skill）：`.claude/skills/sync-skills/scripts/skill-map.json`
+2. **`.gitignore`**（仅 submodule skill）：追加目标目录忽略规则
+3. **所属插件 `CLAUDE.md`**：如 `writing-zh/CLAUDE.md` 技能清单表
+4. **所属插件 `.claude-plugin/plugin.json`**：更新 `description` 字段
+5. **根 marketplace**：`.claude-plugin/marketplace.json` 对应插件的 `description`
+6. **Cursor marketplace**：`.cursor-plugin/marketplace.json` 对应插件的 `description`
+7. **`README.md`**：对应插件的技能一览表、布局树
+8. **`AGENTS.md`**：布局约定树、当前插件一览表（如影响用途描述）
+
+遗漏任何一处都会导致插件发现、安装文档与实际 skill 列表脱节。

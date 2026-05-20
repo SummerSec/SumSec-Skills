@@ -59,5 +59,9 @@
   {
     "source": "context7/skills/find-docs",
     "target": "dev-tools/skills/find-docs"
+  },
+  {
+    "source": "khazix-skills/khazix-writer",
+    "target": "writing-zh/skills/khazix-writer"
   }
 ]

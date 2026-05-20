@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "writing-zh",
-      "description": "Chinese writing tools: humanizer-zh (de-AIify text) and creating-blog-web-ppt (Markdown to HTML slides).",
+      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), and khazix-writer (personal voice long-form writing).",
       "version": "1.0.17",
       "source": "./writing-zh",
       "author": {

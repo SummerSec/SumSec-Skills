@@ -156,3 +156,5 @@ agents-dev/skills/claude-automation-recommender/
 dev-tools/skills/context7-cli/
 dev-tools/skills/context7-mcp/
 dev-tools/skills/find-docs/
+# writing-zh: from khazix-skills
+writing-zh/skills/khazix-writer/

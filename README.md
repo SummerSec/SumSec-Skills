@@ -9,7 +9,8 @@ SumSec-Skills/
 ├── writing-zh/              # 中文写作插件
 │   └── skills/
 │       ├── humanizer-zh/       去 AI 味润色
-│       └── creating-blog-web-ppt/  文章转网页 PPT
+│       ├── creating-blog-web-ppt/  文章转网页 PPT
+│       └── khazix-writer/      卡兹克写作风格 (khazix-skills)
 ├── media-tools/             # 媒体生成插件
 │   └── skills/
 │       ├── draw-image-generation/   AI 图片生成
@@ -42,6 +43,7 @@ SumSec-Skills/
 ├── .codex-plugin/
 ├── .agents/plugins/
 ├── .cursor/rules/
+├── khazix-skills/             # submodule: KKKKhazix/khazix-skills
 ├── AGENTS.md
 ├── README.md
 ├── package.json
@@ -83,10 +85,11 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 
 ### writing-zh（中文写作）
 
-| 技能 | 说明 |
-|------|------|
-| [humanizer-zh](writing-zh/skills/humanizer-zh/) | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
-| [creating-blog-web-ppt](writing-zh/skills/creating-blog-web-ppt/) | Markdown 文章转网页 PPT（slide-writer + blog-sumsec 主题） |
+| 技能 | 来源 | 说明 |
+|------|------|------|
+| [humanizer-zh](writing-zh/skills/humanizer-zh/) | 本仓库 | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
+| [creating-blog-web-ppt](writing-zh/skills/creating-blog-web-ppt/) | 本仓库 | Markdown 文章转网页 PPT（slide-writer + blog-sumsec 主题） |
+| [khazix-writer](writing-zh/skills/khazix-writer/) | khazix-skills | 卡兹克写作风格：用特定口吻和节奏写公众号长文 |
 
 ### media-tools（媒体生成）
 
@@ -122,6 +125,23 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [agent-sdk-dev](agents-dev/skills/agent-sdk-dev/) | claude-plugins-official | Agent SDK 开发 |
 | [skill-optimizer](agents-dev/skills/skill-optimizer/) | 本仓库 | Skill 审计优化（路径 A 改 / 路径 B 只读八维） |
 | [multi-platform-plugin-guide](agents-dev/skills/multi-platform-plugin-guide/) | 本仓库 | 多平台版本对齐与发布清单 |
+
+## Git Submodule 与 Skill 同步
+
+本仓库通过 submodule 引用第三方 skill，用同步脚本复制到插件目录（替代 symlink）。
+
+| Submodule | 来源 | 提供的 skill |
+|-----------|------|-------------|
+| claude-plugins-official | anthropics | skill-creator, plugin-dev 系列, hookify, claude-md-management, agent-sdk-dev |
+| context7 | upstash | context7-cli, context7-mcp, find-docs |
+| khazix-skills | KKKKhazix | khazix-writer |
+
+```bash
+# 新机器安装
+git clone --recurse-submodules https://github.com/SummerSec/SumSec-Skills.git
+cd SumSec-Skills
+python .claude/skills/sync-skills/scripts/sync-skills.py
+```
 
 ## 许可
 
