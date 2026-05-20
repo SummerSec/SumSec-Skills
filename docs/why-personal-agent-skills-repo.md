@@ -189,7 +189,7 @@ agents-dev   → 我在开发 AI 工具本身
 
 <!-- 
 插图 prompt:
-A central glowing SKILL.md document in the middle, with 6 arrows radiating outward to different platform logos/icons arranged in a circle: Claude Code (anthropic style), Cursor (cursor logo style), Codex CLI (openai style), OpenClaw, OpenCode, Hermes. Each arrow passes through a thin "adapter layer" (shown as a small translating prism/filter). Style: hub-and-spoke diagram, clean lines, dark background with glowing connections, tech/network aesthetic.
+A central glowing SKILL.md document in the middle, with 6 arrows radiating outward to different platform logos/icons arranged in a circle: Claude Code (anthropic style), Cursor (cursor logo style), Codex CLI (openai style), OpenClaw(Clawfish style), OpenCode, Hermes(Hermes style). Each arrow passes through a thin "adapter layer" (shown as a small translating prism/filter). Style: hub-and-spoke diagram, clean lines, dark background with glowing connections, tech/network aesthetic.
 -->
 
 ![多平台分发架构](./images/multi-platform.png)
@@ -360,7 +360,18 @@ git log --oneline skills/git-commit-pr/
 
 <!-- 
 插图 prompt:
-A two-panel layout. Left panel shows a single SKILL.md with "progressive disclosure" concept (layers peeling back). Right panel shows the same concept scaled up to repository level: multiple plugin boxes, each containing skills, user only pulling what they need. A visual parallel/mirror between the two panels showing "same principle, different scale". Style: clean split-panel infographic, mirror/fractal aesthetic, left side micro-scale, right side macro-scale, minimalist, professional.
+A vertical funnel/filter diagram with 4 distinct layers, each progressively narrower. 
+Top layer (widest): "Marketplace" — 4 colorful plugin boxes with brief labels floating in a wide open space. 
+Second layer: "Plugin" — one plugin box opened, revealing 3-4 small skill cards inside. 
+Third layer: "Skill" — a single SKILL.md document unfolding, showing its header and structure. 
+Bottom layer (narrowest): "References" — detailed code snippets and script files loading on demand, shown as thin glowing threads being pulled in.
+
+Between each layer, a semi-transparent filter/membrane with a "pass/block" visual — some items pass through (glowing), others stay above (dimmed). 
+
+On the left side, a vertical arrow labeled "context usage" decreasing from top to bottom. On the right side, a vertical arrow labeled "relevance" increasing from top to bottom.
+
+Style: clean infographic, dark background with soft gradients, each layer has a distinct accent color (blue → teal → green → gold), minimalist geometric shapes, professional data visualization aesthetic, no text clutter, the funnel shape should feel elegant not cramped.
+
 -->
 
 ![设计哲学](./images/design-philosophy.png)
