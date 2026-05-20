@@ -7,6 +7,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/SummerSec/SumSec-Skills.git"
+  },
+  "scripts": {
+    "sync": "python .claude/skills/sync-skills/scripts/sync-skills.py",
+    "sync:dry": "python .claude/skills/sync-skills/scripts/sync-skills.py --dry-run",
+    "sync:clean": "python .claude/skills/sync-skills/scripts/sync-skills.py --clean",
+    "postinstall": "python .claude/skills/sync-skills/scripts/sync-skills.py"
   }
 }
 

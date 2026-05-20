@@ -137,3 +137,22 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# ─── Synced skills (copied from submodules, not committed) ───
+# agents-dev: from claude-plugins-official
+agents-dev/skills/agent-development/
+agents-dev/skills/agent-sdk-dev/
+agents-dev/skills/claude-md-improver/
+agents-dev/skills/command-development/
+agents-dev/skills/hook-development/
+agents-dev/skills/mcp-integration/
+agents-dev/skills/plugin-settings/
+agents-dev/skills/plugin-structure/
+agents-dev/skills/skill-creator/
+agents-dev/skills/skill-development/
+agents-dev/skills/writing-rules/
+agents-dev/skills/claude-automation-recommender/
+# dev-tools: from context7
+dev-tools/skills/context7-cli/
+dev-tools/skills/context7-mcp/
+dev-tools/skills/find-docs/

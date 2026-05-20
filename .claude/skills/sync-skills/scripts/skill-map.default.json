@@ -1,0 +1,63 @@
+[
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/agent-development",
+    "target": "agents-dev/skills/agent-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/agent-sdk-dev",
+    "target": "agents-dev/skills/agent-sdk-dev"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver",
+    "target": "agents-dev/skills/claude-md-improver"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/command-development",
+    "target": "agents-dev/skills/command-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/hook-development",
+    "target": "agents-dev/skills/hook-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/mcp-integration",
+    "target": "agents-dev/skills/mcp-integration"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/plugin-settings",
+    "target": "agents-dev/skills/plugin-settings"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/plugin-structure",
+    "target": "agents-dev/skills/plugin-structure"
+  },
+  {
+    "source": "claude-plugins-official/plugins/skill-creator/skills/skill-creator",
+    "target": "agents-dev/skills/skill-creator"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/skill-development",
+    "target": "agents-dev/skills/skill-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/skills/writing-rules",
+    "target": "agents-dev/skills/writing-rules"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender",
+    "target": "agents-dev/skills/claude-automation-recommender",
+    "optional": true
+  },
+  {
+    "source": "context7/skills/context7-cli",
+    "target": "dev-tools/skills/context7-cli"
+  },
+  {
+    "source": "context7/skills/context7-mcp",
+    "target": "dev-tools/skills/context7-mcp"
+  },
+  {
+    "source": "context7/skills/find-docs",
+    "target": "dev-tools/skills/find-docs"
+  }
+]
