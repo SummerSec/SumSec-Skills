@@ -1,3 +1,8 @@
+---
+tags:
+- blog-comments
+
+---
 # 模型人人都能用，什么才是你能带走的？我的答案是一个可进化的SKILL库
 
 > 你花几十小时调教出来的 AI 工作流，换个工具就没了？这篇文章聊聊怎么把它变成可积累、跨平台、能自我进化的资产。
@@ -18,11 +23,13 @@ A developer sitting at a desk with multiple AI agent interfaces floating around 
 A developer standing at a crossroads/fork in the road, looking uncertain. Behind them, a fading office building with a "company" sign dissolving into particles. In front of them, multiple diverging paths leading to different destinations (startup, freelance, new company). The developer carries only a small glowing backpack (representing portable skills). Around the paths, AI tool logos float like road signs changing rapidly. Style: slightly melancholic but hopeful atmosphere, muted colors with the glowing backpack as focal point, editorial illustration style, metaphorical.
 -->
 
-![不确定的现实](./images/uncertain-reality.png)
+
 
 AI 时代有一个残酷的事实：**谁也无法保证你明天还在这家公司。**
 
 当 AI 能完成越来越多的工作，团队在缩编，岗位在重组。你今天在 A 公司用 Cursor 写代码，明天可能在 B 公司用 Claude Code，后天可能自己出来单干。
+
+![不确定的现实](./images/uncertain-reality.png)
 
 在这种不确定性下，什么是你真正能带走的？
 
@@ -236,7 +243,7 @@ SumSec-Skills/
 A timeline/river flowing from left to right. On the river are floating documents labeled "official spec v1", "v2", "v3" (representing upstream updates). A bridge connects the river to a personal island/garden where custom skills grow as plants. The bridge is labeled "git submodule". New nutrients flow from the river through the bridge to feed the garden. Style: metaphorical illustration, nature meets tech, watercolor-digital hybrid, warm and organic feeling.
 -->
 
-![Submodule 同步机制](./images/submodule-sync.png)
+![Submodule 同步机制](./images/submodule-syn.png)
 
 AI Agent 平台的规范在快速演进。技能库如果是一座孤岛，很快就会和官方脱节。
 
@@ -245,7 +252,7 @@ AI Agent 平台的规范在快速演进。技能库如果是一座孤岛，很�
 ```gitmodules
 [submodule "claude-plugins-official"]
     path = claude-plugins-official
-    url = git@github.com:anthropics/claude-plugins-official.git
+    url = https://github.com/anthropics/claude-plugins-official.git
 
 [submodule "context7"]
     path = context7
