@@ -9,7 +9,7 @@
     {
       "name": "writing-zh",
       "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), and khazix-writer (personal voice long-form writing).",
-      "version": "1.0.17",
+      "version": "1.0.18",
       "source": "./writing-zh",
       "author": {
         "name": "SummerSec",
@@ -19,7 +19,7 @@
     {
       "name": "media-tools",
       "description": "Media generation: draw-image-generation (AI images via Right.Codes API) and remotion-best-practices (React video).",
-      "version": "1.0.17",
+      "version": "1.0.18",
       "source": "./media-tools",
       "author": {
         "name": "SummerSec",
@@ -29,7 +29,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr (commit & PR), agent-chat-history (browse agent logs), context7-cli/mcp/find-docs (library doc lookup).",
-      "version": "1.0.17",
+      "version": "1.0.18",
       "source": "./dev-tools",
       "author": {
         "name": "SummerSec",
@@ -39,7 +39,7 @@
     {
       "name": "agents-dev",
       "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, and multi-platform-plugin-guide.",
-      "version": "1.0.17",
+      "version": "1.0.18",
       "source": "./agents-dev",
       "author": {
         "name": "SummerSec",
