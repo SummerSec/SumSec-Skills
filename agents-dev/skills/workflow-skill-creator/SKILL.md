@@ -95,7 +95,3 @@ python3 ~/.claude/skills/workflow-skill-creator/scripts/scaffold_workflow_skill.
 
 ### 脚本
 - **`scripts/scaffold_workflow_skill.py`** — Step B 使用。`--name` `--steps` `--step-names` `--output` 四个参数，生成完整目录结构。`--help` 查看用法。
-
----
-
-**【创建完成】产出遵循 biz-vul-security 架构模式的标准化流程编排 Skill。**
