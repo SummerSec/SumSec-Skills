@@ -71,7 +71,6 @@ Review 关注点保持与原 skill 一致：name、description、模式匹配、
 ### Step 5: Verify
 
 - frontmatter 字段符合目标平台规范；`name` 与目录一致；`description` 可独立表达触发条件；额外字段均有明确意图
-- 已按 [技能创作最佳实践 - Claude API Docs](<references/技能创作最佳实践 - Claude API Docs.md>) 校验简洁性、渐进披露、命名、description、文件引用与测试建议
 - 已按 [Claude Code Extend Claude with skills](https://code.claude.com/docs/en/skills) 校验技能位置、命令兼容、扩展 frontmatter、调用控制、动态上下文、subagent、可见性覆盖与分发要求
 - `review-checklist.md` 已覆盖 Claude Code 新特性；必要时按 [references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md) 细查
 - 正文更短更清晰；路径 A 的确认门槛仍在说明中写清
