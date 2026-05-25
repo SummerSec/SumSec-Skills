@@ -1,6 +1,8 @@
 # Skill Review Checklist
 
-按需审查，不必每次穷举所有项目。若用户已指定优化方向，先覆盖对应部分。本清单补充 `技能创作最佳实践 - Claude API Docs.md` 与 `https://code.claude.com/docs/en/skills`，不替代官方规范。
+按需审查，不必每次穷举所有项目。若用户已指定优化方向，先覆盖对应部分。本清单补充 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`（即 https://code.claude.com/docs/en/skills.md 的 live 抓取或本地缓存），不替代官方规范。
+
+> ⚠️ 使用前提：必须先完成 SKILL.md 中的 Step 0（在线抓取 → 覆盖缓存；离线 → 读 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`）。本清单仅作为补充检查，遇冲突以官方规范为准。
 
 ## 1. Triggering
 
@@ -50,7 +52,7 @@
 - 是否缺少稳定执行所需的模板、脚本或参考资料
 - `assets/` 是否只放输出资源，不放说明文档
 - 是否创建了不必要的 README、CHANGELOG 等噪音文件
-- 脚本路径是否使用 `${CLAUDE_SKILL_DIR}` 或相对路径，避免写死本机绝对路径
+- **路径是否一律使用 `${CLAUDE_SKILL_DIR}`**：脚本、动态上下文、Bash、`Read`/`Write` 目标、SKILL.md 内任何"工具调用语义"的资源引用都应使用，不写死绝对路径或仓库相对路径；细则见 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md` §7](claude-code-skills-checklist.md)
 - 若使用动态上下文注入，是否控制输出规模、避免破坏性命令，并说明 shell / policy 前提
 
 常见优化：

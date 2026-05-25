@@ -17,19 +17,26 @@ disable-model-invocation: true
 
 ## 共用规则
 
-- **路径 B：只读。** 不得修改任何 skill 文件，只交付报告。
+- **官方规范优先（双轨）**：每次启动本 skill，先执行 **Step 0 — Fetch Spec**：
+  1. 先 `WebFetch https://code.claude.com/docs/en/skills.md`；
+  2. **成功**：把抓取结果写入（覆盖）`${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`，并以此为本轮判定基准；
+  3. **失败 / 无网络 / 用户要求离线**：直接 `Read ${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md` 作为降级基准，并在报告醒目处标注「⚠️ 使用本地缓存基准（fetched_at: …）」。
+  无论路径 A / B，未完成 Step 0 之前禁止进入诊断、计划或改写阶段。
+- **路径 B：只读。** 不得修改任何 skill 文件，只交付报告（Step 0 对缓存文件的覆盖**是允许的例外**，因为它属于 skill 自身的资产更新而非被审计 skill 的修改）。
 - **路径 A：确认门槛。** 不得把「审查结论」与「直接改文件」混为一步；未确认不得改目标 skill。
 - **路径 B：八维齐全。** 不得跳过 [references/session-audit-dimensions.md](references/session-audit-dimensions.md) 中的 4.2、4.3、4.5b、4.8；缺数据写 `N/A — insufficient session data`。
-- **量化与证据：** 报告用次数、比例、日期范围；欠触发须引用真实用户原句；description 改写用**建议**语气并点明依据（静态表条目或研究结论）。
+- **量化与证据：** 报告用次数、比例、日期范围；欠触发须引用真实用户原句；description 改写用**建议**语气并点明依据（静态表条目、官方规范条款或研究结论）。
 - **范围克制：** 用户只要某一方向（如只改 description）时，围绕该方向计划，不擅自整 skill 重写；不要为了「全面」把无关 reference 全读进上下文。
+- **路径统一用 `${CLAUDE_SKILL_DIR}`：** 任何「读 / 写 / 引用本 skill 资源」的动作（含脚本、Bash、`Read`、`Write`、`WebFetch` 后落盘）都使用 `${CLAUDE_SKILL_DIR}/...` 形式，不写死绝对路径，不写仓库相对路径。
 
 ## 路径 B 工作流（概要）
 
-1. **锁定范围**：`/optimize-skill` 全量，或 `/optimize-skill a b` 指定多个 name。
-2. **发现 skill**：按 [session-audit-dimensions.md](references/session-audit-dimensions.md) 中的目录顺序扫描并去重，读 frontmatter 与步骤结构。
-3. **采集会话**：Claude Code / Codex jsonl 字段差异见该文档；Codex 注意「加载 ≠ 已按 skill 执行」。
-4. **跑满八维 + 综合分**：表格、权重、报告骨架均见该文档。
-5. **输出**：使用该文档中的 **Report Format**；P0 / P1 / P2 分级。
+1. **Step 0 — Fetch Spec**：执行下方「Step 0 详细流程」；本轮基准来自最新抓取或 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md` 缓存。
+2. **锁定范围**：`/optimize-skill` 全量，或 `/optimize-skill a b` 指定多个 name。
+3. **发现 skill**：按 [session-audit-dimensions.md](references/session-audit-dimensions.md) 中的目录顺序扫描并去重，读 frontmatter 与步骤结构。
+4. **采集会话**：Claude Code / Codex jsonl 字段差异见该文档；Codex 注意「加载 ≠ 已按 skill 执行」。
+5. **跑满八维 + 综合分**：表格、权重、报告骨架均见该文档；遇到与官方规范不一致处，须在报告中以「依据：官方规范 §X」标注。
+6. **输出**：使用该文档中的 **Report Format**；P0 / P1 / P2 分级；报告首段写明「本轮使用的官方规范来源（live / cache）+ fetched_at」。
 
 ## 路径 A 工作流
 
@@ -37,6 +44,7 @@ disable-model-invocation: true
 
 ```text
 优化进度：
+- [ ] 步骤 0：Fetch Spec（拉取并阅读最新官方规范，必要时落盘缓存）
 - [ ] 步骤 1：Scope（确定范围）
 - [ ] 步骤 2：Review（审查目标 skill）
 - [ ] 步骤 3：Plan（输出优化计划并等待确认）
@@ -44,21 +52,32 @@ disable-model-invocation: true
 - [ ] 步骤 5：Verify（校验结果）
 ```
 
+### Step 0: Fetch Spec（共用，路径 A / B 都执行）
+
+按以下顺序执行，并在最终报告/汇报里写明走到了哪一支：
+
+1. **尝试在线抓取**：调用 `WebFetch`，URL = `https://code.claude.com/docs/en/skills.md`，prompt 要求按官方原文返回完整 markdown（重点保留 frontmatter 字段表、调用控制、动态上下文、subagent、可见性、分发、字符串替换 `${CLAUDE_SKILL_DIR}` 等条款）。
+2. **成功 → 覆盖缓存**：把抓取到的官方文档**整文件覆盖**到 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`，并保留头部注释块（来源、`fetched_at`、`method` 字段）。本轮以「live」为基准。
+3. **失败 / 离线 / 用户要求离线** → **读缓存**：`Read ${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`，本轮以「cache」为基准；在最终汇报第一行用一句话标注：`⚠️ 使用本地缓存基准（fetched_at: <时间>）`。
+4. **基准摘要**：从 live 或 cache 中摘录本轮要用到的条款（frontmatter 字段、调用控制、动态上下文、subagent、分发、新增/废弃项），作为 Step 2 / Step 3 / Step 5 的判定基准；保留官方原句中的关键术语，禁止改写。
+5. **禁止事项**：禁止跳过 Step 0；禁止仅凭"SKILL.md 里曾经引用过官方文档链接"就视作完成；禁止把缓存文件改成与官方原文严重偏离的精简版（精简放到摘要里，不要污染缓存）。
+
 ### Step 1: Scope
 
 确认目标 skill 与优化范围；目标不明时只问**一个**最短问题。
 
 ### Step 2: Review
 
-先读目标 `SKILL.md`，再按需读其直接链接的 `references/`、`scripts/`、`assets/`。
+先读目标 `SKILL.md`，再按需读其直接链接的 `references/`、`scripts/`、`assets/`。本 skill 自身的 references 一律通过 `${CLAUDE_SKILL_DIR}/references/<file>` 定位（下面的 markdown 链接是相对路径展示，实际工具调用请用 `${CLAUDE_SKILL_DIR}` 形式）：
 
-- [references/review-checklist.md](references/review-checklist.md)（常规检查；面向 Claude Code 的 skill 默认覆盖新特性）
-- [references/skill-design-review-framework.md](references/skill-design-review-framework.md)
-- **官方基准**：优化时应参考 [技能创作最佳实践 - Claude API Docs](<references/技能创作最佳实践 - Claude API Docs.md>) 与 [Claude Code Extend Claude with skills](https://code.claude.com/docs/en/skills)；本 skill 的 checklist 用于补充执行细节，不替代官方规范
-- Claude Code skill 必读 [references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md) 了解检查维度，Step 5 Verify 时逐项核对
-- **可选加项**：用 [session-audit-dimensions.md](references/session-audit-dimensions.md) 的 **4.4 静态质量** 表做 CSO / YAML / 长度检查（无会话也可做）
+- **Step 0 抓取/缓存的官方规范为最高基准**；本地 reference 用于补充执行细节，与官方规范冲突时以官方为准并在 Step 3 标注修订点。
+- [`${CLAUDE_SKILL_DIR}/references/review-checklist.md`](references/review-checklist.md)（常规检查；面向 Claude Code 的 skill 默认覆盖新特性）
+- [`${CLAUDE_SKILL_DIR}/references/skill-design-review-framework.md`](references/skill-design-review-framework.md)
+- **官方基准回看**：[`${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`](references/official-spec-fetch.md)（Claude Code 官方规范缓存或 Step 0 live 抓取）；checklist 用于补充执行细节，不替代官方规范
+- Claude Code skill 必读 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md`](references/claude-code-skills-checklist.md) 了解检查维度，Step 5 Verify 时逐项核对
+- **可选加项**：用 [`${CLAUDE_SKILL_DIR}/references/session-audit-dimensions.md`](references/session-audit-dimensions.md) 的 **4.4 静态质量** 表做 CSO / YAML / 长度检查（无会话也可做）
 
-Review 关注点保持与原 skill 一致：name、description、模式匹配、确认门槛、渐进披露、输出可执行性等。
+Review 关注点保持与原 skill 一致：name、description、模式匹配、确认门槛、渐进披露、输出可执行性等。**额外固定关注：被审查 skill 是否正确使用 `${CLAUDE_SKILL_DIR}` 引用自身资源**——动态上下文、Bash 命令、脚本路径、`Read`/`Write` 目标、缓存落盘位置都必须用该变量；写死 `~/.claude/skills/...`、绝对路径、仓库相对路径属于反模式（详见 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md` §7](references/claude-code-skills-checklist.md)）。
 
 ### Step 3: Plan
 
@@ -70,13 +89,15 @@ Review 关注点保持与原 skill 一致：name、description、模式匹配、
 
 ### Step 5: Verify
 
+- 已对照 Step 0 抓取或缓存的官方规范条款逐条核对：`description` / 调用控制 / 动态上下文 / subagent / 分发等改动有据可循
 - frontmatter 字段符合目标平台规范；`name` 与目录一致；`description` 可独立表达触发条件；额外字段均有明确意图
-- 已按 [Claude Code Extend Claude with skills](https://code.claude.com/docs/en/skills) 校验技能位置、命令兼容、扩展 frontmatter、调用控制、动态上下文、subagent、可见性覆盖与分发要求
-- `review-checklist.md` 已覆盖 Claude Code 新特性；必要时按 [references/claude-code-skills-checklist.md](references/claude-code-skills-checklist.md) 细查
+- 已按 [`${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`](references/official-spec-fetch.md)（或 Step 0 live 抓取摘要）校验技能位置、命令兼容、扩展 frontmatter、调用控制、动态上下文、subagent、可见性覆盖、分发要求与简洁性 / 渐进披露 / 命名 / description 等基础项
+- `review-checklist.md` 已覆盖 Claude Code 新特性；必要时按 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md`](references/claude-code-skills-checklist.md) 细查
 - 正文更短更清晰；路径 A 的确认门槛仍在说明中写清
 - 若借鉴了 4.4：description 含 `: ` 时 YAML 用双引号包裹等
+- 任何脚本 / Bash 引用本 skill 内文件，路径都形如 `${CLAUDE_SKILL_DIR}/...`，不写死本机绝对路径
 
-汇报：已改文件、已落实方向、残留风险。
+汇报：已改文件、已落实方向、本轮基准来源（live `fetched_at` 或 cache `fetched_at`）、残留风险。
 
 ## 审查优先级（路径 A 快速裁定）
 

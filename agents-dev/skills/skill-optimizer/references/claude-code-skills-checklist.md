@@ -1,6 +1,8 @@
 # Claude Code Skills 专项检查表
 
-用于 `skill-optimizer` 路径 A 的 **Step 5 Verify** 阶段，逐项核对 Claude Code 专有特性。审查前先通读 [review-checklist.md §5](review-checklist.md) 了解高层摘要，再用本表逐项打勾。
+用于 `skill-optimizer` 路径 A 的 **Step 5 Verify** 阶段，逐项核对 Claude Code 专有特性。审查前先通读 [`${CLAUDE_SKILL_DIR}/references/review-checklist.md`](review-checklist.md) §5 了解高层摘要，再用本表逐项打勾。
+
+> ⚠️ 使用前提：已完成 SKILL.md Step 0 双轨流程——在线则 WebFetch `https://code.claude.com/docs/en/skills.md` 并覆盖缓存；离线则读 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`。本表只是补充清单，与官方规范冲突时以官方规范为准。
 
 ## 1. Frontmatter 字段
 
@@ -27,7 +29,7 @@
 ## 3. 动态上下文与脚本
 
 - [ ] `` !`command` `` / ` ```! ` 只用于安全、可控、有限输出；无破坏性命令
-- [ ] 脚本路径使用 `${CLAUDE_SKILL_DIR}`，不写死绝对路径
+- [ ] 脚本路径使用 `${CLAUDE_SKILL_DIR}`，不写死绝对路径（详见 §7）
 - [ ] 若组织设了 `disableSkillShellExecution`，skill 有降级说明
 - [ ] 脚本不依赖未说明的包或隐藏环境
 
@@ -46,3 +48,31 @@
 
 - [ ] 关键规则在正文前 20%，压缩后不丢失
 - [ ] `SKILL.md` 保持简短，长参考在 `references/`，脚本在 `scripts/` 执行而非读入
+
+## 7. `${CLAUDE_SKILL_DIR}` 使用核查（默认必查）
+
+> 任何引用 skill 自身资源（references / scripts / assets / 缓存数据）的位置都应使用 `${CLAUDE_SKILL_DIR}`。该变量由 Claude Code 自动注入，对 personal / project / plugin 三种安装位置都正确解析；写死路径会让 skill 在异地复制后失效。
+
+### 7.1 应该用 `${CLAUDE_SKILL_DIR}` 的位置
+
+- [ ] `` !`command` `` 与 ` ```! ` 动态注入块里的脚本/数据路径
+- [ ] `allowed-tools: Bash(...)` 中允许的具体命令模板
+- [ ] `SKILL.md` 正文里指引 Claude 调用 `Read` / `Write` / `Edit` 时的目标文件
+- [ ] `scripts/*.sh` / `*.py` 内部互相引用同 skill 资源时
+- [ ] 当本 skill 维护本地缓存（如 `official-spec-fetch.md`）时的覆盖目标
+- [ ] markdown 链接旁的"实际工具调用路径"提示（保留相对链接以便点击，但显式标注 `${CLAUDE_SKILL_DIR}/...`）
+
+### 7.2 常见反模式（命中即记 P0/P1）
+
+- [ ] 写死 `~/.claude/skills/<name>/...` 或 `$HOME/.claude/skills/...`
+- [ ] 写死 plugin 绝对路径（如 `/home/.../plugins/foo/skills/...`）
+- [ ] 仓库相对路径（如 `agents-dev/skills/<name>/...`）出现在工具调用语义里
+- [ ] `cd $(dirname "$0")` / 依赖"当前工作目录正好是 skill 目录"的脚本
+- [ ] `${CLAUDE_SKILL_DIR}` 被错写为 `$CLAUDE_SKILL_DIR` 但出现在引号语境（部分 shell 解析失败）
+- [ ] plugin 子 skill 用 plugin 根目录而非 skill 目录：注意官方规范明确"对 plugin skills，`${CLAUDE_SKILL_DIR}` 指向 skill 自身的子目录，而非 plugin 根"
+
+### 7.3 优化建议（在 Step 3 Plan 给出的话术）
+
+- 把硬编码路径替换为 `${CLAUDE_SKILL_DIR}/...`，并解释「该变量由 Claude Code 注入，跨 personal/project/plugin 安装都解析正确」
+- 若 skill 本身需要落盘缓存（fetch 类、profile 类、log 类），明确以 `${CLAUDE_SKILL_DIR}` 为根并保留头部元信息（来源 / fetched_at / method）
+- 对 markdown 引用，正文链接保留相对路径以便点击，工具调用旁加 `${CLAUDE_SKILL_DIR}/...` 提示，避免 Claude 误把链接当 cwd 相对路径解析
