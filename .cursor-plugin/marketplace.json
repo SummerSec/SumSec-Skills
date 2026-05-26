@@ -63,6 +63,20 @@
       },
       "category": "developer-tools",
       "tags": ["agent-skills", "skills", "dev"]
+    },
+    {
+      "name": "plugin-dev",
+      "description": "Plugin development toolkit: 7 skills (agent/command/hook/skill/MCP/structure/settings) + 3 agents (agent-creator, plugin-validator, skill-reviewer) + /plugin-dev:create-plugin guided workflow.",
+      "version": "1.0.0",
+      "source": "./plugin-dev",
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      },
+      "category": "developer-tools",
+      "tags": ["agent-skills", "skills", "plugin-dev"]
     }
   ]
 }

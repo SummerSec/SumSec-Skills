@@ -171,4 +171,8 @@ hookify/hooks/
 hookify/core/
 hookify/utils/
 hookify/matchers/
+# plugin-dev: from claude-plugins-official
+plugin-dev/skills/
+plugin-dev/agents/
+plugin-dev/commands/
 .kiro/

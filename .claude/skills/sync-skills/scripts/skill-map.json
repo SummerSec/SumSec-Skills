@@ -103,5 +103,41 @@
   {
     "source": "claude-plugins-official/plugins/hookify/matchers",
     "target": "hookify/matchers"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/agent-development",
+    "target": "plugin-dev/skills/agent-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/command-development",
+    "target": "plugin-dev/skills/command-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/hook-development",
+    "target": "plugin-dev/skills/hook-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/mcp-integration",
+    "target": "plugin-dev/skills/mcp-integration"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/plugin-settings",
+    "target": "plugin-dev/skills/plugin-settings"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/plugin-structure",
+    "target": "plugin-dev/skills/plugin-structure"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/skills/skill-development",
+    "target": "plugin-dev/skills/skill-development"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/agents",
+    "target": "plugin-dev/agents"
+  },
+  {
+    "source": "claude-plugins-official/plugins/plugin-dev/commands",
+    "target": "plugin-dev/commands"
   }
 ]
