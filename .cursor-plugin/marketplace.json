@@ -53,7 +53,7 @@
     {
       "name": "agents-dev",
       "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, multi-platform-plugin-guide.",
-      "version": "1.0.18",
+      "version": "1.0.20",
       "source": "./agents-dev",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
