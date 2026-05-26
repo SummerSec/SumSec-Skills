@@ -63,5 +63,45 @@
   {
     "source": "khazix-skills/khazix-writer",
     "target": "writing-zh/skills/khazix-writer"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender",
+    "target": "claude-code-setup/skills/claude-automation-recommender"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver",
+    "target": "claude-md-management/skills/claude-md-improver"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-md-management/commands",
+    "target": "claude-md-management/commands"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/skills/writing-rules",
+    "target": "hookify/skills/writing-rules"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/commands",
+    "target": "hookify/commands"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/agents",
+    "target": "hookify/agents"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/hooks",
+    "target": "hookify/hooks"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/core",
+    "target": "hookify/core"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/utils",
+    "target": "hookify/utils"
+  },
+  {
+    "source": "claude-plugins-official/plugins/hookify/matchers",
+    "target": "hookify/matchers"
   }
 ]

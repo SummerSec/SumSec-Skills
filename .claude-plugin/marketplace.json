@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills",
-  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev. Install what you need.",
+  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev, claude-code-setup, claude-md-management, hookify. Install what you need.",
   "owner": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -45,8 +45,36 @@
         "name": "SummerSec",
         "url": "https://github.com/SummerSec"
       }
+    },
+    {
+      "name": "claude-code-setup",
+      "description": "Analyze codebases and recommend tailored Claude Code automations: hooks, skills, MCP servers, subagents, and slash commands.",
+      "version": "1.0.0",
+      "source": "./claude-code-setup",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      }
+    },
+    {
+      "name": "claude-md-management",
+      "description": "Maintain and improve CLAUDE.md files: audit quality (claude-md-improver) and capture session learnings (/revise-claude-md).",
+      "version": "1.0.0",
+      "source": "./claude-md-management",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      }
+    },
+    {
+      "name": "hookify",
+      "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns. Supports regex matching, multiple event types, and interactive rule management.",
+      "version": "1.0.0",
+      "source": "./hookify",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      }
     }
   ]
 }
-
-
