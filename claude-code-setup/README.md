@@ -1,25 +1,29 @@
-# Claude Code Setup
+# Claude Code Setup Plugin
 
-分析代码库并推荐量身定制的 Claude Code 自动化方案。
+Analyze codebases and recommend tailored Claude Code automations - hooks, skills, MCP servers, and more.
 
-## 功能
+## What It Does
 
-Claude 使用此技能扫描代码库并在以下类别中推荐 1-2 项自动化：
+Claude uses this skill to scan your codebase and recommend the top 1-2 automations in each category:
 
-- **MCP 服务器** — 外部集成（context7 文档查询、Playwright 前端测试）
-- **Skills** — 打包的专业知识（Plan agent、frontend-design）
-- **Hooks** — 自动操作（自动格式化、自动 lint、阻止敏感文件）
-- **Subagents** — 专业审查（安全、性能、无障碍）
-- **Slash 命令** — 快速工作流（/test、/pr-review、/explain）
+- **MCP Servers** - External integrations (context7 for docs, Playwright for frontend)
+- **Skills** - Packaged expertise (Plan agent, frontend-design)
+- **Hooks** - Automatic actions (auto-format, auto-lint, block sensitive files)
+- **Subagents** - Specialized reviewers (security, performance, accessibility)
+- **Slash Commands** - Quick workflows (/test, /pr-review, /explain)
 
-## 使用
+This skill is **read-only** - it analyzes but doesn't modify files.
+
+## Usage
 
 ```
-"推荐此项目的自动化方案"
-"帮我设置 Claude Code"
-"应该使用哪些 hooks？"
+"recommend automations for this project"
+"help me set up Claude Code"
+"what hooks should I use?"
 ```
 
-## 作者
+<img src="automation-recommender-example.png" alt="Automation recommender analyzing a codebase and providing tailored recommendations" width="600">
+
+## Author
 
 Isabella He (isabella@anthropic.com)
