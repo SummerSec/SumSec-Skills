@@ -162,14 +162,8 @@ writing-zh/skills/khazix-writer/
 claude-code-setup/
 # claude-md-management: from claude-plugins-official (whole plugin)
 claude-md-management/
-# hookify: from claude-plugins-official
-hookify/skills/
-hookify/commands/
-hookify/agents/
-hookify/hooks/
-hookify/core/
-hookify/utils/
-hookify/matchers/
+# hookify: from claude-plugins-official (whole plugin)
+hookify/
 # plugin-dev: from claude-plugins-official
 plugin-dev/skills/
 plugin-dev/agents/

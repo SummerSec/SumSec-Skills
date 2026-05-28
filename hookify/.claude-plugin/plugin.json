@@ -1,9 +1,0 @@
-{
-  "name": "hookify",
-  "version": "1.0.0",
-  "description": "通过分析对话模式或显式指令，轻松创建 Hook 以防止不期望的行为。支持正则匹配、多种事件类型、交互式规则管理。",
-  "author": {
-    "name": "Anthropic",
-    "email": "support@anthropic.com"
-  }
-}
