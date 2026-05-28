@@ -2,7 +2,7 @@
 """
 sync-skills.py
 
-将 git submodule 中的 skill 目录同步（复制）到本仓库对应插件目录下，
+将 git submodule 中的 skill/插件 目录同步（复制）到本仓库对应目录下，
 替代之前的 symlink 方案——symlink 在其他机器 clone 后无法解析。
 
 用法：
@@ -10,9 +10,10 @@ sync-skills.py
   python .claude/skills/sync-skills/scripts/sync-skills.py --dry-run  # 仅打印将要执行的操作
   python .claude/skills/sync-skills/scripts/sync-skills.py --clean    # 先删除目标再复制（强制覆盖）
   python .claude/skills/sync-skills/scripts/sync-skills.py --add SOURCE TARGET [--optional]  # 添加新映射
+  python .claude/skills/sync-skills/scripts/sync-skills.py --add-plugin PLUGIN_NAME          # 添加整个插件映射
 
 映射关系从同目录下的 skill-map.json 读取；若文件不存在，从 skill-map.default.json 初始化。
-支持通过 --add 命令自动追加新映射。
+支持通过 --add 命令自动追加新映射，通过 --add-plugin 添加整个插件映射。
 """
 
 import os
@@ -78,6 +79,40 @@ def add_entry(source: str, target: str, optional: bool = False):
     entries.append(new_entry)
     save_map(entries)
     print(f"  ✅ 已添加: {source} → {target}" + (" [可选]" if optional else ""))
+
+
+def add_plugin_entry(plugin_name: str, optional: bool = False):
+    """添加整个插件的映射，替换该 target 下已有的散装条目"""
+    source = f"claude-plugins-official/plugins/{plugin_name}"
+    target = plugin_name
+
+    entries = load_map()
+
+    # 移除该 target 下的旧映射（散装条目）
+    removed = [e for e in entries if e["target"].startswith(target + "/") or e["target"] == target]
+    for e in removed:
+        entries.remove(e)
+    if removed:
+        print(f"  🧹 已移除 {len(removed)} 条旧映射: {target}/")
+
+    # 检查是否已存在完全相同的映射
+    for e in entries:
+        if e["source"] == source and e["target"] == target:
+            print(f"  ⚠️  已存在相同映射，跳过: {source} → {target}")
+            return
+
+    new_entry = {"source": source, "target": target}
+    if optional:
+        new_entry["optional"] = True
+
+    entries.append(new_entry)
+    save_map(entries)
+    print(f"  ✅ 已添加插件: {source} → {target}" + (" [可选]" if optional else ""))
+
+    # 提示 .gitignore
+    print(f"\n  💡 建议在 .gitignore 中添加:")
+    print(f"     # {plugin_name}: from claude-plugins-official")
+    print(f"     {target}/")
 
 
 # ─── 同步逻辑 ─────────────────────────────────────────────────────────────────
@@ -181,6 +216,7 @@ def main():
   python .claude/skills/sync-skills/scripts/sync-skills.py --dry-run                # 预览
   python .claude/skills/sync-skills/scripts/sync-skills.py --clean                  # 强制重新复制
   python .claude/skills/sync-skills/scripts/sync-skills.py --add SOURCE TARGET      # 添加新映射
+  python .claude/skills/sync-skills/scripts/sync-skills.py --add-plugin PLUGIN      # 添加整个插件映射
   python .claude/skills/sync-skills/scripts/sync-skills.py --list                   # 列出当前映射
 """,
     )
@@ -188,14 +224,20 @@ def main():
     parser.add_argument("--clean", action="store_true", help="先删除目标再复制")
     parser.add_argument("--add", nargs=2, metavar=("SOURCE", "TARGET"),
                         help="添加新的 skill 映射 (相对于仓库根)")
+    parser.add_argument("--add-plugin", metavar="PLUGIN_NAME",
+                        help="添加整个插件映射 (自动构建 source → target 路径，替换旧散装条目)")
     parser.add_argument("--optional", action="store_true",
-                        help="与 --add 配合，标记为可选（源不存在时不报错）")
+                        help="与 --add 或 --add-plugin 配合，标记为可选（源不存在时不报错）")
     parser.add_argument("--list", action="store_true", help="列出当前所有映射")
 
     args = parser.parse_args()
 
     if args.add:
         add_entry(args.add[0], args.add[1], optional=args.optional)
+        return
+
+    if args.add_plugin:
+        add_plugin_entry(args.add_plugin, optional=args.optional)
         return
 
     if args.list:

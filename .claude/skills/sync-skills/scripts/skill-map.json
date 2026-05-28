@@ -65,18 +65,6 @@
     "target": "writing-zh/skills/khazix-writer"
   },
   {
-    "source": "claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender",
-    "target": "claude-code-setup/skills/claude-automation-recommender"
-  },
-  {
-    "source": "claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver",
-    "target": "claude-md-management/skills/claude-md-improver"
-  },
-  {
-    "source": "claude-plugins-official/plugins/claude-md-management/commands",
-    "target": "claude-md-management/commands"
-  },
-  {
     "source": "claude-plugins-official/plugins/hookify/skills/writing-rules",
     "target": "hookify/skills/writing-rules"
   },
@@ -139,5 +127,13 @@
   {
     "source": "claude-plugins-official/plugins/plugin-dev/commands",
     "target": "plugin-dev/commands"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-md-management",
+    "target": "claude-md-management"
+  },
+  {
+    "source": "claude-plugins-official/plugins/claude-code-setup",
+    "target": "claude-code-setup"
   }
 ]

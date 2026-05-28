@@ -158,11 +158,10 @@ dev-tools/skills/context7-mcp/
 dev-tools/skills/find-docs/
 # writing-zh: from khazix-skills
 writing-zh/skills/khazix-writer/
-# claude-code-setup: from claude-plugins-official
-claude-code-setup/skills/
-# claude-md-management: from claude-plugins-official
-claude-md-management/skills/
-claude-md-management/commands/
+# claude-code-setup: from claude-plugins-official (whole plugin)
+claude-code-setup/
+# claude-md-management: from claude-plugins-official (whole plugin)
+claude-md-management/
 # hookify: from claude-plugins-official
 hookify/skills/
 hookify/commands/
