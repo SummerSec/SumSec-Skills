@@ -1,36 +1,40 @@
-# CLAUDE.md Management
+# CLAUDE.md Management Plugin
 
-维护和改进 CLAUDE.md 文件的工具集。
+Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current.
 
-## 功能
+## What It Does
 
-两个互补工具：
+Two complementary tools for different purposes:
 
 | | claude-md-improver (skill) | /revise-claude-md (command) |
 |---|---|---|
-| **用途** | 保持 CLAUDE.md 与代码库对齐 | 捕获会话学习 |
-| **触发方式** | 代码库变更 | 会话结束时 |
-| **使用场景** | 定期维护 | 会话中发现缺失上下文 |
+| **Purpose** | Keep CLAUDE.md aligned with codebase | Capture session learnings |
+| **Triggered by** | Codebase changes | End of session |
+| **Use when** | Periodic maintenance | Session revealed missing context |
 
-## 使用
+## Usage
 
 ### Skill: claude-md-improver
 
-审计 CLAUDE.md 文件与代码库当前状态：
+Audits CLAUDE.md files against current codebase state:
 
 ```
-"审计我的 CLAUDE.md 文件"
-"检查我的 CLAUDE.md 是否最新"
+"audit my CLAUDE.md files"
+"check if my CLAUDE.md is up to date"
 ```
+
+<img src="claude-md-improver-example.png" alt="CLAUDE.md improver showing quality scores and recommended updates" width="600">
 
 ### Command: /revise-claude-md
 
-从当前会话捕获学习：
+Captures learnings from the current session:
 
 ```
 /revise-claude-md
 ```
 
-## 作者
+<img src="revise-claude-md-example.png" alt="Revise command capturing session learnings into CLAUDE.md" width="600">
+
+## Author
 
 Isabella He (isabella@anthropic.com)
