@@ -67,9 +67,5 @@
   {
     "source": "claude-plugins-official/plugins/claude-code-setup",
     "target": "claude-code-setup"
-  },
-  {
-    "source": "claude-plugins-official/plugins/hookify",
-    "target": "hookify"
   }
 ]
