@@ -19,8 +19,15 @@ if ".git" in str(tool_input) and "submodule" not in str(tool_input).lower():
     # 检查是否只是操作 .git 目录（如 git config），跳过
     pass
 
-repo_root = os.environ.get("CLAUDE_PROJECT_ROOT", ".")
-os.chdir(repo_root)
+def get_repo_root():
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"], text=True
+        ).strip()
+    except Exception:
+        return os.getcwd()
+
+os.chdir(get_repo_root())
 
 print("[sync-skills] 提交前自动同步...", file=sys.stderr)
 
