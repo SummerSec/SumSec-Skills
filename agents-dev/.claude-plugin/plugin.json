@@ -1,6 +1,6 @@
 {
   "name": "agents-dev",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Agent 开发生态插件：skill-creator（技能创建）、plugin-dev（插件开发技能链）、hookify（Hook 编写）、claude-md-management（CLAUDE.md 治理）、agent-sdk-dev（Agent SDK）、multi-platform-plugin-guide（版本对齐）、claude-code-setup（自动化推荐）、workflow-skill-creator（流程编排 Skill 设计）",
   "author": {
     "name": "SummerSec",
