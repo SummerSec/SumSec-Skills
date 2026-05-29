@@ -1,13 +1,13 @@
 ---
 name: sync-skills
-description: "管理 submodule skill 与插件同步：添加/删除映射、运行同步脚本、替代 symlink。sync skills、sync plugins、skill-map.json、--add-plugin、从 submodule 导入"
+description: "管理 submodule skill 与插件同步：添加/删除映射、运行同步脚本。sync skills、sync plugins、skill-map.json、--add-plugin、从 submodule 导入"
 ---
 
 # Sync Skills — Submodule Skill 与插件同步管理
 
 ## 概述
 
-本仓库从 git submodule（`claude-plugins-official`、`context7` 等）引用第三方 skill 和插件，通过 **复制同步** 替代 symlink（symlink 在其他机器 clone 后无法解析）。
+本仓库从 git submodule（`claude-plugins-official`、`context7` 等）引用第三方 skill 和插件，通过 **复制同步** 管理。
 
 支持两种粒度：
 - **组件级**：同步单个 skill/commands/agents/hooks 子目录到目标插件
@@ -31,7 +31,7 @@ description: "管理 submodule skill 与插件同步：添加/删除映射、运
 ## 何时使用
 
 - 用户要求「添加一个来自 submodule 的 skill」「同步 skills」「新增映射」
-- 用户提到 `skill-map.json`、`sync-skills.py`、symlink 替代方案
+- 用户提到 `skill-map.json`、`sync-skills.py`
 - 需要从 `claude-plugins-official` 或其他 submodule 引入新 skill/插件
 - 用户要求「添加插件」「同步插件」「从 submodule 复制插件」
 
@@ -87,7 +87,16 @@ git rm --cached -r claude-md-management/
 python .claude/skills/sync-skills/scripts/sync-skills.py
 ```
 
-### 执行同步
+### 自动同步（提交前）
+
+`.claude/settings.json` 中配置了 PreToolUse hook，每次 `git commit` 前自动执行：
+
+1. `git submodule update --init --recursive` — 更新子模块
+2. `python3 sync-skills.py` — 同步 skills
+
+无需手动操作，提交时自动触发。
+
+### 手动同步
 
 ```bash
 # 预览（不写入）
@@ -116,7 +125,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 ## 规则
 
-- **映射表是唯一来源**：所有 source → target 关系必须记录在 `.claude/skills/sync-skills/scripts/skill-map.json`，不要手动创建 symlink
+- **映射表是唯一来源**：所有 source → target 关系必须记录在 `.claude/skills/sync-skills/scripts/skill-map.json`
 - **目标目录不提交**：同步产生的目标目录已在 `.gitignore` 中忽略，不要 `git add` 它们
 - **新增映射后同步 `.gitignore`**：每次 `--add` 或 `--add-plugin` 后，检查 `.gitignore` 是否已包含新目标路径，未包含则追加
   - 组件级：忽略具体子目录（如 `plugin-dev/skills/`）
@@ -157,6 +166,6 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 | 场景 | 粒度 | 示例 |
 |------|------|------|
-| 目标插件含自定义代码，只需同步部分内容 | 组件级 | `hookify`（有自写 Python）、`plugin-dev`（有自写配置） |
+| 目标插件含自定义代码，只需同步部分内容 | 组件级 | `plugin-dev`（有自写配置） |
 | 目标是 submodule 的完整镜像 | 插件级 | `claude-md-management`、`claude-code-setup` |
 | 多插件共享同一源的不同部分 | 组件级 | `agents-dev` 从多个源聚合 skills |

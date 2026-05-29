@@ -1,0 +1,20 @@
+{
+  "enabledPlugins": {
+    "plugin-dev@sumsec-skills": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "git commit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || echo '.')\" && cd \"$ROOT\" && git submodule update --init --recursive 2>&1 && python3 .claude/skills/sync-skills/scripts/sync-skills.py 2>&1; exit 0",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
