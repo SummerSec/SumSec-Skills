@@ -133,6 +133,9 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 - **新增映射后同步 `.gitignore`**：每次 `--add` 或 `--add-plugin` 后，检查 `.gitignore` 是否已包含新目标路径，未包含则追加
   - 组件级：忽略具体子目录（如 `plugin-dev/skills/`）
   - 插件级：忽略整个插件目录（如 `claude-md-management/`）
+- **删除映射后清理 `.gitignore` 与目标目录**：从 `skill-map.json` 移除条目时，必须**同时**删除：① 对应的 ignore 规则行；② 已同步生成的目标目录。三者（映射 / 目录 / ignore）必须保持一致，否则会留下孤儿规则。
+  - **Why:** 上次清理 `claude-md-improver` / `claude-automation-recommender` 时只动了前两者，遗留了 `.gitignore` 死规则。
+  - **How to apply:** 改 `skill-map.json` 删条目 → `rm -rf <target>` → 在 `.gitignore` 「Synced skills」区块里删对应行。
 - **插件级映射需 `git rm --cached`**：如果目标目录之前提交过文件，需先从 git 跟踪中移除后再同步
 - **submodule 必须先初始化**：同步前确保 `git submodule update --init --recursive` 已执行
 - **`optional: true`**：用于源可能不存在的实验性 skill/插件，同步时跳过而非报错
