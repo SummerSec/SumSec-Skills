@@ -166,8 +166,8 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 - **版本与内容分治原则**：镜像插件（来自 submodule）遵循「**版本号以本仓库为准、内容以 submodule upstream 为准**」。
   - **Why:** 全仓 manifest 都对齐到本仓库 release 版本（如 `1.0.22`），不让 upstream 各插件的独立版本号（claude-code-setup 1.0.0、plugin-dev 1.0.0……）污染本仓库节奏；同时内容由 `sync-skills.py` 自动从 submodule 复制，不在镜像目录里手改文件——避免 sync 把改动覆盖。
   - **How to apply:**
-    - **不要**手动编辑镜像目录下的任何 SKILL.md / scripts / references（如 `claude-code-setup/skills/*`、`plugin-dev/skills/*`）——下次 sync 会被 upstream 覆盖；要改就改 upstream 或加新插件。
-    - **要**改 `<mirror>/.claude-plugin/plugin.json` 的 `version` 字段对齐本仓库 release（sync 脚本会保留 upstream 其它字段，但 version 由维护者主导）。
+    - **不要**手动编辑镜像目录下的 SKILL.md / scripts / references（如 `claude-code-setup/skills/*`、`plugin-dev/skills/*`）——下次 sync 会被 upstream 覆盖；要改就改 upstream 或加新插件。
+    - **`<mirror>/.claude-plugin/plugin.json` 被 sync 自动保留**：sync 脚本通过 `PLUGIN_LEVEL_IGNORES` 排除该文件，确保本仓库的 `version` 字段不被 upstream 覆盖（详见 `sync-skills.py` 顶部常量）。手改 plugin.json 版本号是安全的，下次 sync 不会动它。
     - upstream 升级走「Upstream 升级流程」章节，sync 后人工评审 diff 再 commit。
 - **不要自动整合 skill 到聚合插件**：来自 submodule 的 skill 默认按其所属的**独立插件**整体镜像（插件级映射）；不要把它从所属插件里抽出来再塞进 `agents-dev` 这类聚合插件。**仅当用户明确要求「聚合到 X 插件」「合并到 agents-dev」时**，才追加额外的组件级映射。
   - **Why:** 一个 skill 同时存在于「独立插件」和「聚合插件」会造成双轨上架、文档脱节、版本难对齐。

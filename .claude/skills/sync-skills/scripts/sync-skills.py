@@ -121,6 +121,13 @@ def add_plugin_entry(plugin_name: str, optional: bool = False):
 
 # ─── 同步逻辑 ─────────────────────────────────────────────────────────────────
 
+# 插件级映射中不会从 upstream 覆盖的文件——避免本仓库自有版本号、配置被刷掉。
+# 路径相对插件目录根。
+PLUGIN_LEVEL_IGNORES = {
+    ".claude-plugin/plugin.json",  # 版本号本仓库说了算（详见 SKILL.md「版本与内容分治原则」）
+}
+
+
 def is_symlink(path: Path) -> bool:
     try:
         return path.is_symlink()
@@ -136,48 +143,45 @@ def remove_target(path: Path):
         shutil.rmtree(path)
 
 
-def copy_dir(src: Path, dest: Path):
-    if dest.exists():
-        remove_target(dest)
-    shutil.copytree(src, dest)
+def copy_dir(src: Path, dest: Path, ignores: set[str] | None = None):
+    """复制目录到目标位置。
 
-
-def preserve_version(dest: Path, preserved_version: str | None):
-    """同步后把镜像插件的 plugin.json version 字段恢复为本仓库值。
-
-    版本号策略：内容以 upstream 为准，版本号以本仓库为准（见 SKILL.md）。
-    sync 会用 upstream 的 plugin.json 覆盖目标目录，因此需要把先前的 version 写回。
+    ignores 是相对 src 根的路径集合（如 {".claude-plugin/plugin.json"}）；
+    对应文件/目录会被跳过，目标已存在的同名文件**保留**不动。
     """
-    if preserved_version is None:
-        return
-    manifest = dest / ".claude-plugin" / "plugin.json"
-    if not manifest.exists():
-        return
-    try:
-        with open(manifest, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        if data.get("version") == preserved_version:
-            return
-        upstream_version = data.get("version", "?")
-        data["version"] = preserved_version
-        with open(manifest, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-            f.write("\n")
-        print(f"     🔖 version 保留: {upstream_version} → {preserved_version}")
-    except (json.JSONDecodeError, OSError) as e:
-        print(f"     ⚠️  无法保留 version: {e}")
+    ignores = ignores or set()
+    skipped_existing: list[Path] = []
 
+    if dest.exists():
+        # 把要保留的文件先挪到临时目录
+        preserved: dict[str, bytes] = {}
+        for rel in ignores:
+            keep = dest / rel
+            if keep.is_file():
+                preserved[rel] = keep.read_bytes()
+                skipped_existing.append(keep)
+        remove_target(dest)
+    else:
+        preserved = {}
 
-def read_existing_version(dest: Path) -> str | None:
-    """读取目标插件目录现有的 version 字段（用于同步前快照）"""
-    manifest = dest / ".claude-plugin" / "plugin.json"
-    if not manifest.exists():
-        return None
-    try:
-        with open(manifest, "r", encoding="utf-8") as f:
-            return json.load(f).get("version")
-    except (json.JSONDecodeError, OSError):
-        return None
+    def _ignore(dirpath: str, names: list[str]) -> list[str]:
+        rel_dir = Path(dirpath).resolve().relative_to(src.resolve())
+        skip = []
+        for name in names:
+            candidate = str((rel_dir / name)).replace(os.sep, "/")
+            if candidate in ignores:
+                skip.append(name)
+        return skip
+
+    shutil.copytree(src, dest, ignore=_ignore)
+
+    # 写回保留的文件
+    for rel, content in preserved.items():
+        out = dest / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(content)
+
+    return skipped_existing
 
 
 def do_sync(dry_run: bool = False, clean: bool = False):
@@ -227,15 +231,18 @@ def do_sync(dry_run: bool = False, clean: bool = False):
 
         # 实际同步
         try:
-            preserved_version = read_existing_version(abs_dest)
-
             if is_symlink(abs_dest) or clean:
                 remove_target(abs_dest)
 
             abs_dest.parent.mkdir(parents=True, exist_ok=True)
-            copy_dir(abs_src, abs_dest)
-            preserve_version(abs_dest, preserved_version)
-            print(f"  ✅ {label}")
+
+            # 插件级映射（source 是完整插件目录）：保留本仓库版本的 plugin.json 等文件
+            is_plugin_level = (abs_src / ".claude-plugin" / "plugin.json").exists()
+            ignores = PLUGIN_LEVEL_IGNORES if is_plugin_level else None
+
+            copy_dir(abs_src, abs_dest, ignores=ignores)
+            note = "  🔒 plugin.json 保留" if is_plugin_level else ""
+            print(f"  ✅ {label}{note}")
             synced += 1
         except Exception as e:
             print(f"  ❌ {label}: {e}")
