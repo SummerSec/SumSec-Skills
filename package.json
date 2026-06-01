@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "SummerSec personal Agent Skills monorepo; version field mirrors plugin manifests for multi-platform releases.",
   "license": "Apache-2.0",
   "main": "opencode/plugins/sumsec-skills.mjs",
@@ -15,5 +15,3 @@
     "postinstall": "python .claude/skills/sync-skills/scripts/sync-skills.py"
   }
 }
-
-
