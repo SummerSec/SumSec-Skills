@@ -3,6 +3,17 @@
     "plugin-dev@sumsec-skills": true
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/skills/sync-skills/scripts/session-start-check.py",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "hooks": [

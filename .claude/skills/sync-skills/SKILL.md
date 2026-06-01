@@ -95,26 +95,43 @@ git commit -m "feat(claude-md-management): mirror from upstream"
 
 镜像插件（`claude-code-setup` / `claude-md-management` / `plugin-dev` 等）的内容来自 submodule upstream，**但版本号、发布节奏由本仓库控制**。详见下节「版本与内容分治原则」。
 
-升级步骤：
+**判断 upstream 是否有更新**：
 
 ```bash
-# 1. 拉 upstream 最新 commit（仅在你想吃新版本时跑）
-git submodule update --remote claude-plugins-official
+# 检查所有 submodule 是否落后 upstream（不修改 working tree）
+python .claude/skills/sync-skills/scripts/sync-skills.py --check-upstream
 
-# 2. 看 upstream 改了哪些插件，评估要不要采纳
-git -C claude-plugins-official log --oneline HEAD@{1}..HEAD -- plugins/
+# 输出示例：
+#   🆙 claude-plugins-official: 落后 12 commits (abc1234 → def5678 on main)
+#       • def5678 feat(claude-md-management): add ...
+#       • ...
+#   ✅ context7: 已是最新
+# exit code: 0=全部最新, 2=至少一个落后
+```
 
-# 3. 跑同步把 upstream 内容刷到目标目录
-python .claude/skills/sync-skills/scripts/sync-skills.py
+SessionStart hook 已配置 `--check-upstream --quiet`，每次 Claude Code 启动会自动检查并提示。
 
-# 4. 看 diff 决定接受还是回退
+**应用升级**：
+
+```bash
+# 拉 upstream HEAD 并同步内容到镜像目录（不 commit）
+python .claude/skills/sync-skills/scripts/sync-skills.py --update
+
+# 看变化、评审
 git status --short
 git diff <changed-dirs>
 
-# 5. 接受 → git add 并 commit；不要 → git restore 对应目录
-git add <accepted-dirs> && git commit -m "sync(upstream): pull <plugin> from claude-plugins-official@<sha>"
+# 接受 → commit；不要 → git restore 对应目录
+git add <accepted-dirs> && git commit -m "sync(upstream): pull from claude-plugins-official@<sha>"
 
-# 6. 若是面向用户的变更，按 multi-platform-plugin-guide bump 全仓版本
+# 若是面向用户的变更，按 multi-platform-plugin-guide bump 全仓版本
+```
+
+**单独命令**：
+
+```bash
+python .claude/skills/sync-skills/scripts/sync-skills.py --pull-upstream   # 只拉 submodule HEAD，不 sync
+python .claude/skills/sync-skills/scripts/sync-skills.py                   # 只 sync，submodule 不动
 ```
 
 ### 手动同步

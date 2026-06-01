@@ -11,6 +11,9 @@ sync-skills.py
   python .claude/skills/sync-skills/scripts/sync-skills.py --clean    # 先删除目标再复制（强制覆盖）
   python .claude/skills/sync-skills/scripts/sync-skills.py --add SOURCE TARGET [--optional]  # 添加新映射
   python .claude/skills/sync-skills/scripts/sync-skills.py --add-plugin PLUGIN_NAME          # 添加整个插件映射
+  python .claude/skills/sync-skills/scripts/sync-skills.py --check-upstream [--quiet]        # 检查 submodule 是否落后 upstream
+  python .claude/skills/sync-skills/scripts/sync-skills.py --pull-upstream                   # 把 submodule 拉到 upstream HEAD
+  python .claude/skills/sync-skills/scripts/sync-skills.py --update                          # pull-upstream + sync
 
 映射关系从同目录下的 skill-map.json 读取；若文件不存在，从 skill-map.default.json 初始化。
 支持通过 --add 命令自动追加新映射，通过 --add-plugin 添加整个插件映射。
@@ -21,6 +24,7 @@ import sys
 import json
 import shutil
 import argparse
+import subprocess
 from pathlib import Path
 
 # 定位仓库根目录（脚本在 .claude/skills/sync-skills/scripts/ 下，向上 4 级）
@@ -245,6 +249,155 @@ def do_sync(dry_run: bool = False, clean: bool = False):
         sys.exit(1)
 
 
+# ─── Upstream 检测 / 同步 ────────────────────────────────────────────────────
+
+def list_submodules() -> list[str]:
+    """返回 .gitmodules 中所有 submodule 的路径"""
+    try:
+        out = subprocess.check_output(
+            ["git", "config", "--file", str(ROOT / ".gitmodules"),
+             "--get-regexp", r"submodule\..*\.path"],
+            text=True, cwd=ROOT,
+        )
+        return [line.split(" ", 1)[1] for line in out.strip().splitlines() if line]
+    except subprocess.CalledProcessError:
+        return []
+
+
+def detect_default_branch(submodule_path: Path) -> str:
+    """探测 submodule 的 upstream 默认分支（通常是 main 或 master）"""
+    try:
+        # 优先用 origin/HEAD 的符号引用
+        ref = subprocess.check_output(
+            ["git", "symbolic-ref", "refs/remotes/origin/HEAD"],
+            text=True, cwd=submodule_path, stderr=subprocess.DEVNULL,
+        ).strip()
+        return ref.rsplit("/", 1)[1]
+    except subprocess.CalledProcessError:
+        pass
+
+    # 退而求其次：用 ls-remote 找 HEAD 指向
+    try:
+        out = subprocess.check_output(
+            ["git", "ls-remote", "--symref", "origin", "HEAD"],
+            text=True, cwd=submodule_path,
+        )
+        for line in out.splitlines():
+            if line.startswith("ref:"):
+                return line.split()[1].rsplit("/", 1)[1]
+    except subprocess.CalledProcessError:
+        pass
+    return "main"
+
+
+def check_upstream(quiet: bool = False) -> int:
+    """检测每个 submodule 是否落后 upstream。返回 exit code：0=全部最新，2=至少一个落后。"""
+    submodules = list_submodules()
+    if not submodules:
+        if not quiet:
+            print("⚠️  未找到 submodule")
+        return 0
+
+    behind_count = 0
+    summary_lines = []
+
+    if not quiet:
+        print("\n🔍 检查 submodule upstream 更新...\n")
+
+    for sm in submodules:
+        sm_path = ROOT / sm
+        if not (sm_path / ".git").exists():
+            if not quiet:
+                print(f"  ⏭  {sm}: 未初始化 (跑 git submodule update --init)")
+            continue
+
+        branch = detect_default_branch(sm_path)
+
+        # fetch 最新引用（quiet 模式压日志）
+        fetch_args = ["git", "fetch", "origin", branch]
+        if quiet:
+            fetch_args.insert(2, "--quiet")
+        try:
+            subprocess.run(fetch_args, cwd=sm_path, check=True,
+                           capture_output=quiet, text=True)
+        except subprocess.CalledProcessError as e:
+            if not quiet:
+                print(f"  ❌ {sm}: fetch 失败 ({e})")
+            continue
+
+        try:
+            local = subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=sm_path, text=True
+            ).strip()
+            remote = subprocess.check_output(
+                ["git", "rev-parse", f"origin/{branch}"], cwd=sm_path, text=True
+            ).strip()
+        except subprocess.CalledProcessError:
+            continue
+
+        if local == remote:
+            if not quiet:
+                print(f"  ✅ {sm}: 已是最新 ({branch} @ {local[:7]})")
+            continue
+
+        # 算落后多少个 commit
+        try:
+            behind = int(subprocess.check_output(
+                ["git", "rev-list", "--count", f"HEAD..origin/{branch}"],
+                cwd=sm_path, text=True
+            ).strip())
+        except subprocess.CalledProcessError:
+            behind = -1
+
+        behind_count += 1
+        msg = f"{sm}: 落后 {behind} commits ({local[:7]} → {remote[:7]} on {branch})"
+        summary_lines.append(msg)
+
+        if not quiet:
+            print(f"  🆙 {msg}")
+            # 列前 5 条 commit
+            try:
+                log = subprocess.check_output(
+                    ["git", "log", "--oneline", "-5", f"HEAD..origin/{branch}"],
+                    cwd=sm_path, text=True
+                ).strip()
+                for line in log.splitlines():
+                    print(f"      • {line}")
+            except subprocess.CalledProcessError:
+                pass
+
+    if behind_count == 0:
+        if not quiet:
+            print("\n✨ 所有 submodule 已是最新\n")
+        return 0
+
+    if quiet:
+        # quiet 模式只输出一行总结，供 hook 使用
+        print(f"💡 submodule 有更新（{behind_count} 个）：跑 "
+              f"`python .claude/skills/sync-skills/scripts/sync-skills.py --update` 拉取")
+        for line in summary_lines:
+            print(f"   - {line}")
+    else:
+        print(f"\n📊 共 {behind_count} 个 submodule 落后 upstream")
+        print("💡 跑 `python .claude/skills/sync-skills/scripts/sync-skills.py --update` 拉取并同步\n")
+    return 2
+
+
+def pull_upstream():
+    """把所有 submodule 拉到 upstream HEAD（远程跟踪分支最新 commit）"""
+    print("\n⬇️  拉取 submodule upstream HEAD...\n")
+    try:
+        subprocess.run(
+            ["git", "submodule", "update", "--remote", "--recursive"],
+            cwd=ROOT, check=True,
+        )
+        print("\n✅ submodule 已更新到 upstream HEAD")
+        print("   下一步：跑 sync 把内容刷到镜像目录，或直接 --update 一气呵成\n")
+    except subprocess.CalledProcessError as e:
+        print(f"\n❌ pull-upstream 失败: {e}\n")
+        sys.exit(1)
+
+
 # ─── CLI ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -270,6 +423,14 @@ def main():
     parser.add_argument("--optional", action="store_true",
                         help="与 --add 或 --add-plugin 配合，标记为可选（源不存在时不报错）")
     parser.add_argument("--list", action="store_true", help="列出当前所有映射")
+    parser.add_argument("--check-upstream", action="store_true",
+                        help="检查 submodule 是否落后 upstream（不修改 working tree）；有更新返回 exit code 2")
+    parser.add_argument("--quiet", action="store_true",
+                        help="与 --check-upstream 配合，仅输出一行总结，供 hook 使用")
+    parser.add_argument("--pull-upstream", action="store_true",
+                        help="把所有 submodule 拉到 upstream HEAD (= git submodule update --remote)")
+    parser.add_argument("--update", action="store_true",
+                        help="pull-upstream + sync 一气呵成；同步完看 git status 决定是否 commit")
 
     args = parser.parse_args()
 
@@ -289,6 +450,18 @@ def main():
             print(f"  {i:2d}. {e['source']}")
             print(f"      → {e['target']}{opt}")
         print()
+        return
+
+    if args.check_upstream:
+        sys.exit(check_upstream(quiet=args.quiet))
+
+    if args.pull_upstream:
+        pull_upstream()
+        return
+
+    if args.update:
+        pull_upstream()
+        do_sync(dry_run=False, clean=False)
         return
 
     do_sync(dry_run=args.dry_run, clean=args.clean)
