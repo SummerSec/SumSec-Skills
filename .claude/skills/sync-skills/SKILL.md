@@ -76,15 +76,10 @@ python .claude/skills/sync-skills/scripts/sync-skills.py --add-plugin <plugin_na
 # 1. 添加插件映射
 python .claude/skills/sync-skills/scripts/sync-skills.py --add-plugin claude-md-management
 
-# 2. 更新 .gitignore（按脚本输出的建议）
-echo "# claude-md-management: from claude-plugins-official" >> .gitignore
-echo "claude-md-management/" >> .gitignore
-
-# 3. 如果之前提交过该插件目录的文件，从 git 跟踪中移除
-git rm --cached -r claude-md-management/
-
-# 4. 执行同步
+# 2. 执行同步并提交（不再需要改 .gitignore）
 python .claude/skills/sync-skills/scripts/sync-skills.py
+git add claude-md-management/
+git commit -m "feat(claude-md-management): mirror from upstream"
 ```
 
 ### 自动同步（提交前）
@@ -129,13 +124,8 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
   - **Why:** 一个 skill 同时存在于「独立插件」和「聚合插件」会造成双轨上架、文档脱节、版本难对齐。
   - **How to apply:** 用户说「同步插件 X」「添加插件 X」时，只加一条插件级映射 `<source>/X → X/`，不动 `agents-dev/` 或其它聚合插件；想聚合必须由用户主动开口。
 - **映射表是唯一来源**：所有 source → target 关系必须记录在 `.claude/skills/sync-skills/scripts/skill-map.json`
-- **目标目录不提交**：同步产生的目标目录已在 `.gitignore` 中忽略，不要 `git add` 它们
-- **新增映射后同步 `.gitignore`**：每次 `--add` 或 `--add-plugin` 后，检查 `.gitignore` 是否已包含新目标路径，未包含则追加
-  - 组件级：忽略具体子目录（如 `plugin-dev/skills/`）
-  - 插件级：忽略整个插件目录（如 `claude-md-management/`）
-- **删除映射后清理 `.gitignore` 与目标目录**：从 `skill-map.json` 移除条目时，必须**同时**删除：① 对应的 ignore 规则行；② 已同步生成的目标目录。三者（映射 / 目录 / ignore）必须保持一致，否则会留下孤儿规则。
-  - **Why:** 上次清理 `claude-md-improver` / `claude-automation-recommender` 时只动了前两者，遗留了 `.gitignore` 死规则。
-  - **How to apply:** 改 `skill-map.json` 删条目 → `rm -rf <target>` → 在 `.gitignore` 「Synced skills」区块里删对应行。
+- **目标目录需要提交**：同步生成的目录是 marketplace 上架内容（`./claude-code-setup` 等），不提交会导致远端用户安装时目录为空。upstream submodule 升级后重跑 sync，把 diff 一起 commit。
+- **不再使用 `.gitignore` 拦截同步产物**：旧设计曾把这些目录 ignored，导致 marketplace 注册的插件在远端不可装。已废弃，不要再加回去。
 - **插件级映射需 `git rm --cached`**：如果目标目录之前提交过文件，需先从 git 跟踪中移除后再同步
 - **submodule 必须先初始化**：同步前确保 `git submodule update --init --recursive` 已执行
 - **`optional: true`**：用于源可能不存在的实验性 skill/插件，同步时跳过而非报错

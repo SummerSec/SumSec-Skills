@@ -53,13 +53,13 @@ npm run sync:clean
 - **组件级**（`--add`）：同步单个子目录到目标插件（如 `plugin-dev/skills/agent-development → agents-dev/skills/agent-development`）
 - **插件级**（`--add-plugin`）：同步整个插件目录，用于纯镜像插件
 
-**gitignore 规则**：同步产生的目标目录在 `.gitignore` 中忽略（`# ─── Synced skills` 区块），不直接提交。
+**提交策略**：同步产生的目标目录**需要提交到 git**——marketplace.json 将这些插件注册为可安装项（`./claude-code-setup`、`./plugin-dev` 等），不提交会导致远端用户安装时拿到空目录。upstream submodule 升级后，重跑 sync 并提交 diff 即可。
 
 **新机器初始化**：
 ```bash
 git clone --recurse-submodules https://github.com/SummerSec/SumSec-Skills.git
 cd SumSec-Skills
-python .claude/skills/sync-skills/scripts/sync-skills.py
+python .claude/skills/sync-skills/scripts/sync-skills.py   # 仅维护者升级 upstream 时需要；普通用户 clone 后直接装插件即可
 ```
 
 ## 多平台版本管理
