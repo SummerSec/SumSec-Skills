@@ -138,6 +138,44 @@ def copy_dir(src: Path, dest: Path):
     shutil.copytree(src, dest)
 
 
+def preserve_version(dest: Path, preserved_version: str | None):
+    """同步后把镜像插件的 plugin.json version 字段恢复为本仓库值。
+
+    版本号策略：内容以 upstream 为准，版本号以本仓库为准（见 SKILL.md）。
+    sync 会用 upstream 的 plugin.json 覆盖目标目录，因此需要把先前的 version 写回。
+    """
+    if preserved_version is None:
+        return
+    manifest = dest / ".claude-plugin" / "plugin.json"
+    if not manifest.exists():
+        return
+    try:
+        with open(manifest, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if data.get("version") == preserved_version:
+            return
+        upstream_version = data.get("version", "?")
+        data["version"] = preserved_version
+        with open(manifest, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        print(f"     🔖 version 保留: {upstream_version} → {preserved_version}")
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"     ⚠️  无法保留 version: {e}")
+
+
+def read_existing_version(dest: Path) -> str | None:
+    """读取目标插件目录现有的 version 字段（用于同步前快照）"""
+    manifest = dest / ".claude-plugin" / "plugin.json"
+    if not manifest.exists():
+        return None
+    try:
+        with open(manifest, "r", encoding="utf-8") as f:
+            return json.load(f).get("version")
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def do_sync(dry_run: bool = False, clean: bool = False):
     """执行同步"""
     entries = load_map()
@@ -185,11 +223,14 @@ def do_sync(dry_run: bool = False, clean: bool = False):
 
         # 实际同步
         try:
+            preserved_version = read_existing_version(abs_dest)
+
             if is_symlink(abs_dest) or clean:
                 remove_target(abs_dest)
 
             abs_dest.parent.mkdir(parents=True, exist_ok=True)
             copy_dir(abs_src, abs_dest)
+            preserve_version(abs_dest, preserved_version)
             print(f"  ✅ {label}")
             synced += 1
         except Exception as e:

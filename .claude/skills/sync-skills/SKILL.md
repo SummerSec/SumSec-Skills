@@ -86,10 +86,36 @@ git commit -m "feat(claude-md-management): mirror from upstream"
 
 `.claude/settings.json` 中配置了 PreToolUse hook，每次 `git commit` 前自动执行：
 
-1. `git submodule update --init --recursive` — 更新子模块
-2. `python3 sync-skills.py` — 同步 skills
+1. `git submodule update --init --recursive` — 把 submodule 同步到 `.gitmodules` 锁定的 commit（**不**自动追 upstream 最新；想拉新版要主动跑 `--remote`，见下节）
+2. `python3 sync-skills.py` — 把 submodule 内容复制到目标插件目录
 
 无需手动操作，提交时自动触发。
+
+### Upstream 升级流程
+
+镜像插件（`claude-code-setup` / `claude-md-management` / `plugin-dev` 等）的内容来自 submodule upstream，**但版本号、发布节奏由本仓库控制**。详见下节「版本与内容分治原则」。
+
+升级步骤：
+
+```bash
+# 1. 拉 upstream 最新 commit（仅在你想吃新版本时跑）
+git submodule update --remote claude-plugins-official
+
+# 2. 看 upstream 改了哪些插件，评估要不要采纳
+git -C claude-plugins-official log --oneline HEAD@{1}..HEAD -- plugins/
+
+# 3. 跑同步把 upstream 内容刷到目标目录
+python .claude/skills/sync-skills/scripts/sync-skills.py
+
+# 4. 看 diff 决定接受还是回退
+git status --short
+git diff <changed-dirs>
+
+# 5. 接受 → git add 并 commit；不要 → git restore 对应目录
+git add <accepted-dirs> && git commit -m "sync(upstream): pull <plugin> from claude-plugins-official@<sha>"
+
+# 6. 若是面向用户的变更，按 multi-platform-plugin-guide bump 全仓版本
+```
 
 ### 手动同步
 
@@ -120,6 +146,12 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 ## 规则
 
+- **版本与内容分治原则**：镜像插件（来自 submodule）遵循「**版本号以本仓库为准、内容以 submodule upstream 为准**」。
+  - **Why:** 全仓 manifest 都对齐到本仓库 release 版本（如 `1.0.22`），不让 upstream 各插件的独立版本号（claude-code-setup 1.0.0、plugin-dev 1.0.0……）污染本仓库节奏；同时内容由 `sync-skills.py` 自动从 submodule 复制，不在镜像目录里手改文件——避免 sync 把改动覆盖。
+  - **How to apply:**
+    - **不要**手动编辑镜像目录下的任何 SKILL.md / scripts / references（如 `claude-code-setup/skills/*`、`plugin-dev/skills/*`）——下次 sync 会被 upstream 覆盖；要改就改 upstream 或加新插件。
+    - **要**改 `<mirror>/.claude-plugin/plugin.json` 的 `version` 字段对齐本仓库 release（sync 脚本会保留 upstream 其它字段，但 version 由维护者主导）。
+    - upstream 升级走「Upstream 升级流程」章节，sync 后人工评审 diff 再 commit。
 - **不要自动整合 skill 到聚合插件**：来自 submodule 的 skill 默认按其所属的**独立插件**整体镜像（插件级映射）；不要把它从所属插件里抽出来再塞进 `agents-dev` 这类聚合插件。**仅当用户明确要求「聚合到 X 插件」「合并到 agents-dev」时**，才追加额外的组件级映射。
   - **Why:** 一个 skill 同时存在于「独立插件」和「聚合插件」会造成双轨上架、文档脱节、版本难对齐。
   - **How to apply:** 用户说「同步插件 X」「添加插件 X」时，只加一条插件级映射 `<source>/X → X/`，不动 `agents-dev/` 或其它聚合插件；想聚合必须由用户主动开口。
