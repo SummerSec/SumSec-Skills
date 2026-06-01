@@ -49,7 +49,6 @@ SumSec-Skills/
 │       ├── plugin-settings/  (plugin-dev)
 │       ├── plugin-structure/  (plugin-dev)
 │       ├── skill-development/  (plugin-dev)
-│       ├── claude-md-improver/  (claude-md-management)
 │       ├── agent-sdk-dev/  (claude-plugins-official)
 │       ├── skill-optimizer/  (本仓库)
 │       └── multi-platform-plugin-guide/SKILL.md
@@ -94,7 +93,7 @@ SumSec-Skills/
 | writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT、卡兹克写作风格 |
 | media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史 |
-| agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、claude-md-management、agent-sdk-dev、skill-optimizer、版本对齐 |
+| agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、skill-optimizer、版本对齐 |
 
 （随仓库增加插件时，维护者可在此表追加一行。）
 

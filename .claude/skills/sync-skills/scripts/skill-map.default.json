@@ -8,10 +8,6 @@
     "target": "agents-dev/skills/agent-sdk-dev"
   },
   {
-    "source": "claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver",
-    "target": "agents-dev/skills/claude-md-improver"
-  },
-  {
     "source": "claude-plugins-official/plugins/plugin-dev/skills/command-development",
     "target": "agents-dev/skills/command-development"
   },
@@ -42,11 +38,6 @@
   {
     "source": "claude-plugins-official/plugins/hookify/skills/writing-rules",
     "target": "agents-dev/skills/writing-rules"
-  },
-  {
-    "source": "claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender",
-    "target": "agents-dev/skills/claude-automation-recommender",
-    "optional": true
   },
   {
     "source": "context7/skills/context7-cli",

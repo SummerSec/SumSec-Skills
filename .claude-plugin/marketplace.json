@@ -38,7 +38,7 @@
     },
     {
       "name": "agents-dev",
-      "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, claude-md-management, agent-sdk-dev, and multi-platform-plugin-guide.",
+      "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, agent-sdk-dev, and multi-platform-plugin-guide.",
       "version": "1.0.20",
       "source": "./agents-dev",
       "author": {

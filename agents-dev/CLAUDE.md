@@ -15,9 +15,7 @@ Agent 开发生态技能集合。继承自 claude-plugins-official 及本仓库 
 | `plugin-settings` | `skills/plugin-settings/SKILL.md` | 插件设置（plugin-dev 插件） |
 | `plugin-structure` | `skills/plugin-structure/SKILL.md` | 插件结构（plugin-dev 插件） |
 | `skill-development` | `skills/skill-development/SKILL.md` | 技能开发（plugin-dev 插件） |
-| `claude-md-improver` | `skills/claude-md-improver/SKILL.md` | CLAUDE.md 改进（claude-md-management 插件） |
 | `agent-sdk-dev` | `skills/agent-sdk-dev/` | Agent SDK 开发（claude-plugins-official 插件） |
 | `skill-optimizer` | `skills/skill-optimizer/SKILL.md` | Skill 审计优化：路径 A 确认后改；路径 B 只读八维报告 |
 | `multi-platform-plugin-guide` | `skills/multi-platform-plugin-guide/SKILL.md` | 多平台插件发布指南与版本对齐 |
-| `claude-automation-recommender` | `skills/claude-automation-recommender/SKILL.md` | Claude Code 自动化推荐（claude-code-setup 插件） |
 | `workflow-skill-creator` | `skills/workflow-skill-creator/SKILL.md` | 复杂流程编排 Skill 设计 |

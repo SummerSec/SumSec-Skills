@@ -30,7 +30,6 @@ SumSec-Skills/
 │       ├── plugin-settings/       插件设置
 │       ├── plugin-structure/      插件结构
 │       ├── skill-development/     技能开发
-│       ├── claude-md-improver/    CLAUDE.md 改进
 │       ├── agent-sdk-dev/         Agent SDK 开发
 │       ├── skill-optimizer/       Skill 审计优化
 │       └── multi-platform-plugin-guide/  版本对齐
@@ -121,7 +120,6 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [plugin-settings](agents-dev/skills/plugin-settings/) | plugin-dev | 插件设置 |
 | [plugin-structure](agents-dev/skills/plugin-structure/) | plugin-dev | 插件结构 |
 | [skill-development](agents-dev/skills/skill-development/) | plugin-dev | 技能开发 |
-| [claude-md-improver](agents-dev/skills/claude-md-improver/) | claude-md-management | CLAUDE.md 改进 |
 | [agent-sdk-dev](agents-dev/skills/agent-sdk-dev/) | claude-plugins-official | Agent SDK 开发 |
 | [skill-optimizer](agents-dev/skills/skill-optimizer/) | 本仓库 | Skill 审计优化（路径 A 改 / 路径 B 只读八维） |
 | [multi-platform-plugin-guide](agents-dev/skills/multi-platform-plugin-guide/) | 本仓库 | 多平台版本对齐与发布清单 |
@@ -132,7 +130,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 
 | Submodule | 来源 | 提供的 skill |
 |-----------|------|-------------|
-| claude-plugins-official | anthropics | skill-creator, plugin-dev 系列, hookify, claude-md-management, agent-sdk-dev |
+| claude-plugins-official | anthropics | skill-creator, plugin-dev 系列, hookify, agent-sdk-dev, claude-md-management, claude-code-setup |
 | context7 | upstash | context7-cli, context7-mcp, find-docs |
 | khazix-skills | KKKKhazix | khazix-writer |
 
