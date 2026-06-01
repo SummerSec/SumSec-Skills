@@ -1,6 +1,6 @@
 {
   "name": "agents-dev",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Agent 开发生态插件：skill-creator（技能创建）、plugin-dev（插件开发技能链）、hookify（Hook 编写）、agent-sdk-dev（Agent SDK）、multi-platform-plugin-guide（版本对齐）、workflow-skill-creator（流程编排 Skill 设计）",
   "author": {
     "name": "SummerSec",

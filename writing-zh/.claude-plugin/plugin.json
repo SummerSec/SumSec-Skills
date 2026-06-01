@@ -1,6 +1,6 @@
 {
   "name": "writing-zh",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "中文写作辅助插件：去 AI 味的文本润色（humanizer-zh）、Markdown 转网页 PPT（creating-blog-web-ppt）、卡兹克写作风格（khazix-writer）",
   "author": {
     "name": "SummerSec",
