@@ -125,6 +125,9 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 ## 规则
 
+- **不要自动整合 skill 到聚合插件**：来自 submodule 的 skill 默认按其所属的**独立插件**整体镜像（插件级映射）；不要把它从所属插件里抽出来再塞进 `agents-dev` 这类聚合插件。**仅当用户明确要求「聚合到 X 插件」「合并到 agents-dev」时**，才追加额外的组件级映射。
+  - **Why:** 一个 skill 同时存在于「独立插件」和「聚合插件」会造成双轨上架、文档脱节、版本难对齐。
+  - **How to apply:** 用户说「同步插件 X」「添加插件 X」时，只加一条插件级映射 `<source>/X → X/`，不动 `agents-dev/` 或其它聚合插件；想聚合必须由用户主动开口。
 - **映射表是唯一来源**：所有 source → target 关系必须记录在 `.claude/skills/sync-skills/scripts/skill-map.json`
 - **目标目录不提交**：同步产生的目标目录已在 `.gitignore` 中忽略，不要 `git add` 它们
 - **新增映射后同步 `.gitignore`**：每次 `--add` 或 `--add-plugin` 后，检查 `.gitignore` 是否已包含新目标路径，未包含则追加
@@ -164,8 +167,10 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 ### 何时用组件级 vs 插件级
 
-| 场景 | 粒度 | 示例 |
-|------|------|------|
-| 目标插件含自定义代码，只需同步部分内容 | 组件级 | `plugin-dev`（有自写配置） |
-| 目标是 submodule 的完整镜像 | 插件级 | `claude-md-management`、`claude-code-setup` |
-| 多插件共享同一源的不同部分 | 组件级 | `agents-dev` 从多个源聚合 skills |
+> ⚠️ **默认走插件级**。来自 submodule 的插件就保持插件本体，不要拆开塞进 `agents-dev` 等聚合插件。组件级映射仅用于以下两种情况，且**第二种必须由用户明确发起**。
+
+| 场景 | 粒度 | 示例 | 需要用户明确同意？ |
+|------|------|------|------|
+| 目标插件含自定义代码，需混入 submodule 的部分内容 | 组件级 | `plugin-dev`（有自写配置） | 否（结构使然） |
+| 目标是 submodule 的完整镜像 | 插件级 | `claude-md-management`、`claude-code-setup` | 否（默认） |
+| 把一个 submodule skill 抽到聚合插件 | 组件级 | `agents-dev/skills/xxx` ← 来自其它插件 | ✅ **必须用户主动要求** |
