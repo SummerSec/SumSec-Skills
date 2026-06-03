@@ -8,7 +8,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/skills/sync-skills/scripts/session-start-check.py",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/skills/sync-skills/scripts/session-start-check.py",
             "timeout": 20
           }
         ]
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/skills/sync-skills/scripts/pre-commit-hook.py",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/skills/sync-skills/scripts/pre-commit-hook.py",
             "timeout": 30
           }
         ]
