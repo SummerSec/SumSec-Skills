@@ -29,6 +29,15 @@ disable-model-invocation: true
 - **范围克制：** 用户只要某一方向（如只改 description）时，围绕该方向计划，不擅自整 skill 重写；不要为了「全面」把无关 reference 全读进上下文。
 - **路径统一用 `${CLAUDE_SKILL_DIR}`：** 任何「读 / 写 / 引用本 skill 资源」的动作（含脚本、Bash、`Read`、`Write`、`WebFetch` 后落盘）都使用 `${CLAUDE_SKILL_DIR}/...` 形式，不写死绝对路径，不写仓库相对路径。
 
+## Pipeline 类 skill 的特别处理
+
+当目标 skill 在 Step 2 Review 中被判定为 **Pipeline**（主模式或次模式），或满足 ≥3 个 workflow-skill-creator 适用信号（≥3 顺序步骤 / 跨步骤状态传递 / 需脚本辅助 / 需进度文件 / 强制顺序、跳步导致失败），按以下规则叠加评审基准：
+
+- **必读资产**：`${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/architecture_patterns.md`（六大架构模式）与 `quality_checklist.md`（七维自检）
+- **基准合并**：Step 5 Verify 须在 `review-checklist.md` 之上**叠加** workflow-skill-creator 的 quality_checklist；针对编排专门规范遇冲突时**以 workflow-skill-creator 为准**
+- **Plan 输出义务**：Step 3 Plan 必须在末段写明「目标 skill 已识别为 Pipeline，对照 workflow-skill-creator 六大模式逐项核对」并列出未达标项
+- **跨 skill 路径**：两 skill 同属 `agents-dev` plugin，故用 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/...` 引用；若日后被拆到不同 plugin，需改为目标 plugin 的解析路径
+
 ## 路径 B 工作流（概要）
 
 1. **Step 0 — Fetch Spec**：执行下方「Step 0 详细流程」；本轮基准来自最新抓取或 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md` 缓存。
@@ -75,6 +84,7 @@ disable-model-invocation: true
 - [`${CLAUDE_SKILL_DIR}/references/skill-design-review-framework.md`](references/skill-design-review-framework.md)
 - **官方基准回看**：[`${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`](references/official-spec-fetch.md)（Claude Code 官方规范缓存或 Step 0 live 抓取）；checklist 用于补充执行细节，不替代官方规范
 - Claude Code skill 必读 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md`](references/claude-code-skills-checklist.md) 了解检查维度，Step 5 Verify 时逐项核对
+- **Pipeline 类按需读取**：若目标 skill 是 Pipeline（多步骤、跨步骤状态、需脚本/进度文件），读 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/architecture_patterns.md` 与 `quality_checklist.md`，作为 Step 3 Plan 与 Step 5 Verify 的叠加基准
 - **可选加项**：用 [`${CLAUDE_SKILL_DIR}/references/session-audit-dimensions.md`](references/session-audit-dimensions.md) 的 **4.4 静态质量** 表做 CSO / YAML / 长度检查（无会话也可做）
 
 Review 关注点保持与原 skill 一致：name、description、模式匹配、确认门槛、渐进披露、输出可执行性等。**额外固定关注：被审查 skill 是否正确使用 `${CLAUDE_SKILL_DIR}` 引用自身资源**——动态上下文、Bash 命令、脚本路径、`Read`/`Write` 目标、缓存落盘位置都必须用该变量；写死 `~/.claude/skills/...`、绝对路径、仓库相对路径属于反模式（详见 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md` §7](references/claude-code-skills-checklist.md)）。
@@ -93,6 +103,7 @@ Review 关注点保持与原 skill 一致：name、description、模式匹配、
 - frontmatter 字段符合目标平台规范；`name` 与目录一致；`description` 可独立表达触发条件；额外字段均有明确意图
 - 已按 [`${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`](references/official-spec-fetch.md)（或 Step 0 live 抓取摘要）校验技能位置、命令兼容、扩展 frontmatter、调用控制、动态上下文、subagent、可见性覆盖、分发要求与简洁性 / 渐进披露 / 命名 / description 等基础项
 - `review-checklist.md` 已覆盖 Claude Code 新特性；必要时按 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md`](references/claude-code-skills-checklist.md) 细查
+- **若目标为 Pipeline 类**：已对照 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/quality_checklist.md` 七维（结构 / 进度文件 / 执行规范 / 前置门槛 / 依赖 / 触发 / 输出）自检；六大架构模式（进度文件驱动、步骤框架分离、三阶段执行、脚本自动化、资源分层、路径一致性）改造结果可追溯到 `architecture_patterns.md`
 - 正文更短更清晰；路径 A 的确认门槛仍在说明中写清
 - 若借鉴了 4.4：description 含 `: ` 时 YAML 用双引号包裹等
 - 任何脚本 / Bash 引用本 skill 内文件，路径都形如 `${CLAUDE_SKILL_DIR}/...`，不写死本机绝对路径

@@ -112,6 +112,17 @@
 - 用户未确认就进入下一步
 - 工作流过长却没有拆分参考文件或脚本
 
+**升级路径（Pipeline 主/次模式时启用）：**
+
+发现以下任一信号即建议按 `workflow-skill-creator` 标准重构，而非局部修补 ——
+
+- 步骤 ≥3 且无统一进度文件 → 引入「进度文件驱动」模式
+- SKILL.md > 200 行且步骤细节内嵌 → 引入「步骤框架分离」（每步独立 `references/step_frameworks/stepN_*.md`）
+- 执行中频繁跳步 / 漏校验 → 引入「三阶段执行」（前置校验 → 执行记录 → 后置校验）
+- 步骤 ≥3 且当前已无进度文件、跳步频发、SKILL.md 已 >200 行：建议直接用 `scaffold_workflow_skill.py` 脚手架重构，而非逐条修补
+
+详见 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/architecture_patterns.md` 六大模式与反模式，自检清单见同目录 `quality_checklist.md`。
+
 ---
 
 ## 二、再判断模式是否匹配

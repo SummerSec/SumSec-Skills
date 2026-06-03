@@ -93,3 +93,16 @@
 1. 高优先级：触发失败、确认缺失、工作流错误、明显冲突
 2. 中优先级：结构臃肿、资源组织差、上下文浪费
 3. 低优先级：措辞打磨、示例增强、展示优化
+
+## 8. Pipeline Skill 专项（仅 Pipeline 主/次模式时启用）
+
+目标 skill 被 `skill-design-review-framework.md` 判为 Pipeline，或满足 workflow-skill-creator 适用信号（≥3 顺序步骤 / 跨步骤状态 / 需脚本辅助 / 进度文件 / 强制顺序）时，在 §1–§7 之上叠加本节。**与 §1–§7 冲突时，本节为准**（编排专门规范优先于通用规范）。
+
+- 进度文件驱动：单一 Markdown 贯穿全流程、追加不覆盖（详见 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/architecture_patterns.md` §1）
+- 步骤框架分离：SKILL.md <200 行，每步独立 `references/step_frameworks/stepN_*.md`（§2）
+- 三阶段执行：每步「前置校验 → 执行记录 → 后置校验」结构完整（§3）
+- 脚本自动化：路径生成 / 数据匹配 / 格式转换等确定性任务有独立脚本，不让模型每次自由发挥（§4）
+- 资源分层：L1 元数据 / L2 主体 / L3 步骤框架 / L4 参考资料 四层加载（§5）
+- 路径一致性：全流程使用 `{progress_file_path}` 占位符，禁止步骤重新生成路径（§6）
+
+完整自检对照 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/quality_checklist.md`（结构 / 进度文件 / 执行规范 / 前置门槛 / 依赖 / 触发 / 输出 七维）。

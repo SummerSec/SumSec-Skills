@@ -117,6 +117,7 @@ Output report with P0 / P1 / P2
 | Critical info position | 核心触发与主动作应在 SKILL.md 前约 20% 篇幅内（Lost in the Middle） |
 | Description 250-char check | 主触发词宜落在 description **前 250 字符**内（多数客户端列表截断） |
 | Trigger condition count | description 中触发条件宜 ≤2 条（IFEval：多约束易失效） |
+| Pipeline structural fitness | 步骤 ≥3 且无 progress file，或 SKILL.md >300 行无 `references/step_frameworks/` 拆分 → 标 P1，建议按 `${CLAUDE_SKILL_DIR}/../workflow-skill-creator/references/architecture_patterns.md` 重构 |
 
 #### 4.5a False Positive Rate (Overtrigger)
 
