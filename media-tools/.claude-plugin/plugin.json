@@ -1,6 +1,6 @@
 {
   "name": "media-tools",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "媒体生成插件：AI 图片生成（draw-image-generation）与 Remotion 视频制作最佳实践（remotion-best-practices）",
   "author": {
     "name": "SummerSec",

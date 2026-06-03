@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills-cursor",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "Cursor marketplace for SumSec-Skills — writing-zh, media-tools, dev-tools, agents-dev.",
   "skills": "./",
   "rules": "./.cursor/rules/"
