@@ -125,17 +125,73 @@ disable-model-invocation: true
   2. 相邻模块有稳定风格，优先跟随相邻模块
   3. 仓库风格混合但不明显时，再使用约定式提交
 - 当前仓库若近期提交明显偏向某一风格，优先跟随；否则使用约定式提交，例如 `docs(skill-name): ...`、`fix(skill-name): ...`。
-- 在本仓库中拟定 subject 时：
-  - 尽量保持单行
-  - 不加句号
-  - 动词前置，避免写成长摘要
-  - 简单改动通常不需要 body
-  - 复杂改动可补一个简短 body，说明原因或影响范围
-- 若要带 body，优先使用多段提交格式，而不是拼接超长一行：
+
+#### 5.1 Commit Message 内容要求
+
+- **subject 行**：保持单行、不加句号、动词前置，概括本次提交的核心意图。
+- **body 必须详尽**：无论改动大小，body 应完整描述本次变动的所有内容：
+  - 改了哪些文件、哪些函数/模块
+  - 每个改动的具体内容和原因
+  - 若涉及行为变更，说明变更前后的差异
+  - 若涉及依赖或配置变更，说明影响范围
+- body 使用多行格式，每个要点用 `-` 列出，便于阅读。
+- 若要带 body，优先使用 heredoc 格式，避免转义错误：
   ```bash
-  git commit -m "<subject>" -m "<body>"
+  git commit -m "$(cat <<'EOF'
+  <subject>
+
+  - <改动点1：文件/模块 + 具体变更>
+  - <改动点2：文件/模块 + 具体变更>
+  - <改动点3：原因或影响说明>
+  EOF
+  )"
   ```
-- 若需要更稳妥地携带多行内容，优先使用 heredoc 或等价多行字符串方案，避免转义错误。
+
+- **提交人信息**：仅使用用户环境变量中的 git 配置（`user.name` / `user.email`），不附加任何 AI agent 的 `Co-Authored-By`、`Signed-off-by` 或类似署名信息。
+
+#### 5.2 按文件拆分提交策略
+
+当变更涉及多个文件且各文件改动相对独立时，**优先按文件拆分为多次提交**：
+
+- **判断条件**（满足任一即应拆分）：
+  - 变更文件数 ≥ 3 且各文件改动目的不同
+  - 不同文件属于不同模块或不同功能领域
+  - 单次提交的 body 会超过 15 行
+  - 用户明确要求拆分
+
+- **拆分执行流程**：
+  1. 列出所有变更文件，按模块/功能分组
+  2. 确定提交顺序（依赖关系优先，基础设施 → 业务逻辑 → 文档）
+  3. 逐个文件（或逻辑相关的一组文件）执行 `git add <file>` + `git commit`
+  4. 每次提交的 message 只描述该文件/该组的改动，但仍然保持 body 详尽
+
+- **拆分提交的 message 示例**：
+  ```bash
+  # 第1次提交
+  git commit -m "$(cat <<'EOF'
+  feat(git-commit-pr): add per-file split commit strategy
+
+  - Add section 5.2 defining when and how to split commits by file
+  - Criteria: ≥3 files with independent purposes, cross-module changes
+  - Execution flow: group → order → stage individually → commit with full body
+  EOF
+  )"
+
+  # 第2次提交
+  git commit -m "$(cat <<'EOF'
+  docs(git-commit-pr): enrich commit message body requirements
+
+  - Add section 5.1 mandating detailed body for all commits
+  - Body must list every changed file/function with specific modifications
+  - Require explanation of behavioral changes and dependency impacts
+  EOF
+  )"
+  ```
+
+- **不拆分的情况**：
+  - 所有文件改动服务于同一个原子目的（如一次重命名涉及多文件引用更新）
+  - 文件间有强耦合，拆开提交会导致中间状态不可编译/不可运行
+  - 用户明确要求合并为一次提交
 
 ### 6. 提交前验证
 
