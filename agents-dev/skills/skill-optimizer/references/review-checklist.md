@@ -53,6 +53,7 @@
 - `assets/` 是否只放输出资源，不放说明文档
 - 是否创建了不必要的 README、CHANGELOG 等噪音文件
 - **路径是否一律使用 `${CLAUDE_SKILL_DIR}`**：脚本、动态上下文、Bash、`Read`/`Write` 目标、SKILL.md 内任何"工具调用语义"的资源引用都应使用，不写死绝对路径或仓库相对路径；细则见 [`${CLAUDE_SKILL_DIR}/references/claude-code-skills-checklist.md` §7](claude-code-skills-checklist.md)
+- 正文中需要字面 `$` 的地方是否用 `\$` 转义以避免被参数替换（如 `\$HOME`）
 - 若使用动态上下文注入，是否控制输出规模、避免破坏性命令，并说明 shell / policy 前提
 
 常见优化：
@@ -65,13 +66,13 @@
 面向 Claude Code 的 skill 默认检查本节；**Step 5 Verify 时用 [claude-code-skills-checklist.md](claude-code-skills-checklist.md) 逐项核对。**
 
 - commands 兼容：若从 `.claude/commands/*.md` 迁移，同名 skill 优先级、调用方式和参数行为是否清楚
-- frontmatter 扩展字段：`disable-model-invocation`、`user-invocable`、`allowed-tools`、`context`、`agent`、`paths`、`shell` 等是否都有明确必要性
+- frontmatter 扩展字段：`disable-model-invocation`、`user-invocable`、`allowed-tools`、`disallowed-tools`、`context`、`agent`、`paths`、`shell` 等是否都有明确必要性
 - 调用控制：有副作用或高风险流程是否改为手动触发；背景知识型 skill 是否适合隐藏用户菜单
 - 参数替换：`$ARGUMENTS`、`$N`、命名参数、`${CLAUDE_SKILL_DIR}` 是否使用正确
 - 动态上下文：`` !`command` `` / ` ```! ` 是否只用于安全、有限、实时上下文
 - Subagent：`context: fork` 是否包含完整任务与输出格式，而不只是背景规则
 - 可见性排障：`skillOverrides`、路径匹配、目录 watch、description 截断是否会影响触发
-- 分发：project / personal / plugin / managed 位置是否与目标受众匹配
+- 分发：project / personal / plugin / managed 位置是否与目标受众匹配；`disableBundledSkills` 设置是否可能影响依赖的内置 skill
 
 ## 6. Output Contract
 

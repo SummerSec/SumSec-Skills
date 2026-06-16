@@ -11,6 +11,7 @@
 - [ ] `disable-model-invocation`：仅高风险/有副作用流程使用；是否有更低风险替代（如 `user-invocable: false`）
 - [ ] `user-invocable`：背景知识型 skill 是否为 `false`；是否误隐藏了用户需要的命令
 - [ ] `allowed-tools`：确认只预批准不屏蔽；用户是否知晓需审查后信任
+- [ ] `disallowed-tools`：自主 skill 是否需要屏蔽特定工具（如 `AskUserQuestion`）；是否与 `allowed-tools` 互补而非冲突
 - [ ] `model` / `effort`：是否把长期偏好写入 skill 造成意外覆盖
 - [ ] `context: fork`：正文是否有完整任务+输入+输出格式，而非只有背景规则
 - [ ] `context: agent`：是否指向合适的内置/自定义 agent
@@ -24,6 +25,7 @@
 - [ ] 有副作用/需授权流程 → `disable-model-invocation: true`
 - [ ] 背景知识型 skill → `user-invocable: false`
 - [ ] 触发异常时已排查：`skillOverrides`、`/skills` 可见性、目录 watch、description 截断
+- [ ] 若 skill 依赖内置 bundled skill，是否确认目标环境未设置 `disableBundledSkills`
 - [ ] 插件 skill 是否通过 `/plugin` 管理而非 `skillOverrides`
 
 ## 3. 动态上下文与脚本
@@ -31,6 +33,7 @@
 - [ ] `` !`command` `` / ` ```! ` 只用于安全、可控、有限输出；无破坏性命令
 - [ ] 脚本路径使用 `${CLAUDE_SKILL_DIR}`，不写死绝对路径（详见 §7）
 - [ ] 若组织设了 `disableSkillShellExecution`，skill 有降级说明
+- [ ] 正文中字面 `$` 是否用 `\$` 转义，避免被误当作参数替换（如 `\$HOME`）
 - [ ] 脚本不依赖未说明的包或隐藏环境
 
 ## 4. Subagent

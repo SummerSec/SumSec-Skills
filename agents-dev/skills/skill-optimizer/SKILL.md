@@ -1,6 +1,6 @@
 ---
 name: skill-optimizer
-description: "用于优化、审查或诊断 Agent Skills（SKILL.md）：优化 skill、skill 质量、重构技能、/optimize-skill、/skill-audit、optimize skills、analyze skills、check my skills、skills 不触发、skill 没生效。"
+description: "优化、审查或诊断 Agent Skills（SKILL.md）。用于 skill 质量分析、重构技能、skills 不触发、skill 没生效、optimize skills、analyze skills、check my skills。"
 disable-model-invocation: true
 ---
 
@@ -17,11 +17,7 @@ disable-model-invocation: true
 
 ## 共用规则
 
-- **官方规范优先（双轨）**：每次启动本 skill，先执行 **Step 0 — Fetch Spec**：
-  1. 先 `WebFetch https://code.claude.com/docs/en/skills.md`；
-  2. **成功**：把抓取结果写入（覆盖）`${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`，并以此为本轮判定基准；
-  3. **失败 / 无网络 / 用户要求离线**：直接 `Read ${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md` 作为降级基准，并在报告醒目处标注「⚠️ 使用本地缓存基准（fetched_at: …）」。
-  无论路径 A / B，未完成 Step 0 之前禁止进入诊断、计划或改写阶段。
+- **官方规范优先（双轨）**：每次启动先执行下方 **Step 0 — Fetch Spec**（三级降级：代理 → 直连 → 本地缓存），未完成前禁止进入诊断、计划或改写阶段。
 - **路径 B：只读。** 不得修改任何 skill 文件，只交付报告（Step 0 对缓存文件的覆盖**是允许的例外**，因为它属于 skill 自身的资产更新而非被审计 skill 的修改）。
 - **路径 A：确认门槛。** 不得把「审查结论」与「直接改文件」混为一步；未确认不得改目标 skill。
 - **路径 B：八维齐全。** 不得跳过 [references/session-audit-dimensions.md](references/session-audit-dimensions.md) 中的 4.2、4.3、4.5b、4.8；缺数据写 `N/A — insufficient session data`。
@@ -65,7 +61,7 @@ disable-model-invocation: true
 
 按以下顺序执行，并在最终报告/汇报里写明走到了哪一支：
 
-1. **尝试在线抓取**：调用 `WebFetch`，URL = `https://code.claude.com/docs/en/skills.md`，prompt 要求按官方原文返回完整 markdown（重点保留 frontmatter 字段表、调用控制、动态上下文、subagent、可见性、分发、字符串替换 `${CLAUDE_SKILL_DIR}` 等条款）。
+1. **尝试在线抓取（代理优先）**：调用 `WebFetch`，URL = `https://proxy.sumsec.me/https://code.claude.com/docs/en/skills.md`；若代理失败，再尝试直连 `WebFetch https://code.claude.com/docs/en/skills.md`。prompt 要求按官方原文返回完整 markdown（重点保留 frontmatter 字段表、调用控制、动态上下文、subagent、可见性、分发、字符串替换 `${CLAUDE_SKILL_DIR}` 等条款）。
 2. **成功 → 覆盖缓存**：把抓取到的官方文档**整文件覆盖**到 `${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`，并保留头部注释块（来源、`fetched_at`、`method` 字段）。本轮以「live」为基准。
 3. **失败 / 离线 / 用户要求离线** → **读缓存**：`Read ${CLAUDE_SKILL_DIR}/references/official-spec-fetch.md`，本轮以「cache」为基准；在最终汇报第一行用一句话标注：`⚠️ 使用本地缓存基准（fetched_at: <时间>）`。
 4. **基准摘要**：从 live 或 cache 中摘录本轮要用到的条款（frontmatter 字段、调用控制、动态上下文、subagent、分发、新增/废弃项），作为 Step 2 / Step 3 / Step 5 的判定基准；保留官方原句中的关键术语，禁止改写。
