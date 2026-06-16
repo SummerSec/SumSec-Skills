@@ -1,7 +1,6 @@
 ---
 name: git-commit-pr
 description: "用于安全提交、推送或创建 PR/MR：提交代码、推送分支、创建 PR、创建 MR、提交PR、提交MR、发MR、commit and PR、commit and push。"
-disable-model-invocation: true
 ---
 # Git Commit & PR 自动化助手
 
