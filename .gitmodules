@@ -7,3 +7,6 @@
 [submodule "khazix-skills"]
 	path = khazix-skills
 	url = https://github.com/KKKKhazix/khazix-skills.git
+[submodule "baoyu-design"]
+	path = baoyu-design
+	url = git@github.com:JimLiu/baoyu-design.git

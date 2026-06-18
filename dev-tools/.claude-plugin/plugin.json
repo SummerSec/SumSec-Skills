@@ -1,6 +1,6 @@
 {
   "name": "dev-tools",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "开发者工具插件：git-commit-pr（安全提交与 PR）、agent-chat-history（对话历史检索）、context7 集成（库文档查找）",
   "author": {
     "name": "SummerSec",

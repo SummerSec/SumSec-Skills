@@ -70,5 +70,9 @@
   {
     "source": "claude-plugins-official/plugins/claude-code-setup",
     "target": "claude-code-setup"
+  },
+  {
+    "source": "baoyu-design/skills/baoyu-design",
+    "target": "dev-tools/skills/baoyu-design"
   }
 ]

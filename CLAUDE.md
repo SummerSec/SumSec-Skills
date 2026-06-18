@@ -91,3 +91,4 @@ python .claude/skills/sync-skills/scripts/sync-skills.py   # 仅维护者升级 
 | `claude-plugins-official/` | anthropics/claude-plugins-official |
 | `context7/` | upstash/context7 |
 | `khazix-skills/` | KKKKhazix/khazix-skills |
+| `baoyu-design/` | JimLiu/baoyu-design |
