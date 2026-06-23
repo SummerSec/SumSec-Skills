@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/skills/sync-skills/scripts/pre-commit-hook.py\"",
+            "commandWindows": "python \"$(git rev-parse --show-toplevel)/.claude/skills/sync-skills/scripts/pre-commit-hook.py\"",
+            "statusMessage": "Checking skill sync before commit",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

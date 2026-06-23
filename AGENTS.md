@@ -62,8 +62,10 @@ SumSec-Skills/
 ├── .claude/skills/            # 项目级 skill（仓库自身工具）
 │   └── sync-skills/           # submodule skill 同步管理
 ├── .cursor-plugin/
-├── .codex-plugin/
-├── .agents/plugins/
+├── .codex-plugin/             # Codex 插件 manifest
+├── .codex/                    # Codex 项目级配置 / hooks
+├── .agents/plugins/           # Codex repo-scoped marketplace
+├── .agents/skills/            # Codex repo-scoped skills
 ├── .cursor/rules/
 ├── khazix-skills/             # submodule: KKKKhazix/khazix-skills
 ├── AGENTS.md
@@ -80,11 +82,22 @@ SumSec-Skills/
   - `.claude-plugin/plugin.json`、`.claude-plugin/marketplace.json`（含每个 `plugins[].version`）
   - `.cursor-plugin/plugin.json`、`.cursor-plugin/marketplace.json`（含每个条目 `version`）
   - `.codex-plugin/plugin.json`
-  - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；**默认** Git `url` + `ref`；本地调试才用 `local`）
+  - `.agents/plugins/marketplace.json`（Codex 仓库级 marketplace；插件条目默认 `source: "local"` + `path: "./"`，Git 来源由 `codex plugin marketplace add <repo> --ref <ref>` 管理）
+  - `.codex/hooks.json`、`.codex/config.toml`（如存在；Codex 项目级 hook / 配置）
   - 每插件 `writing-zh/`、`media-tools/`、`dev-tools/`、`agents-dev/` 下的 `.claude-plugin/plugin.json`
   - `openclaw.plugin.json`、`opencode/plugins/sumsec-skills.mjs`、`hermes/skills/sumsec-skills/SKILL.md`（OpenClaw/OpenCode/Hermes 版本）
 - 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致，避免脱节。
 - 若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
+
+## Codex 规范补充
+
+- Codex skill 使用开放 Agent Skills 结构：每个 skill 是一个含 `SKILL.md` 的目录，frontmatter 至少包含 `name` 与 `description`；Codex 根据 description 隐式匹配，或通过 `$skill-name` / `/skills` 显式调用。
+- 仓库级本地 skill 放在 `.agents/skills/`；插件分发的 skill 放在插件根的 `skills/` 并由 `.codex-plugin/plugin.json` 的 `skills` 字段暴露。
+- `.codex-plugin/plugin.json` 是 Codex 插件 manifest；`name` 使用稳定 kebab-case，`skills` 路径相对插件根，例如 `"./"` 或 `"./skills/"`。
+- `.agents/plugins/marketplace.json` 是 Codex marketplace 清单。Codex 解析 `source.path` 时相对 marketplace root，不是相对 `.agents/plugins/` 目录；本仓根插件因此使用 `path: "./"`。
+- Git 安装 marketplace 用 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main`；不要在 marketplace 插件条目里写自定义 `source.url/ref` 当作 Git 安装语法。
+- Codex hooks 从 `.codex/hooks.json` 或 `.codex/config.toml` 发现。事件名使用官方大小写，例如 `SessionStart`、`PreToolUse`、`PermissionRequest`、`PostToolUse`、`PreCompact`、`PostCompact`、`UserPromptSubmit`、`SubagentStart`、`SubagentStop`、`Stop`。
+- repo-local hook 命令优先从 git root 定位脚本，避免 Codex 从子目录启动时相对路径失效；非托管 hook 变更后需要在 Codex 中重新 review/trust。
 
 ## 当前插件一览
 

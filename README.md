@@ -64,6 +64,16 @@ SumSec-Skills/
 /plugin install hookify@sumsec-skills
 ```
 
+### OpenAI Codex
+
+```bash
+codex plugin marketplace add SummerSec/SumSec-Skills --ref main
+```
+
+然后在 Codex 的 `/plugins` 里选择 `SumSec Skills (repo)`，安装 `sumsec` 插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，插件条目使用 `source: "local"` + `path: "./"` 指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。
+
+Codex 也会直接扫描仓库级 `.agents/skills/`，适合放仅服务本仓的工具型 skill；需要分发给其他项目或团队时，应打包进 `.codex-plugin/plugin.json` 所描述的插件。
+
 ### 手动安装（软链接）
 
 将 `<plugin>/skills/<skill-name>/` 链接到对应客户端 skill 目录：
@@ -76,7 +86,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 |--------|-------------------|
 | Claude Code | `/plugin install <plugin>@sumsec-skills` |
 | Cursor | `.cursor-plugin/marketplace.json` 导入 |
-| OpenAI Codex CLI | `.agents/plugins/marketplace.json` Git 安装 |
+| OpenAI Codex CLI | `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` |
 | OpenClaw | `openclaw.plugin.json` + `openclaw/` 插件加载 |
 | OpenCode | `opencode/plugins/sumsec-skills.js` 插件注册 |
 | Hermes | `hermes/skills/sumsec-skills/SKILL.md` 复制加载 |
