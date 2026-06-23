@@ -9,6 +9,7 @@
 | `humanizer-zh` | `skills/humanizer-zh/SKILL.md` | 本仓库 | 去 AI 味：本地 CLI 深度指南，反 AI 审查二遍工作流 |
 | `creating-blog-web-ppt` | `skills/creating-blog-web-ppt/SKILL.md` | 本仓库 | Markdown 文章转网页版 PPT（slide-writer + blog-sumsec 主题） |
 | `khazix-writer` | `skills/khazix-writer/SKILL.md` | khazix-skills | 卡兹克写作风格：用特定口吻和节奏写公众号长文 |
+| `sumsec-illustrations` | `skills/sumsec-illustrations/SKILL.md` | 本仓库 | 为 sumsec.me 风格文章生成黑色操作员正文配图 |
 
 ## 安装路径
 

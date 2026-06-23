@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "writing-zh",
-      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), khazix-writer (personal voice long-form writing).",
+      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), khazix-writer, sumsec-illustrations.",
       "version": "1.0.25",
       "source": "./writing-zh",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",

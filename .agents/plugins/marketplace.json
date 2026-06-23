@@ -15,7 +15,7 @@
       },
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
-      "description": "SummerSec personal Agent Skills collection for Codex: writing-zh, media-tools (including image/video), dev-tools (including git, docs, history, baoyu-design), and agents-dev.",
+      "description": "SummerSec personal Agent Skills collection for Codex: writing-zh (including writing, slides, illustrations), media-tools (including image/video), dev-tools (including git, docs, history, baoyu-design), and agents-dev.",
       "version": "1.0.21",
       "policy": {
         "installation": "AVAILABLE",

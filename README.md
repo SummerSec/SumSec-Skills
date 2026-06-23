@@ -10,7 +10,8 @@ SumSec-Skills/
 │   └── skills/
 │       ├── humanizer-zh/       去 AI 味润色
 │       ├── creating-blog-web-ppt/  文章转网页 PPT
-│       └── khazix-writer/      卡兹克写作风格 (khazix-skills)
+│       ├── khazix-writer/      卡兹克写作风格 (khazix-skills)
+│       └── sumsec-illustrations/  SumSec 博客正文配图
 ├── media-tools/             # 媒体生成插件
 │   └── skills/
 │       ├── draw-image-generation/   AI 图片生成
@@ -102,6 +103,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [humanizer-zh](writing-zh/skills/humanizer-zh/) | 本仓库 | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
 | [creating-blog-web-ppt](writing-zh/skills/creating-blog-web-ppt/) | 本仓库 | Markdown 文章转网页 PPT（slide-writer + blog-sumsec 主题） |
 | [khazix-writer](writing-zh/skills/khazix-writer/) | khazix-skills | 卡兹克写作风格：用特定口吻和节奏写公众号长文 |
+| [sumsec-illustrations](writing-zh/skills/sumsec-illustrations/) | 本仓库 | 为 sumsec.me 风格文章生成黑色操作员正文配图 |
 
 ### media-tools（媒体生成）
 
@@ -176,3 +178,4 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 ## 许可
 
 Apache-2.0
+

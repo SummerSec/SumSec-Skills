@@ -20,7 +20,8 @@ SumSec-Skills/
 │   └── skills/
 │       ├── humanizer-zh/SKILL.md
 │       ├── creating-blog-web-ppt/SKILL.md
-│       └── khazix-writer/SKILL.md  (khazix-skills)
+│       ├── khazix-writer/SKILL.md  (khazix-skills)
+│       └── sumsec-illustrations/SKILL.md
 ├── media-tools/             # 媒体生成插件
 │   ├── .claude-plugin/plugin.json
 │   ├── CLAUDE.md
@@ -104,7 +105,7 @@ SumSec-Skills/
 
 | 插件 | 目录 | 用途 |
 |------|------|------|
-| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT、卡兹克写作风格 |
+| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT、卡兹克写作风格、SumSec 博客正文配图 |
 | media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、UI 设计稿生成 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、skill-optimizer、版本对齐 |
@@ -143,3 +144,4 @@ SumSec-Skills/
 8. **`AGENTS.md`**：布局约定树、当前插件一览表（如影响用途描述）
 
 遗漏任何一处都会导致插件发现、安装文档与实际 skill 列表脱节。
+
