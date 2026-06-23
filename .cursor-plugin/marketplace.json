@@ -46,7 +46,7 @@
     },
     {
       "name": "dev-tools",
-      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs.",
+      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, baoyu-design.",
       "version": "1.0.25",
       "source": "./dev-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",

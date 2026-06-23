@@ -16,7 +16,7 @@ Reusable Agent Skills organized by plugin category. Each skill lives at `<plugin
 
 - **writing-zh/**: humanizer-zh, creating-blog-web-ppt
 - **media-tools/**: draw-image-generation, remotion-best-practices
-- **dev-tools/**: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs
+- **dev-tools/**: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, baoyu-design
 - **agents-dev/**: skill-creator, writing-rules, plugin-dev skills, agent-sdk-dev, skill-optimizer, multi-platform-plugin-guide
 
 Load a skill's SKILL.md when the task matches its `description` frontmatter.

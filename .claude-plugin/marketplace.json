@@ -28,7 +28,7 @@
     },
     {
       "name": "dev-tools",
-      "description": "Developer tools: git-commit-pr (commit & PR), agent-chat-history (browse agent logs), context7-cli/mcp/find-docs (library doc lookup).",
+      "description": "Developer tools: git-commit-pr (commit & PR), agent-chat-history (browse agent logs), context7-cli/mcp/find-docs (library doc lookup), and baoyu-design (UI mockups/prototypes/decks).",
       "version": "1.0.25",
       "source": "./dev-tools",
       "author": {

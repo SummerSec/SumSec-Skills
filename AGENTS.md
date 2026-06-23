@@ -34,7 +34,8 @@ SumSec-Skills/
 │   ├── README.md
 │   └── skills/
 │       ├── git-commit-pr/SKILL.md
-│       └── agent-chat-history/SKILL.md
+│       ├── agent-chat-history/SKILL.md
+│       └── baoyu-design/SKILL.md
 ├── agents-dev/              # Agent 开发生态插件
 │   ├── .claude-plugin/plugin.json
 │   ├── CLAUDE.md
@@ -105,7 +106,7 @@ SumSec-Skills/
 |------|------|------|
 | writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT、卡兹克写作风格 |
 | media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
-| dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史 |
+| dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、UI 设计稿生成 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、skill-optimizer、版本对齐 |
 
 （随仓库增加插件时，维护者可在此表追加一行。）

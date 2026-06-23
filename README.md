@@ -18,7 +18,8 @@ SumSec-Skills/
 ├── dev-tools/               # 开发工具插件
 │   └── skills/
 │       ├── git-commit-pr/         Git 提交与 PR
-│       └── agent-chat-history/    对话历史检索
+│       ├── agent-chat-history/    对话历史检索
+│       └── baoyu-design/          UI 设计稿与原型生成
 ├── agents-dev/              # Agent 开发生态插件（聚合）
 │   └── skills/
 │       ├── skill-creator/         技能创建（claude-plugins-official）
@@ -118,6 +119,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [context7-cli](dev-tools/skills/context7-cli/) | context7 CLI：查询库文档 |
 | [context7-mcp](dev-tools/skills/context7-mcp/) | context7 MCP 服务器集成 |
 | [find-docs](dev-tools/skills/find-docs/) | 查找库文档（context7） |
+| [baoyu-design](dev-tools/skills/baoyu-design/) | UI mockup、交互原型、线框图、PPT/HTML 设计稿生成 |
 
 ### agents-dev（Agent 开发生态）
 
