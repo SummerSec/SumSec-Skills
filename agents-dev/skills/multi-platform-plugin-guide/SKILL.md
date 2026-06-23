@@ -90,12 +90,17 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 - Manifest：`.codex-plugin/plugin.json`，该目录下只放 manifest；组件留在插件根目录。
 - Marketplace：`.agents/plugins/marketplace.json`；repo-scoped marketplace 可被 `codex plugin marketplace add <repo> --ref <ref>` 作为 Git marketplace 添加。
-- Marketplace 插件条目使用 `source.source = "local"` 与 `source.path` 指向插件目录；`source.path` 相对 marketplace root 解析，不是相对 `.agents/plugins/` 目录。
-- Codex Git 安装语义属于 marketplace source（CLI/config 管理），不要在插件条目里发明 `source.url/ref` 字段。
+- Marketplace 插件条目有三类官方 source：
+  - local：`source.source = "local"` + `source.path = "./..."`，`path` 相对 marketplace root 解析，不是相对 `.agents/plugins/` 目录。
+  - Git 根插件：`source.source = "url"` + `url` + 可选 `ref` / `sha`，用于插件位于 Git 仓库根目录。
+  - Git 子目录插件：`source.source = "git-subdir"` + `url` + `path` + 可选 `ref` / `sha`，用于一个 Git 仓库中包含多个插件或插件不在根目录。
+- 区分 **marketplace source** 与 **plugin entry source**：`codex plugin marketplace add <repo>` 管理 marketplace 本身从哪里来；`plugins[].source` 管理某个插件包从哪里加载。两者都可以涉及 Git，但字段语义不同。
 - Skill 路径应使用 `./skills/`、`./skills/<name>/SKILL.md` 或 manifest 的 `skills` 字段；仓库级本地 skills 放在 `.agents/skills/`。
 - Hook 路径：项目级 hook 使用 `.codex/hooks.json` 或 `.codex/config.toml`；插件可按官方插件打包规则携带默认 `hooks/hooks.json`。
 - Hook 事件名使用官方大小写：`SessionStart`、`PreToolUse`、`PermissionRequest`、`PostToolUse`、`PreCompact`、`PostCompact`、`UserPromptSubmit`、`SubagentStart`、`SubagentStop`、`Stop`。
 - repo-local hook 命令优先从 git root 定位脚本，避免 Codex 从子目录启动时相对路径失效；非托管 hook 变更后需要重新 review/trust。
+- 插件根可包含 `skills/`、`hooks/`、`.app.json`、`.mcp.json`、`assets/`；只有 `plugin.json` 放进 `.codex-plugin/`。Manifest 路径必须相对插件根、以 `./` 开头，并留在插件根内。
+- 插件 hooks 默认文件是 `hooks/hooks.json`；若 `.codex-plugin/plugin.json` 写了 `hooks` 字段，则覆盖默认。插件 hook 命令可用 `PLUGIN_ROOT` / `PLUGIN_DATA`，Codex 也兼容 `CLAUDE_PLUGIN_ROOT` / `CLAUDE_PLUGIN_DATA`。
 - 保持 `README.md`、`AGENTS.md` 与 `.codex-plugin/plugin.json`、`.agents/plugins/marketplace.json`、`.codex/hooks.json` 一致。
 
 ## Codex 与 Cursor：marketplace 的 `source` 与「从 Git 安装」
@@ -104,14 +109,18 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 ### Codex（`.agents/plugins/marketplace.json`）
 
-- 官方支持 **Git marketplace source**：使用 `codex plugin marketplace add owner/repo --ref main`、HTTPS/SSH Git URL 或本地 marketplace root，让 Codex 安装并跟踪 marketplace 源。Git ref、sparse checkout 等属于 marketplace source 配置，不写进 `plugins[]` 的单个插件条目。
-- marketplace 中每个插件条目使用 **`"source": { "source": "local", "path": "./..." }`** 指向插件目录；`path` 相对 marketplace root 解析。单插件占满整仓根时使用 `path: "./"`。
+- 官方支持 **Git marketplace source**：使用 `codex plugin marketplace add owner/repo --ref main`、HTTPS/SSH Git URL 或本地 marketplace root，让 Codex 安装并跟踪 marketplace 源。Git ref、sparse checkout 等属于 marketplace source 配置。
+- marketplace 中每个插件条目可以指向本地路径，也可以直接指向 Git-backed plugin source：
+  - **local**：`"source": { "source": "local", "path": "./plugins/my-plugin" }`。`path` 相对 marketplace root 解析，并应以 `./` 开头。
+  - **url**：`"source": { "source": "url", "url": "https://github.com/owner/plugin.git", "ref": "main" }`。插件位于 Git 仓库根目录。
+  - **git-subdir**：`"source": { "source": "git-subdir", "url": "https://github.com/owner/plugins.git", "path": "./plugins/my-plugin", "ref": "main" }`。插件位于 Git 仓库子目录。
+- `ref` 和 `sha` 是 Git-backed plugin entry 的官方选择器；如果 Codex 解析不了某个 entry，会跳过该插件条目而不是让整个 marketplace 失败。
 - **本地调试**：可以直接 `codex plugin marketplace add ./local-marketplace-root` 指向本地 marketplace root；若修改插件内容，需要刷新/重启 Codex 让本地安装拾取新文件。
 
 ### Cursor（`.cursor-plugin/marketplace.json`）
 
 - 官方 schema 中，插件条目里的 **`source`** 字段表示 **当前已被 Cursor 作为 marketplace 来源纳入的那份 Git 工作副本里的相对路径**（多插件仓里常见为子目录名，如 `docker`；**单插件占满整仓根** 时为 **`"./"`**），用于在该路径下查找 **`.cursor-plugin/plugin.json`** 并与条目字段合并。见 [Plugins Reference — Multi-plugin repositories / How resolution works](https://cursor.com/docs/reference/plugins)。
-- **没有** Codex 那种 **`source: { "source": "url", "url": "...", "ref": "..." }`**。所谓「从 Git 安装」是指：用户或管理员 **用 GitHub 仓库 URL 导入整个 marketplace 仓库**（例如 Team marketplace Import）；导入后，`source: "./"` 自然指向**该次 Git 检出**的根目录，而不是在 JSON 里再写一遍 clone URL 当作 `source`。
+- **没有** Codex 那种 **`source: { "source": "url" | "git-subdir", "url": "...", "ref": "..." }`** 插件条目。所谓「从 Git 安装」是指：用户或管理员 **用 GitHub 仓库 URL 导入整个 marketplace 仓库**（例如 Team marketplace Import）；导入后，`source: "./"` 自然指向**该次 Git 检出**的根目录，而不是在 JSON 里再写一遍 clone URL 当作 `source`。
 - **推荐补强**：在 marketplace 的插件条目上增加官方支持的 **`repository`**（及 **`homepage`**）字符串，写明 canonical Git URL（如 `https://github.com/SummerSec/SumSec-Skills.git`），避免维护者误以为必须把 `source` 改成 URL 才算「对齐 Codex、默认从 Git」——语义上由 **导入来源 + `repository`** 共同表达即可。
 
 ## 跨平台 hook 行为摘要
@@ -171,7 +180,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 14. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
 
 
-**Codex**：`.agents/plugins/marketplace.json` 中插件条目默认使用 **`source.source: "local"`** + **`path: "./"`** 指向 marketplace root 下的本仓插件；从 Git 安装 marketplace 使用 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main`。不要把 Git URL/ref 写进 `plugins[]` 条目的 `source` 对象。
+**Codex**：本仓 `.agents/plugins/marketplace.json` 当前采用 **`source.source: "local"`** + **`path: "./"`**，适合 repo-scoped marketplace 或通过 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` 拉取 marketplace 后从该 checkout 加载根插件。若未来维护单独 marketplace 仓库，或希望某个 entry 直接指向远端插件包，可使用官方 Git-backed entry：`source: "url"`（插件在仓库根）或 `source: "git-subdir"`（插件在仓库子目录），并配合 `url`、`ref` / `sha`。
 
 **Cursor**：`.cursor-plugin/marketplace.json` 与 **「Codex 与 Cursor：marketplace 的 `source` 与『从 Git 安装』」** 一节保持一致（`source: "./"` + 条目级 `repository` 等）。**SumSec-Skills** 下可选规则在 `.cursor/rules/`，由 `.cursor-plugin/plugin.json` 的 `rules` 引用。
 
