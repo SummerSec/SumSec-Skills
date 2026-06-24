@@ -13,26 +13,27 @@ SumSec Observer 是 SumSec / sumsec.me 的固定原创个人形象，服务于�
 尽量保持这些锚点，方便不同图之间形成同一个人：
 
 - 成人比例的简化人物，头身约 1:5 到 1:6，不要 Q 版。
-- 黑色手绘细线稿，面部极简，眼神冷静或疲惫但清醒，不卖萌。
+- 黑色手绘细线稿，面部极简，眼神冷静或疲惫但清醒，不卖萌；疲惫主要体现在眼神和表情，不体现在病态体态。
+- 姿态自然挺直，肩颈放松但不塌，允许为了观察对象轻微前倾；不要严重驼背、弓背、塌肩或脖子前伸。
 - 短外套、轻量连帽夹克或轻量风衣；服装线条克制，不做复杂潮流穿搭。
 - 斜挎工具包是稳定识别件，里面露出日志纸、便签夹、小工具或线缆。
 - 细框眼镜或低檐帽二选一；同一张图不要堆太多装备。
 - 一小块青蓝识别件：袖标、镜片反光、工具线、包带或小芯片。
 - 红橙只用于证据标签、风险贴纸、告警小旗、失败点标记。
-- SumSec Core 是角色携带的黑匣徽记、工具芯片或证据封签，不是主角本体。
+- SummerSec 徽记是角色携带的青蓝水滴 S 简化身份标记，不是主角本体。固定识别件是人物手指上的两个低调 S 徽记戒指；也可作为工具芯片或证据封签参与结构，但不要额外堆叠更多 S 徽记。
 
 ## 个人形象 Prompt 核心
 
 需要单独描述 SumSec Observer 时，优先使用这段骨架，再按任务补充动作：
 
 ```text
-SumSec Observer, an original personal avatar for sumsec.me: an adult security researcher and system observer, drawn as minimalist black hand-drawn line art on a pure white background. Calm, restrained, slightly tired but lucid expression. Adult proportions, not chibi. Short jacket or lightweight hoodie, small crossbody tool bag with log papers and tiny cables, optional thin-frame glasses or low visor cap, one small cyan-blue identifier, red-orange evidence tags only when needed. The character feels like a hands-on technical writer who debugs security research, AI agents, hooks, skills, and toolchains on paper. Deadpan engineering humor, clean and restrained. Not a mascot, not cute, not a hacker villain, not a cyberpunk character, not a children's cartoon, not an external IP character.
+SumSec Observer, an original personal avatar for sumsec.me: an adult security researcher and system observer, drawn as minimalist black hand-drawn line art on a pure white background. Calm, restrained, slightly tired but lucid expression. Natural upright posture with relaxed shoulders; the character may lean forward slightly to inspect something, but must not be hunched, round-backed, slumped, or neck-forward. Adult proportions, not chibi. Short jacket or lightweight hoodie, small crossbody tool bag with log papers and tiny cables, optional thin-frame glasses or low visor cap, one small cyan-blue identifier, red-orange evidence tags only when needed. The character feels like a hands-on technical writer who debugs security research, AI agents, hooks, skills, and toolchains on paper. Deadpan engineering humor, clean and restrained. Not a mascot, not cute, not a hacker villain, not a cyberpunk character, not a children's cartoon, not an external IP character.
 ```
 
 中文简写版：
 
 ```text
-SumSec Observer，sumsec.me 的原创个人形象：成人安全研究员 / 系统观测员，纯白背景上的极简黑色手绘线稿，冷静、克制、略疲惫但清醒。成人比例，不 Q 版；短外套或轻量连帽夹克，斜挎工具包露出日志纸和小线缆，细框眼镜或低檐帽二选一，一小块青蓝识别件，必要时用红橙证据标签。像亲自下场调试安全研究、AI Agent、hooks、skills 和工具链的技术作者。冷幽默、干净、克制；不要吉祥物、可爱小人、黑客反派、赛博角色、儿童插画或外部 IP。
+SumSec Observer，sumsec.me 的原创个人形象：成人安全研究员 / 系统观测员，纯白背景上的极简黑色手绘线稿，冷静、克制、略疲惫但清醒。姿态自然挺直，肩颈放松，可轻微前倾观察，但不要严重驼背、弓背、塌肩或脖子前伸。成人比例，不 Q 版；短外套或轻量连帽夹克，斜挎工具包露出日志纸和小线缆，细框眼镜或低檐帽二选一，一小块青蓝识别件，必要时用红橙证据标签。像亲自下场调试安全研究、AI Agent、hooks、skills 和工具链的技术作者。冷幽默、干净、克制；不要吉祥物、可爱小人、黑客反派、赛博角色、儿童插画或外部 IP。
 ```
 
 ## 气质
@@ -66,10 +67,13 @@ SumSec Observer，sumsec.me 的原创个人形象：成人安全研究员 / 系�
 - 不要画成纯黑实心小人或只剩一个抽象黑块。
 - 不要让角色站在角落旁观；它必须参与核心动作。
 - 不要让服装、装备或表情抢走结构表达。
-- 不要把 SumSec Core 画成宠物、机器人伙伴、圆滚滚小物或主角；它只能是徽记、芯片、封签。
+- 不要把“疲惫”画成严重驼背、塌肩、弓背、病态蜷缩或脖子前伸。
+- 不要把 SummerSec 徽记画成宠物、机器人伙伴、圆滚滚小物或主角；它只能是戒指徽记、芯片、封签。
+- 手指上的两个 S 徽记戒指要低调、细小、像身份锚点，不要变成夸张珠宝、魔法道具或画面主角。
 
 ## 判断标准
 
 如果去掉 SumSec Observer，图的核心隐喻还能完全成立，说明角色太装饰了；要重写提示词，让角色成为执行动作的人：看、贴、接、修、称、分拣、记录或封存。
 
 如果把角色单独截出来，看不出“成人技术作者 / 安全研究员 / 系统观测员”的稳定身份，说明个人形象 prompt 不够强；补回斜挎工具包、日志纸、青蓝识别件、冷静疲惫表情和非吉祥物约束。
+

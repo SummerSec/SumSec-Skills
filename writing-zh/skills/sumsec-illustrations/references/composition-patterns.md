@@ -14,19 +14,19 @@
 
 适合：信息来源、过滤器、数据库、渲染器、agent 系统局部。
 
-画法：只画 3-5 个核心模块，SumSec Observer 参与其中一个关键动作，SumSec Core 作为小徽记或工具芯片出现。
+画法：只画 3-5 个核心模块，SumSec Observer 参与其中一个关键动作，SummerSec 徽记作为小徽记或工具芯片出现。
 
 ### 漏洞链路
 
 适合：安全研究、攻击面、PoC、漏洞复盘、风险传递。
 
-画法：把漏洞链路画成一串松动的管道、门锁、闸门或证据钉板。SumSec Observer 用红橙标签标出“入口 / 触发 / 影响 / 修补”，SumSec Core 是标签上的黑匣印记。
+画法：把漏洞链路画成一串松动的管道、门锁、闸门或证据钉板。SumSec Observer 用红橙标签标出“入口 / 触发 / 影响 / 修补”，SummerSec 徽记是标签上的青蓝水滴 S 印记。
 
 ### Agent 编排
 
 适合：Codex、Claude、Cursor、多 agent、skills、hooks、MCP、自动化协作。
 
-画法：把 agent 系统画成一张低科技调度台、线缆交换机、邮局分拣台或小型控制室。SumSec Observer 插线、换路由或检查 hook 是否触发，SumSec Core 是工具包上的小徽记。
+画法：把 agent 系统画成一张低科技调度台、线缆交换机、邮局分拣台或小型控制室。SumSec Observer 插线、换路由或检查 hook 是否触发，SummerSec 徽记是工具包上的小徽记。
 
 ### 证据栈
 
@@ -56,7 +56,7 @@
 
 适合：方法论框架、系统层级、能力栈、内容系统分层。
 
-画法：一层层盒子，不要正式金字塔；SumSec Observer 在旁边搭建或记录，SumSec Core 作为某层的小封签。
+画法：一层层盒子，不要正式金字塔；SumSec Observer 在旁边搭建或记录，SummerSec 徽记作为某层的小封签。
 
 ### 地图路线
 
