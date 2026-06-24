@@ -1,25 +1,25 @@
-﻿---
+---
 name: sumsec-illustrations
-description: 生成 SumSec / sumsec.me 风格的中文正文配图。用于用户要求为安全研究、漏洞复盘、AI Agent、Skill 仓库、工程工作流、方法论、流程、结构、状态、隐喻或观点生成“手绘”“正文配图”“文章插图”“配图建议”“shot list”“去标题/改图”等任务；默认使用 SumSec Observer 原创人物角色、纯白手绘、少量青蓝/红橙批注、克制冷幽默的工程草图风格；角色应是成人安全研究员 / 系统观测员气质，不走吉祥物、可爱小人或外部 IP 路线。
+description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配图、shot list、插图提示词和已有图修改建议。用于安全研究、漏洞复盘、AI Agent、Skill 仓库、工程工作流、方法论、流程、结构、状态、隐喻或观点的“手绘配图”“文章插图”“个人形象 prompt”“SumSec Observer 角色”“去标题/改图”等任务；默认使用 SumSec Observer 个人化原创角色：成人安全研究员 / 系统观测员，纯白手绘、黑色线稿、少量青蓝/红橙批注、克制冷幽默，不走吉祥物、可爱小人、黑客反派或外部 IP 路线。
 ---
 
 # SumSec Observer 正文配图
 
 ## 核心定位
 
-为 sumsec.me 风格中文文章设计和生成 16:9 横版正文配图。目标不是做商业插画、PPT 信息图或可爱卡通，而是把安全研究、AI Agent、Skill 仓库、工具链和工程实践里的关键判断、流程、结构、状态或隐喻，变成一张清爽、冷幽默、有记忆点、可读但不说明书的手绘解释图。
+为 sumsec.me 风格中文文章设计和生成 16:9 横版正文配图，也可产出单张图的生成 prompt 或修改建议。目标不是做商业插画、PPT 信息图或可爱卡通，而是把安全研究、AI Agent、Skill 仓库、工具链和工程实践里的关键判断、流程、结构、状态或隐喻，变成一张清爽、冷幽默、有记忆点、可读但不说明书的手绘解释图。
 
-默认人物角色是“SumSec Observer”：一个克制、冷静、偏安全研究员气质的原创人物。角色像长期写 sumsec.me、做安全研究、Agent 工程和个人 Skill 仓库的人在白纸工程草图里的分身：成人比例、简化线稿、短外套或连帽夹克、斜挎工具包、细框眼镜或遮檐帽二选一、青蓝识别件、红橙证据标签。SumSec Core 作为角色身上的小徽记、工具芯片或证据封签出现，但不取代人物。
+默认人物角色是“SumSec Observer”：SumSec 在白纸工程草图里的个人化分身。它是克制、冷静、长期写 sumsec.me、做安全研究、Agent 工程和个人 Skill 仓库的人，而不是品牌吉祥物。稳定外观：成人比例、简化黑色细线稿、短外套或轻量连帽夹克、斜挎工具包、细框眼镜或低檐帽二选一、小块青蓝识别件、红橙证据标签。SumSec Core 只作为角色身上的小徽记、工具芯片或证据封签出现，不能取代人物。
 
 ## 先读这些参考
 
-按任务需要读取，不要一次塞满上下文：
+按任务需要读取，不要一次塞满上下文；工具调用语义中以 `${CLAUDE_SKILL_DIR}` 为根定位资源。
 
-- `references/style-dna.md`：风格 DNA、颜色、文字、禁忌。
-- `references/sumsec-observer.md`：SumSec Observer 的人物设定、动作库、识别件和禁忌。
-- `references/composition-patterns.md`：结构类型、原创隐喻方法和反复刻规则。
-- `references/prompt-template.md`：单张生图提示词模板。
-- `references/qa-checklist.md`：生成后检查和迭代规则。
+- `${CLAUDE_SKILL_DIR}/references/style-dna.md`：风格 DNA、颜色、文字、禁忌。
+- `${CLAUDE_SKILL_DIR}/references/sumsec-observer.md`：SumSec Observer 的个人形象、稳定外观、动作库和禁忌。
+- `${CLAUDE_SKILL_DIR}/references/composition-patterns.md`：结构类型、原创隐喻方法和反复刻规则。
+- `${CLAUDE_SKILL_DIR}/references/prompt-template.md`：单张生图提示词模板。
+- `${CLAUDE_SKILL_DIR}/references/qa-checklist.md`：生成后检查和迭代规则。
 不要依赖旧案例图生成角色；本 skill 当前以文字规则定义 SumSec 专属人物角色。
 
 ## 工作流
@@ -35,7 +35,14 @@ description: 生成 SumSec / sumsec.me 风格的中文正文配图。用于用�
 
 不要平均配图。优先选择“认知锚点”，例如：核心判断、两个断点、输入输出闭环、分流、前后对比、一鱼多吃、承接路径、常见坑、角色状态变化。
 
-### 2. 先出配图策略
+### 2. 判断输出类型
+
+- 用户说“分析怎么配图 / 哪些地方需要配图 / shot list”：只输出配图策略，不生成图片。
+- 用户说“给我 prompt / 优化个人形象 prompt / SumSec Observer 设定”：输出可直接用于生图的角色 prompt 或单图 prompt，优先读取 `${CLAUDE_SKILL_DIR}/references/sumsec-observer.md` 与 `${CLAUDE_SKILL_DIR}/references/prompt-template.md`。
+- 用户说“生成 / 输出 / 做图 / 帮我生成”：直接生成图片，不停下来等确认。
+- 用户给已有图并说“去标题 / 改图 / 更像 SumSec”：给局部编辑或重生成 prompt，优先保持构图，只修问题。
+
+### 3. 先出配图策略
 
 如果用户只是说“分析怎么配图 / 思考哪些地方需要配图”，先给 shot list。每张图写清楚：
 
@@ -49,7 +56,7 @@ description: 生成 SumSec / sumsec.me 风格的中文正文配图。用于用�
 
 默认 4-8 张。文章很短时 1-3 张；长文也不要轻易超过 9 张。够用就好，避免把正文做成画册。
 
-### 3. 单张生成
+### 4. 单张生成
 
 如果用户明确要求“生成 / 输出 / 做图 / 帮我生成”，不要停下来等确认；用内置 `image_gen` 每张单独生成。不要把多张图拼在一张里。
 
@@ -62,14 +69,14 @@ description: 生成 SumSec / sumsec.me 风格的中文正文配图。用于用�
 - 大量留白
 - SumSec Observer 原创人物作为核心动作主体
 - SumSec Core 只作为角色身上的小徽记、工具芯片或证据封签
-- 角色保持成人安全研究员 / 系统观测员气质，不走吉祥物或可爱小人路线
+- 角色保持 SumSec 个人化分身气质：成人安全研究员 / 系统观测员，冷静、疲惫但清醒、亲自下场拆问题，不走吉祥物或可爱小人路线
 - 禁止 PPT、商业插画、幼稚可爱、复杂架构、左上角类型标题
 
 不要复刻过往案例。案例只提供风格密度、留白和角色参与方式，不能直接复用“传送带断点 / 拉线 / 素材鱼 / 盖章工具箱 / 常见坑路径”等已有构图，除非用户明确要求复刻某张图。每次都要从当前文章重新发明一个奇怪但成立的工程隐喻。
 
-### 4. 检查与迭代
+### 5. 检查与迭代
 
-生成后检查 `references/qa-checklist.md`。如果出现以下问题，优先重生成或局部编辑：
+生成后检查 `${CLAUDE_SKILL_DIR}/references/qa-checklist.md`。如果出现以下问题，优先重生成或局部编辑：
 
 - SumSec Observer 只是装饰，没有参与核心动作
 - 角色像吉祥物、表情包、儿童卡通或外部 IP 角色
@@ -80,7 +87,7 @@ description: 生成 SumSec / sumsec.me 风格的中文正文配图。用于用�
 - 画风太可爱、幼稚、死板
 - 背景不是干净白底
 
-### 5. 保存交付
+### 6. 保存交付
 
 如果用户在 workspace 内工作，把最终图复制到：
 
@@ -107,4 +114,3 @@ assets/<article-slug>-illustrations/
 - 哪些图最稳，哪些图是可选
 
 不要长篇解释风格理论；让图自己说话。
-

@@ -6,7 +6,10 @@
 - 背景是干净白底。
 - 有 SumSec Observer 原创人物。
 - SumSec Observer 承担核心动作，不只是装饰。
-- 角色是成人安全研究员 / 系统观测员气质，不像吉祥物、表情包、儿童卡通或外部 IP 角色。
+- 角色像 SumSec / sumsec.me 的个人化作者分身：成人安全研究员 / 系统观测员，冷静、克制、略疲惫但清醒。
+- 保留至少 2 个稳定识别锚点：斜挎工具包、日志纸/小线缆、细框眼镜或低檐帽、青蓝识别件、红橙证据标签。
+- 角色不像吉祥物、表情包、儿童卡通、黑客反派、赛博角色、厂商代言人或外部 IP 角色。
+- SumSec Core 只是小徽记、工具芯片或证据封签，不是主角、宠物或机器人伙伴。
 - 没有复刻旧案例构图，而是为当前文章生成了新隐喻。
 - 画面克制、冷幽默、有工程感、有意思。
 - 简洁清爽，主体不超过画面约 60%。
@@ -22,6 +25,9 @@
 
 - 左上角有“常见坑 / Workflow / 系统架构图 / 路线图”等标题。
 - 角色像吉祥物、表情包、儿童卡通或外部 IP 角色。
+- 角色过于泛化，看不出 SumSec 的个人形象锚点。
+- SumSec Core 被画成主角、宠物、机器人或圆滚滚吉祥物。
+- 角色像黑客兜帽、赛博反派、安全厂商 KV 人物、二次元头像或超级英雄。
 - 画面像 PPT、课程课件、正式流程图。
 - 元素太多、箭头太多、节点太多。
 - 文字变成大段解释。
@@ -37,6 +43,7 @@
 - 太普通：让 SumSec Observer 成为动作主体，加入一个奇怪但成立的工程隐喻。
 - 太复杂：删节点，只保留一个动作和 3-5 个短标注。
 - 太可爱：强调 deadpan、blank serious expression、not cute、not mascot。
+- 不像 SumSec：补回 adult security researcher / system observer、crossbody tool bag、log papers、small cyan-blue identifier、slightly tired but lucid expression。
 - 太 PPT：去掉标题、边框、整齐网格和过多箭头，改成手绘场景。
 - 太像旧案例：保留核心意思，换掉主物件和 SumSec Observer 的动作。
 - 文字错：优先局部编辑；错得多就重生成并减少标注数量。
