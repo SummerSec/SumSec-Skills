@@ -11,6 +11,7 @@
 - 本仓默认提交目标分支为 **`master`**。
 - 除非用户明确要求创建分支、提交 PR，或指定其他分支，否则维护性改动默认应提交并推送到 `master`。
 - 如果当前不在 `master`，提交前先确认是否需要切回 `master`；不要把“默认新建 `codex/*` 分支”当成本仓默认行为。
+- GitHub 远端默认分支可能仍显示为 `main`；提交/推送前用 `git branch --show-current` 和 `git remote show origin` 确认当前目标，不要只依赖 remote HEAD。
 - 暂存时只纳入本次任务相关文件，不要使用无差别 `git add .`。
 - 不要提交无关未跟踪目录、临时输出或同步过程残留，除非本次任务明确要求。
 
@@ -38,6 +39,20 @@ python .claude/skills/sync-skills/scripts/sync-skills.py --list
 npm run sync
 npm run sync:dry
 npm run sync:clean
+```
+
+## 验证命令
+
+```bash
+# JSON manifest 可解析
+node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
+
+# 版本残留检查，按目标版本调整表达式
+rg -n "1\.0\.(31|32)" package.json plugin.json .claude-plugin .cursor-plugin .codex-plugin .agents/plugins writing-zh/.claude-plugin media-tools/.claude-plugin dev-tools/.claude-plugin agents-dev/.claude-plugin openclaw.plugin.json opencode/plugins/sumsec-skills.mjs hermes/skills/sumsec-skills/SKILL.md
+
+# 空白、冲突标记与 symlink 检查
+git diff --check
+git ls-files -s AGENTS.md CLAUDE.md
 ```
 
 ## 仓库布局

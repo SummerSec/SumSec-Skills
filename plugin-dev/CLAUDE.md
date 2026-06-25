@@ -24,6 +24,12 @@ Claude Code 插件开发工具箱，覆盖从设计到验证的完整链路。
 cc --plugin-dir plugin-dev
 ```
 
+## 验证
+
+- 修改插件结构或组件清单后，检查 `plugin-dev/.claude-plugin/plugin.json` 与实际 `commands/`、`skills/`、`agents/` 路径一致。
+- 同步组件时同时检查 `.claude/skills/sync-skills/scripts/skill-map.json`，不要只改复制后的目标目录。
+- 提交前用 `git diff --stat plugin-dev .claude/skills/sync-skills/scripts/skill-map.json` 确认同步范围。
+
 ## 来源
 
 组件通过 `sync-skills` 从 `claude-plugins-official/plugins/plugin-dev` submodule 同步，映射表见 `.claude/skills/sync-skills/scripts/skill-map.json`。
