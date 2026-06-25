@@ -2,6 +2,8 @@
 
 SummerSec 个人 **Agent Skills 集合**，按类别分插件管理。
 
+![SumSec-Skills 项目说明](assets/sumsec-skills-illustrations/02-project-introduction.png)
+
 ## 仓库布局
 
 ```
