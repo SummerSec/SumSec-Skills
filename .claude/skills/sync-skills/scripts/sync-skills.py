@@ -125,6 +125,12 @@ def add_plugin_entry(plugin_name: str, optional: bool = False):
 # 路径相对插件目录根。
 PLUGIN_LEVEL_IGNORES = {
     ".claude-plugin/plugin.json",  # 版本号本仓库说了算（详见 SKILL.md「版本与内容分治原则」）
+    ".codex-plugin/plugin.json",
+    "SKILL.md",
+}
+
+SKILL_LEVEL_IGNORES = {
+    "LICENSE.txt",
 }
 
 
@@ -238,7 +244,7 @@ def do_sync(dry_run: bool = False, clean: bool = False):
 
             # 插件级映射（source 是完整插件目录）：保留本仓库版本的 plugin.json 等文件
             is_plugin_level = (abs_src / ".claude-plugin" / "plugin.json").exists()
-            ignores = PLUGIN_LEVEL_IGNORES if is_plugin_level else None
+            ignores = PLUGIN_LEVEL_IGNORES if is_plugin_level else SKILL_LEVEL_IGNORES
 
             copy_dir(abs_src, abs_dest, ignores=ignores)
             note = "  🔒 plugin.json 保留" if is_plugin_level else ""

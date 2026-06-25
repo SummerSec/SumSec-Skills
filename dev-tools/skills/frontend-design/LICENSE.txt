@@ -1,0 +1,1 @@
+Apache-2.0. Full upstream terms are available in `claude-plugins-official/plugins/frontend-design/LICENSE`.

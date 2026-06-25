@@ -11,4 +11,5 @@
 | `context7-cli` | `skills/context7-cli/SKILL.md` | context7 CLI 工具（查询库文档） |
 | `context7-mcp` | `skills/context7-mcp/SKILL.md` | context7 MCP 服务器集成 |
 | `find-docs` | `skills/find-docs/SKILL.md` | 查找库文档（context7） |
+| `frontend-design` | `skills/frontend-design/SKILL.md` | 高质量前端界面、页面和应用实现 |
 | `baoyu-design` | `skills/baoyu-design/SKILL.md` | UI 设计稿生成（mockup、原型、线框图、PPT，输出自包含 HTML） |

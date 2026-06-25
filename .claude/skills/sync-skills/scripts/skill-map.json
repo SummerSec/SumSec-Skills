@@ -74,5 +74,9 @@
   {
     "source": "baoyu-design/skills/baoyu-design",
     "target": "dev-tools/skills/baoyu-design"
+  },
+  {
+    "source": "claude-plugins-official/plugins/frontend-design/skills/frontend-design",
+    "target": "dev-tools/skills/frontend-design"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "name": "dev-tools",
-  "version": "1.0.31",
-  "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, and UI prototype generation.",
+  "version": "1.0.32",
+  "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, frontend interface implementation, and UI prototype generation.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -17,13 +17,14 @@
     "git",
     "docs",
     "context7",
-    "ui-design"
+    "ui-design",
+    "frontend-design"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "dev-tools",
-    "shortDescription": "Git, history, docs lookup, and UI prototype utilities.",
-    "longDescription": "Developer tools for safe commit and PR workflows, browsing local agent conversation history, fetching current library documentation through Context7, and generating UI mockups or prototypes.",
+    "shortDescription": "Git, history, docs lookup, frontend design, and UI prototype utilities.",
+    "longDescription": "Developer tools for safe commit and PR workflows, browsing local agent conversation history, fetching current library documentation through Context7, creating polished frontend interfaces, and generating UI mockups or prototypes.",
     "developerName": "SummerSec",
     "category": "Developer Tools",
     "capabilities": [
@@ -33,7 +34,8 @@
     "defaultPrompt": [
       "Prepare a safe commit and PR.",
       "Find current docs for this library.",
-      "Create a UI prototype from this brief."
+      "Create a UI prototype from this brief.",
+      "Build a polished frontend interface from this brief."
     ]
   }
 }

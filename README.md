@@ -20,6 +20,7 @@ SumSec-Skills/
 │   └── skills/
 │       ├── git-commit-pr/         Git 提交与 PR
 │       ├── agent-chat-history/    对话历史检索
+│       ├── frontend-design/       前端界面实现
 │       └── baoyu-design/          UI 设计稿与原型生成
 ├── agents-dev/              # Agent 开发生态插件（聚合）
 │   └── skills/
@@ -122,6 +123,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [context7-cli](dev-tools/skills/context7-cli/) | context7 CLI：查询库文档 |
 | [context7-mcp](dev-tools/skills/context7-mcp/) | context7 MCP 服务器集成 |
 | [find-docs](dev-tools/skills/find-docs/) | 查找库文档（context7） |
+| [frontend-design](dev-tools/skills/frontend-design/) | 打造高质量前端界面、页面和应用 |
 | [baoyu-design](dev-tools/skills/baoyu-design/) | UI mockup、交互原型、线框图、PPT/HTML 设计稿生成 |
 
 ### agents-dev（Agent 开发生态）
@@ -165,7 +167,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 
 | Submodule | 来源 | 提供的 skill |
 |-----------|------|-------------|
-| claude-plugins-official | anthropics | skill-creator, plugin-dev 系列, hookify, agent-sdk-dev, claude-md-management, claude-code-setup |
+| claude-plugins-official | anthropics | skill-creator, frontend-design, plugin-dev 系列, hookify, agent-sdk-dev, claude-md-management, claude-code-setup |
 | context7 | upstash | context7-cli, context7-mcp, find-docs |
 | khazix-skills | KKKKhazix | khazix-writer |
 

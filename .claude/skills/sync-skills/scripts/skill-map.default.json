@@ -52,6 +52,10 @@
     "target": "dev-tools/skills/find-docs"
   },
   {
+    "source": "claude-plugins-official/plugins/frontend-design/skills/frontend-design",
+    "target": "dev-tools/skills/frontend-design"
+  },
+  {
     "source": "claude-plugins-official/plugins/claude-md-management",
     "target": "claude-md-management"
   },
