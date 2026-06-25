@@ -6,7 +6,7 @@ description: >
   AI 绘画, or needs visual content from text descriptions.
   Supports any OpenAI-compatible image API (OpenAI, Azure, Right.Codes, etc.).
   Requires OPENAI_API_KEY or GPT_API_TOKEN environment variable.
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Draw Image Generation：AI 图片生成

@@ -1,7 +1,7 @@
 ---
 name: skill-optimizer
 description: "优化、审查或诊断 Agent Skills（SKILL.md）。用于 skill 质量分析、重构技能、skills 不触发、skill 没生效、optimize skills、analyze skills、check my skills。"
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Skill Optimizer

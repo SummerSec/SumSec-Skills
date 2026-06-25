@@ -29,6 +29,7 @@ SumSec-Skills/
 │       ├── skill-optimizer/       Skill 审计优化
 │       ├── multi-platform-plugin-guide/  多平台版本对齐
 │       └── workflow-skill-creator/       流程编排 Skill 设计
+├── skills/                  # Codex 插件聚合入口（symlink 到各插件 skills）
 ├── plugin-dev/              # 镜像：插件开发七件套（agent/command/hook/skill/MCP/structure/settings）
 ├── claude-md-management/    # 镜像：CLAUDE.md 维护
 ├── claude-code-setup/       # 镜像：Claude Code 自动化建议
@@ -72,7 +73,7 @@ SumSec-Skills/
 codex plugin marketplace add SummerSec/SumSec-Skills --ref main
 ```
 
-然后在 Codex 的 `/plugins` 里选择 `SumSec Skills (repo)`，安装 `sumsec` 插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，插件条目使用 `source: "local"` + `path: "./"` 指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。
+然后在 Codex 的 `/plugins` 里选择 `SumSec Skills (repo)`，安装 `sumsec` 插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，插件条目使用 `source: "local"` + `path: "./"` 指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。Codex 插件 manifest 通过 `skills: "./skills/"` 暴露根 `skills/` 聚合目录，该目录用 symlink 指向各插件维护的 skill 源目录。
 
 Codex 也会直接扫描仓库级 `.agents/skills/`，适合放仅服务本仓的工具型 skill；需要分发给其他项目或团队时，应打包进 `.codex-plugin/plugin.json` 所描述的插件。
 
@@ -178,4 +179,3 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 ## 许可
 
 Apache-2.0
-

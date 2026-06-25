@@ -68,6 +68,7 @@ SumSec-Skills/
 ├── .codex/                    # Codex 项目级配置 / hooks
 ├── .agents/plugins/           # Codex repo-scoped marketplace
 ├── .agents/skills/            # Codex repo-scoped skills
+├── skills/                    # Codex 插件聚合入口（symlink 到各插件 skills）
 ├── .cursor/rules/
 ├── khazix-skills/             # submodule: KKKKhazix/khazix-skills
 ├── AGENTS.md
@@ -94,7 +95,7 @@ SumSec-Skills/
 ## Codex 规范补充
 
 - Codex skill 使用开放 Agent Skills 结构：每个 skill 是一个含 `SKILL.md` 的目录，frontmatter 至少包含 `name` 与 `description`；Codex 根据 description 隐式匹配，或通过 `$skill-name` / `/skills` 显式调用。
-- 仓库级本地 skill 放在 `.agents/skills/`；插件分发的 skill 放在插件根的 `skills/` 并由 `.codex-plugin/plugin.json` 的 `skills` 字段暴露。
+- 仓库级本地 skill 放在 `.agents/skills/`；插件分发的 skill 放在插件根的 `skills/` 并由 `.codex-plugin/plugin.json` 的 `skills` 字段暴露；本仓根 `skills/` 为 Codex 聚合入口，用 symlink 指向各插件目录下的真实 skill 源。
 - `.codex-plugin/plugin.json` 是 Codex 插件 manifest；`name` 使用稳定 kebab-case，`skills` 路径相对插件根，例如 `"./"` 或 `"./skills/"`。
 - `.agents/plugins/marketplace.json` 是 Codex marketplace 清单。Codex 解析 `source.path` 时相对 marketplace root，不是相对 `.agents/plugins/` 目录；本仓根插件因此使用 `path: "./"`。
 - Git 安装 marketplace 用 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main`；不要在 marketplace 插件条目里写自定义 `source.url/ref` 当作 Git 安装语法。
@@ -144,4 +145,3 @@ SumSec-Skills/
 8. **`AGENTS.md`**：布局约定树、当前插件一览表（如影响用途描述）
 
 遗漏任何一处都会导致插件发现、安装文档与实际 skill 列表脱节。
-

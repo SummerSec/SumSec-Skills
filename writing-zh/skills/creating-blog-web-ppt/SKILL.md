@@ -1,7 +1,7 @@
 ---
 name: creating-blog-web-ppt
 description: "用于把本仓库 Markdown 文章转成网页版 PPT、HTML slides、演讲稿页面或独立演示页：同目录、同 basename、SUMSEC 回链、全屏按钮、画布不超视口、slide-writer 主题流程。"
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # 创建文章网页版 PPT（slide-writer 对齐 + 博客主题增补）

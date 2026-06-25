@@ -3,7 +3,7 @@ name: humanizer-zh
 description: >
   去 AI 味、降 AIGC、人性化、humanize chinese、论文降重、知网维普万方、AI 检测、文本去机器味。
   适用于中文文本改写、AI 痕迹检测、学术降重、风格转换；有 Python 时优先用本 skill 内零依赖 CLI，无 CLI 时按深度指南改稿。
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Humanizer-zh：中文 AI 文本去痕（CLI + 深度指南）

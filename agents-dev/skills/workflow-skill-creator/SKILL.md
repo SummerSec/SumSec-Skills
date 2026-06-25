@@ -1,7 +1,7 @@
 ---
 name: workflow-skill-creator
 description: 当用户要求创建流程编排类 Skill、管线 Skill、工作流 Skill、多步骤分析 Skill，或提及流程编排、pipeline skill、workflow skill、步骤框架、进度文件、任务编排、审计流程、分析管线、复杂任务 skill时，应使用此技能。提取自 biz-vul-security 的六大架构模式（进度文件驱动、步骤框架分离、三阶段执行、脚本自动化、资源分层、路径一致性），提供从需求梳理到交付自检的完整方法论。
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Workflow Skill Creator
