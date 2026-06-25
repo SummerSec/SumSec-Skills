@@ -3,6 +3,7 @@ tags:
 - blog-comments
 
 ---
+
 # 模型人人都能用，什么才是你能带走的？我的答案是一个可进化的SKILL库
 
 > 你花几十小时调教出来的 AI 工作流，换个工具就没了？这篇文章聊聊怎么把它变成可积累、跨平台、能自我进化的资产。
@@ -18,16 +19,16 @@ A developer sitting at a desk with multiple AI agent interfaces floating around 
 
 ## 先聊一个不舒服的现实
 
-<!-- 
-插图 prompt:
-A developer standing at a crossroads/fork in the road, looking uncertain. Behind them, a fading office building with a "company" sign dissolving into particles. In front of them, multiple diverging paths leading to different destinations (startup, freelance, new company). The developer carries only a small glowing backpack (representing portable skills). Around the paths, AI tool logos float like road signs changing rapidly. Style: slightly melancholic but hopeful atmosphere, muted colors with the glowing backpack as focal point, editorial illustration style, metaphorical.
--->
-
 
 
 AI 时代有一个残酷的事实：**谁也无法保证你明天还在这家公司。**
 
 当 AI 能完成越来越多的工作，团队在缩编，岗位在重组。你今天在 A 公司用 Cursor 写代码，明天可能在 B 公司用 Claude Code，后天可能自己出来单干。
+
+<!-- 
+插图 prompt:
+A developer standing at a crossroads/fork in the road, looking uncertain. Behind them, a fading office building with a "company" sign dissolving into particles. In front of them, multiple diverging paths leading to different destinations (startup, freelance, new company). The developer carries only a small glowing backpack (representing portable skills). Around the paths, AI tool logos float like road signs changing rapidly. Style: slightly melancholic but hopeful atmosphere, muted colors with the glowing backpack as focal point, editorial illustration style, metaphorical.
+-->
 
 ![不确定的现实](./images/uncertain-reality.png)
 
@@ -196,7 +197,7 @@ agents-dev   → 我在开发 AI 工具本身
 
 <!-- 
 插图 prompt:
-A central glowing SKILL.md document in the middle, with 6 arrows radiating outward to different platform logos/icons arranged in a circle: Claude Code (anthropic style), Cursor (cursor logo style), Codex CLI (openai style), OpenClaw, OpenCode, Hermes. Each arrow passes through a thin "adapter layer" (shown as a small translating prism/filter). Style: hub-and-spoke diagram, clean lines, dark background with glowing connections, tech/network aesthetic.
+A central glowing SKILL.md document in the middle, with 6 arrows radiating outward to different platform logos/icons arranged in a circle: Claude Code (anthropic style), Cursor (cursor logo style), Codex CLI (openai style), OpenClaw(Clawfish style), OpenCode, Hermes(Hermes style). Each arrow passes through a thin "adapter layer" (shown as a small translating prism/filter). Style: hub-and-spoke diagram, clean lines, dark background with glowing connections, tech/network aesthetic.
 -->
 
 ![多平台分发架构](./images/multi-platform.png)
@@ -243,7 +244,7 @@ SumSec-Skills/
 A timeline/river flowing from left to right. On the river are floating documents labeled "official spec v1", "v2", "v3" (representing upstream updates). A bridge connects the river to a personal island/garden where custom skills grow as plants. The bridge is labeled "git submodule". New nutrients flow from the river through the bridge to feed the garden. Style: metaphorical illustration, nature meets tech, watercolor-digital hybrid, warm and organic feeling.
 -->
 
-![Submodule 同步机制](./images/submodule-syn.png)
+![Submodule 同步机制](./images/submodule-sync.png)
 
 AI Agent 平台的规范在快速演进。技能库如果是一座孤岛，很快就会和官方脱节。
 
@@ -252,7 +253,7 @@ AI Agent 平台的规范在快速演进。技能库如果是一座孤岛，很�
 ```gitmodules
 [submodule "claude-plugins-official"]
     path = claude-plugins-official
-    url = https://github.com/anthropics/claude-plugins-official.git
+    url = git@github.com:anthropics/claude-plugins-official.git
 
 [submodule "context7"]
     path = context7
@@ -269,173 +270,34 @@ git submodule update --remote
 
 Anthropic 更新了 Skill 规范？新增了 frontmatter 字段？调整了加载机制？不用去翻 changelog，不用猜"官方现在推荐怎么写"——直接看 `claude-plugins-official/` 目录里的最新代码。
 
-### 一个真实的例子：Skill 规范在快速生长
+### 一个真实的例子：frontmatter 的演进
 
-最早期的 Claude Code Skill 长这样，朴素到只有两个字段：
-
-```yaml
----
-name: my-skill
-description: "..."
----
-```
-
-能跑，但能力非常有限。它就是一段挂着名字的 prompt。
-
-然后官方在短短一年内不断给它加新字段。今天一个完整的 Skill frontmatter 可能是这样：
+早期的 Claude Code Skill 只支持 `name` 和 `description` 两个字段。但官方后来陆续加入了一系列精细化控制：
 
 ```yaml
 ---
 name: my-skill
 description: "..."
-when_to_use: "..."               # 补充触发场景，帮 AI 更准判断
-argument-hint: "<file-path>"     # 自动补全时的参数提示
-arguments: [issue, branch]       # 命名位置参数
-disable-model-invocation: true   # 禁止 AI 自动调用
-user-invocable: false            # 不出现在 / 菜单
-allowed-tools: [Read, Grep]      # 预批准工具,减少确认弹窗
-model: claude-opus-4-7           # 这个 Skill 指定模型
-effort: high                     # 指定思考强度
-context: fork                    # 子 Agent 隔离执行
-agent: Explore                   # 选择子 Agent 类型
-paths: ["src/**/*.ts"]           # 只在编辑特定路径时激活
-hooks: { ... }                   # 绑定生命周期 hook
+# ↓ 这些全是后来才加入的新能力
+disable-model-invocation: true   # 禁止 AI 自动调用，只能用户手动触发
+user-invocable: false            # 纯背景知识，不暴露为命令
+allowed-tools: [Read, Grep]      # 预批准安全工具，减少确认弹窗
+context: fork                    # 用子 Agent 执行，隔离上下文
+argument-hint: "<file-path>"     # 支持用户直接传参
 ---
 ```
 
-字段数量翻了 6 倍多。每一个都对应一个真实的工程痛点：
+每个新字段都解决一个具体的痛点：
 
 | 字段 | 解决什么问题 |
 |------|-------------|
-| `when_to_use` | description 装不下完整触发场景，单独一栏专门写触发短语 |
-| `argument-hint` / `arguments` | 让 Skill 像命令一样接收参数（详见下一节）|
-| `disable-model-invocation` | 危险操作（部署、删除）不能让 AI 自己决定 |
-| `user-invocable: false` | 背景知识不需要出现在 `/` 菜单里 |
-| `allowed-tools` | 只读操作不用每次弹确认框 |
-| `model` / `effort` | 不同任务用不同算力（写文章用强模型，琐事用快模型）|
-| `context: fork` + `agent` | 长任务隔离到子 Agent，不污染主对话 |
-| `paths` | 只在编辑相关文件时才进入候选，节约注意力 |
-| `hooks` | Skill 自己绑定生命周期事件，做自动化预处理 |
+| `disable-model-invocation` | 危险操作（删文件、部署）不能让 AI 自己决定执行 |
+| `user-invocable: false` | 编码规范这种背景知识不需要出现在命令列表里 |
+| `allowed-tools` | 只读操作不用每次都弹确认框 |
+| `context: fork` | 长任务用子 Agent 跑，不污染主对话 |
+| `argument-hint` | 让用户可以 `/skill <参数>` 直接传参 |
 
-**这还只是 Claude Code 一个平台的现状。** 其它平台还在各自演进。规范从"一段带名字的 prompt"长成了一个可编程的运行时。你不持续跟踪，写出的 Skill 就停留在最初版本，能跑，但用不上现在的能力。
-
-### 新增能力一：参数传递，让 Skill 不只是静态文档
-
-Skill 从"挂名 prompt"变成"动态命令"，靠的是这一步。Skill 内容里可以用占位符引用用户传入的参数：
-
-```yaml
----
-name: migrate-component
-description: 在框架之间迁移组件
-arguments: [component, from, to]
----
-
-把 $component 组件从 $from 迁移到 $to。
-保留所有现有行为和测试。
-```
-
-用户输入：
-
-```
-/migrate-component SearchBar React Vue
-```
-
-Skill 内容被实时渲染成"把 SearchBar 组件从 React 迁移到 Vue"。
-
-可用的占位符有这么几类：
-
-- `$ARGUMENTS` — 所有参数拼成一个字符串
-- `$ARGUMENTS[0]` / `$0` — 按位置访问第一个参数（shell 风格引号，多词用引号包起来）
-- `$component` — 在 `arguments` 里声明的命名参数
-- `${CLAUDE_SESSION_ID}` — 当前会话 ID，做日志或会话级文件
-- `${CLAUDE_SKILL_DIR}` — Skill 自己所在的目录，引用同目录脚本必备
-
-**Skill 不再是固化的指令，而是能接收上下文的可复用模板。** 一个 `/migrate-component` 配三个参数就能处理无数种迁移场景，不用为每对框架各写一个 Skill。
-
-### 新增能力二：调用控制，谁来触发这个 Skill？
-
-默认情况下，你和 AI 都可以触发任何 Skill。但有些 Skill 你只想自己手动触发（比如部署），有些你只想让 AI 在后台用（比如背景知识）。两个字段控制这件事：
-
-| frontmatter 配置 | 用户能调用 | AI 能自动调用 | 加载到上下文的内容 |
-|------------------|------------|----------------|--------------------|
-| 默认 | ✅ | ✅ | description 常驻，body 调用时加载 |
-| `disable-model-invocation: true` | ✅ | ❌ | **description 完全不进上下文**，body 用户触发时加载 |
-| `user-invocable: false` | ❌ | ✅ | description 常驻，body 调用时加载 |
-
-举两个例子：
-
-```yaml
-# 部署 Skill：必须用户手动触发，AI 不能擅自决定
----
-name: deploy
-disable-model-invocation: true
----
-```
-
-```yaml
-# 遗留系统知识：AI 需要在相关时引用，但不是给用户的命令
----
-name: legacy-auth-context
-user-invocable: false
----
-```
-
-第二种特别值得注意：`disable-model-invocation` 不仅禁止 AI 调用，**还会把这个 Skill 的 description 从 AI 上下文里完全移除**。这是一个减压阀。把那些"重要但用得不频繁"的 Skill 标成手动触发，它们就不再占用 AI 的注意力预算。
-
----
-
-### 顺便聊一下：Skill 多了真的会爆 context 吗？
-
-写到这里我猜你心里有个疑问：**"如果我攒了几十上百个 Skill，AI 的上下文是不是被 description 撑爆了？"**
-
-合理担心。但平台已经替你想了很多。说几个具体机制：
-
-**1. 默认只加载 description，不加载正文。**
-你装了 50 个 Skill，进入上下文的只是 50 行简短描述（每条上限 1,536 字符）。Skill 正文只在被触发时才进入对话，一个 800 行的 SKILL.md 平时一个 token 都不占。
-
-**2. 描述预算是动态的，按模型上下文窗口的 1% 自动分配。**
-Opus 4.7 有 200K 上下文，默认描述预算就是 2K 字符。预算不够时，**用得最少的 Skill 描述会先被砍掉**，常用 Skill 保留完整。可以用 `skillListingBudgetFraction` 调整这个百分比，或者用 `/doctor` 命令检查当前预算够不够。
-
-**3. 用 `paths` 字段做按需激活。**
-`paths` 字段让 Skill 只在你编辑特定路径的文件时才进入候选：
-
-```yaml
----
-name: react-conventions
-paths: ["src/components/**/*.tsx"]
----
-```
-
-不编辑 React 文件时，这个 Skill 完全不出现。这就把"我有 100 个 Skill"变成了"任何时刻只有十几个相关的 Skill 在视野里"。
-
-**4. 用 `skillOverrides` 在 settings 里手动调权重。**
-
-```json
-{
-  "skillOverrides": {
-    "legacy-context": "name-only",   // 只显示名字，不显示描述
-    "deploy": "off"                  // 完全隐藏
-  }
-}
-```
-
-保留 Skill 在仓库里，但在当前项目里把它们"折叠"，既不丢，也不占 token。
-
-**5. Auto-compaction 会替你保留最近用过的能力。**
-长对话被压缩时，最近调用过的 Skill 会自动重新挂载，每个保留前 5,000 token，总预算 25,000 token。你不会因为对话变长而失去刚用过的能力。
-
----
-
-**结论：放心写 Skill。** 真正需要克制的不是 Skill 总数，而是这几条工程纪律：
-
-- 不要把 SKILL.md 写到 500 行以上（深度内容放 `references/`，让 AI 按需加载）
-- 把 description 写准，让 AI 一眼能筛掉无关的
-- 给"重要但用得不频繁"的加上 `disable-model-invocation` 或 `user-invocable: false`
-- 给"只在特定路径相关"的加上 `paths`
-
-这些都是平台给你的减压阀。用上它们，你的技能库可以放心从 20 个长到 200 个，上下文不会被撑爆，AI 的判断也不会被淹没。
-
-**所以与其纠结要不要少写几个 Skill，不如把精力花在跟踪官方规范上。** 平台每加一个字段，往往就是在给你多一种"既要又要"的解法。不跟踪，Skill 一多就会越用越焦虑；跟踪了，你会发现每个焦虑场景官方都准备了对应的开关。
+**如果你不跟踪官方，你可能还在用最原始的方式写 Skill。** 能跑，但远没有用上平台的全部能力。
 
 ### 分层架构：官方是地基，个人是建筑
 
@@ -506,7 +368,18 @@ git log --oneline skills/git-commit-pr/
 
 <!-- 
 插图 prompt:
-A two-panel layout. Left panel shows a single SKILL.md with "progressive disclosure" concept (layers peeling back). Right panel shows the same concept scaled up to repository level: multiple plugin boxes, each containing skills, user only pulling what they need. A visual parallel/mirror between the two panels showing "same principle, different scale". Style: clean split-panel infographic, mirror/fractal aesthetic, left side micro-scale, right side macro-scale, minimalist, professional.
+A vertical funnel/filter diagram with 4 distinct layers, each progressively narrower. 
+Top layer (widest): "Marketplace" — 4 colorful plugin boxes with brief labels floating in a wide open space. 
+Second layer: "Plugin" — one plugin box opened, revealing 3-4 small skill cards inside. 
+Third layer: "Skill" — a single SKILL.md document unfolding, showing its header and structure. 
+Bottom layer (narrowest): "References" — detailed code snippets and script files loading on demand, shown as thin glowing threads being pulled in.
+
+Between each layer, a semi-transparent filter/membrane with a "pass/block" visual — some items pass through (glowing), others stay above (dimmed). 
+
+On the left side, a vertical arrow labeled "context usage" decreasing from top to bottom. On the right side, a vertical arrow labeled "relevance" increasing from top to bottom.
+
+Style: clean infographic, dark background with soft gradients, each layer has a distinct accent color (blue → teal → green → gold), minimalist geometric shapes, professional data visualization aesthetic, no text clutter, the funnel shape should feel elegant not cramped.
+
 -->
 
 ![设计哲学](./images/design-philosophy.png)
@@ -592,7 +465,6 @@ SumSec-Skills 的尝试指向一个方向：
 
 - 仓库地址：[github.com/SummerSec/SumSec-Skills](https://github.com/SummerSec/SumSec-Skills)
 - 许可证：Apache-2.0（自由使用、修改、分发）
-- Skill规范：[Claude Skills](https://code.claude.com/docs/en/skills)
 
 ---
 
