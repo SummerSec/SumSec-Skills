@@ -1,0 +1,38 @@
+{
+  "name": "writing-zh",
+  "version": "1.0.31",
+  "description": "Chinese writing tools for de-AIifying text, Markdown-to-slides workflows, personal-voice long-form writing, and SumSec article illustrations.",
+  "author": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "writing-zh",
+    "chinese-writing",
+    "slides",
+    "illustrations"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "writing-zh",
+    "shortDescription": "Chinese writing, slides, voice, and article illustrations.",
+    "longDescription": "Chinese writing assistant skills for polishing AI-sounding text, turning Markdown articles into HTML slides, writing in the Khazix style, and designing SumSec Observer article illustrations.",
+    "developerName": "SummerSec",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Polish this Chinese technical article.",
+      "Turn this Markdown post into HTML slides.",
+      "Design illustrations for this SumSec article."
+    ]
+  }
+}

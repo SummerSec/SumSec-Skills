@@ -1,27 +1,139 @@
 {
   "name": "sumsec-skills",
   "interface": {
-    "displayName": "SumSec Skills (repo)"
+    "displayName": "SumSec Skills"
   },
   "metadata": {
-    "description": "Repo-scoped Codex marketplace for SumSec-Skills. Add the Git marketplace with `codex plugin marketplace add SummerSec/SumSec-Skills --ref main`; the local entry below points at the repository root when this file is checked out."
+    "description": "Repo-scoped Codex marketplace for SumSec-Skills. Add with `codex plugin marketplace add SummerSec/SumSec-Skills --ref main`; each plugin entry points to a subdirectory in this checkout."
   },
   "plugins": [
     {
-      "name": "sumsec",
+      "name": "writing-zh",
       "source": {
         "source": "local",
-        "path": "./"
+        "path": "./writing-zh"
       },
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
-      "description": "SummerSec personal Agent Skills collection for Codex: writing-zh (including writing, slides, illustrations), media-tools (including image/video), dev-tools (including git, docs, history, baoyu-design), and agents-dev.",
-      "version": "1.0.30",
+      "description": "Chinese writing tools for de-AIifying text, Markdown-to-slides workflows, personal-voice long-form writing, and SumSec article illustrations.",
+      "version": "1.0.31",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
+    },
+    {
+      "name": "media-tools",
+      "source": {
+        "source": "local",
+        "path": "./media-tools"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Media generation skills for AI image creation and Remotion React video best practices.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "dev-tools",
+      "source": {
+        "source": "local",
+        "path": "./dev-tools"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, and UI prototype generation.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "agents-dev",
+      "source": {
+        "source": "local",
+        "path": "./agents-dev"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Agent development skills for skill creation, skill optimization, workflow skill design, hook writing, and multi-platform plugin metadata maintenance.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "claude-code-setup",
+      "source": {
+        "source": "local",
+        "path": "./claude-code-setup"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Analyze codebases and recommend tailored Claude Code automations such as hooks, skills, MCP servers, and subagents.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "claude-md-management",
+      "source": {
+        "source": "local",
+        "path": "./claude-md-management"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Tools to maintain and improve CLAUDE.md files, audit quality, capture session learnings, and keep project memory current.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "hookify",
+      "source": {
+        "source": "local",
+        "path": "./hookify"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns, with regex matching and multiple event types.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "plugin-dev",
+      "source": {
+        "source": "local",
+        "path": "./plugin-dev"
+      },
+      "repository": "https://github.com/SummerSec/SumSec-Skills.git",
+      "homepage": "https://github.com/SummerSec/SumSec-Skills",
+      "description": "Plugin development toolkit with skills for agent, command, hook, skill, MCP, plugin structure, and plugin settings development.",
+      "version": "1.0.31",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
     }
   ]
 }

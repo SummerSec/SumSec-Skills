@@ -1,0 +1,38 @@
+{
+  "name": "claude-code-setup",
+  "version": "1.0.31",
+  "description": "Analyze codebases and recommend tailored Claude Code automations such as hooks, skills, MCP servers, and subagents.",
+  "author": {
+    "name": "Anthropic",
+    "email": "support@anthropic.com"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "claude-code",
+    "setup",
+    "automation",
+    "hooks"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "claude-code-setup",
+    "shortDescription": "Recommend Claude Code automations for a repo.",
+    "longDescription": "A setup assistant that analyzes a codebase and recommends useful Claude Code automations, including hooks, skills, MCP servers, subagents, and slash commands.",
+    "developerName": "Anthropic",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Recommend automations for this repo.",
+      "Audit this codebase for useful skills.",
+      "Suggest hooks and MCP servers."
+    ]
+  }
+}

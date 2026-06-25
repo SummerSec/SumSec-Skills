@@ -1,0 +1,39 @@
+{
+  "name": "dev-tools",
+  "version": "1.0.31",
+  "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, and UI prototype generation.",
+  "author": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "dev-tools",
+    "git",
+    "docs",
+    "context7",
+    "ui-design"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "dev-tools",
+    "shortDescription": "Git, history, docs lookup, and UI prototype utilities.",
+    "longDescription": "Developer tools for safe commit and PR workflows, browsing local agent conversation history, fetching current library documentation through Context7, and generating UI mockups or prototypes.",
+    "developerName": "SummerSec",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Prepare a safe commit and PR.",
+      "Find current docs for this library.",
+      "Create a UI prototype from this brief."
+    ]
+  }
+}

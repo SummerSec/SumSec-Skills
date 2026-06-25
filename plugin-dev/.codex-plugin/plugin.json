@@ -1,0 +1,39 @@
+{
+  "name": "plugin-dev",
+  "version": "1.0.31",
+  "description": "Plugin development toolkit with skills for agent, command, hook, skill, MCP, plugin structure, and plugin settings development.",
+  "author": {
+    "name": "Anthropic",
+    "email": "support@anthropic.com"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "plugin-dev",
+    "plugins",
+    "mcp",
+    "commands",
+    "agents"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "plugin-dev",
+    "shortDescription": "Plugin development toolkit skills.",
+    "longDescription": "A plugin development toolkit with focused skills for agent development, command development, hook development, skill development, MCP integration, plugin structure, and plugin settings.",
+    "developerName": "Anthropic",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Help me build a plugin.",
+      "Design a plugin command.",
+      "Review this plugin structure."
+    ]
+  }
+}

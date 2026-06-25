@@ -180,7 +180,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 14. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
 
 
-**Codex**：本仓 `.agents/plugins/marketplace.json` 当前采用 **`source.source: "local"`** + **`path: "./"`**，适合 repo-scoped marketplace 或通过 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` 拉取 marketplace 后从该 checkout 加载根插件。若未来维护单独 marketplace 仓库，或希望某个 entry 直接指向远端插件包，可使用官方 Git-backed entry：`source: "url"`（插件在仓库根）或 `source: "git-subdir"`（插件在仓库子目录），并配合 `url`、`ref` / `sha`。
+**Codex**：本仓 `.agents/plugins/marketplace.json` 与 Claude/Cursor 一样采用多插件条目；每个条目使用 **`source.source: "local"`** + 对应子目录 **`path`**（如 `./writing-zh`、`./media-tools`、`./dev-tools`）。通过 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` 拉取 marketplace 后，Codex 会从该 checkout 的子目录加载各插件目录内的 `.codex-plugin/plugin.json`。若未来维护单独 marketplace 仓库，或希望某个 entry 直接指向远端插件包，可使用官方 Git-backed entry：`source: "url"`（插件在仓库根）或 `source: "git-subdir"`（插件在仓库子目录），并配合 `url`、`ref` / `sha`。
 
 **Cursor**：`.cursor-plugin/marketplace.json` 与 **「Codex 与 Cursor：marketplace 的 `source` 与『从 Git 安装』」** 一节保持一致（`source: "./"` + 条目级 `repository` 等）。**SumSec-Skills** 下可选规则在 `.cursor/rules/`，由 `.cursor-plugin/plugin.json` 的 `rules` 引用。
 

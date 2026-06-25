@@ -1,0 +1,38 @@
+{
+  "name": "hookify",
+  "version": "1.0.31",
+  "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns, with regex matching and multiple event types.",
+  "author": {
+    "name": "Anthropic",
+    "email": "support@anthropic.com"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "hooks",
+    "hookify",
+    "rules",
+    "automation"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "hookify",
+    "shortDescription": "Create hook rules from conversation patterns.",
+    "longDescription": "Hookify helps create hook rules that prevent unwanted behaviors by analyzing conversation patterns and turning them into regex-based rules across multiple hook event types.",
+    "developerName": "Anthropic",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Create a hookify rule.",
+      "Write a hook rule for this behavior.",
+      "Configure hookify patterns."
+    ]
+  }
+}

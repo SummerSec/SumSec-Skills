@@ -1,0 +1,37 @@
+{
+  "name": "claude-md-management",
+  "version": "1.0.31",
+  "description": "Tools to maintain and improve CLAUDE.md files, audit quality, capture session learnings, and keep project memory current.",
+  "author": {
+    "name": "Anthropic",
+    "email": "support@anthropic.com"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "claude-md",
+    "project-memory",
+    "docs"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "claude-md-management",
+    "shortDescription": "Maintain and improve CLAUDE.md project memory.",
+    "longDescription": "CLAUDE.md maintenance tools for auditing project guidance quality, capturing useful session learnings, and keeping durable project memory current.",
+    "developerName": "Anthropic",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Audit this CLAUDE.md file.",
+      "Improve project guidance.",
+      "Capture this session learning."
+    ]
+  }
+}

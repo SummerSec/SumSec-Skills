@@ -1,0 +1,38 @@
+{
+  "name": "agents-dev",
+  "version": "1.0.31",
+  "description": "Agent development skills for skill creation, skill optimization, workflow skill design, hook writing, and multi-platform plugin metadata maintenance.",
+  "author": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "agents-dev",
+    "skills",
+    "plugins",
+    "hooks"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "agents-dev",
+    "shortDescription": "Agent skill and plugin development workflows.",
+    "longDescription": "Agent development ecosystem skills for creating and optimizing skills, designing workflow-oriented skills, writing Hookify rules, and maintaining multi-platform plugin metadata and release checklists.",
+    "developerName": "SummerSec",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Create a new agent skill.",
+      "Review this skill for trigger quality.",
+      "Align plugin metadata across platforms."
+    ]
+  }
+}
