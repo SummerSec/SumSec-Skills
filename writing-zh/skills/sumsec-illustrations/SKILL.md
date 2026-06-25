@@ -1,6 +1,6 @@
 ---
 name: sumsec-illustrations
-description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配图、shot list、插图提示词和已有图修改建议。用于安全研究、漏洞复盘、AI Agent、Skill 仓库、工程工作流、方法论、流程、结构、状态、隐喻或观点的“手绘配图”“文章插图”“参考图提取人物特征”“个人形象 prompt”“SumSec Observer 角色”“稳定人物色彩”“胸前 SummerSec 铭牌”“去标题/改图”等任务；默认使用 SumSec Observer 个人化原创角色：年轻成人安全研究员 / 系统观测员，纯白手绘、深炭干净轮廓线、低饱和人物局部上色、深墨凌乱短发、细框眼镜、冷灰夹克、暗青蓝包带、胸前小工作证式 SummerSec 铭牌、双 S 戒指、清醒放松轻微笑意；必须干净下颌、无胡子/胡茬，不走老成大叔、阴郁冷脸、吉祥物、可爱小人、黑客反派或外部 IP 路线。
+description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配图、shot list、插图提示词、图片提示词提取和已有图修改建议。用于安全研究、漏洞复盘、AI Agent、Skill 仓库、工程工作流、方法论、流程、结构、状态、隐喻或观点的“手绘配图”“文章插图”“参考图提取人物特征”“提取这张图的提示词”“个人形象 prompt”“角色设定图 prompt”“SumSec Observer 角色”“稳定人物色彩”“胸前 SummerSec 铭牌”“去标题/改图”等任务；默认使用 SumSec Observer 个人化原创角色：年轻成人安全研究员 / 系统观测员，纯白手绘、深炭干净轮廓线、低饱和人物局部上色、深墨凌乱短发、细框眼镜、冷灰夹克、暗青蓝包带、胸前小工作证式 SummerSec 铭牌、双 S 戒指、清醒放松轻微笑意；必须干净下颌、无胡子/胡茬，不走老成大叔、阴郁冷脸、吉祥物、可爱小人、黑客反派或外部 IP 路线。
 ---
 
 # SumSec Observer 正文配图
@@ -20,7 +20,7 @@ description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配�
 - `${CLAUDE_SKILL_DIR}/references/composition-patterns.md`：结构类型、原创隐喻方法和反复刻规则。
 - `${CLAUDE_SKILL_DIR}/references/prompt-template.md`：单张生图提示词模板。
 - `${CLAUDE_SKILL_DIR}/references/qa-checklist.md`：生成后检查和迭代规则。
-- `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`：SumSec Observer 目标形象参考资产；只提取人物锚点、装备与气质，不复刻整张 character sheet 布局。
+- `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`：SumSec Observer 目标形象参考资产；提取人物锚点、装备、气质与角色设定图的信息密度。生成正文配图时不要复刻整张 character sheet 布局；用户明确要“角色设定图 / 个人形象 prompt / 提取图片提示词”时，可复用“大半身 + 3/4 工作姿态 + 小图标形态 + 戒指/工具芯片 callout”的设定图结构。
 不要依赖旧案例图生成角色；本 skill 当前以文字规则定义 SumSec 专属人物角色。
 
 ## 工作流
@@ -39,7 +39,7 @@ description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配�
 ### 2. 判断输出类型
 
 - 用户说“分析怎么配图 / 哪些地方需要配图 / shot list”：只输出配图策略，不生成图片。
-- 用户说“给我 prompt / 优化个人形象 prompt / SumSec Observer 设定 / 设计一套人物形象”：输出可直接用于生图的角色 prompt、character sheet prompt 或单图 prompt，优先读取 `${CLAUDE_SKILL_DIR}/references/sumsec-observer.md` 与 `${CLAUDE_SKILL_DIR}/references/prompt-template.md`。
+- 用户说“给我 prompt / 优化个人形象 prompt / SumSec Observer 设定 / 设计一套人物形象 / 提取这张图的提示词”：输出可直接用于生图的角色 prompt、character sheet prompt 或单图 prompt，优先读取 `${CLAUDE_SKILL_DIR}/references/sumsec-observer.md` 与 `${CLAUDE_SKILL_DIR}/references/prompt-template.md`。如果用户给的是 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 或同类角色设定图，使用“角色设定图提示”分支：保留大半身、3/4 工作姿态、小图标形态、双 S 戒指、工具芯片、手写 callout、冷灰夹克、暗青蓝包带、工具包和工作中气质；说明这是基于画面反推的稳定 prompt，不要声称是原始 prompt。
 - 用户给参考图并说“提取人物特征 / 基于这个角色 / 增加铭牌”：先提取可复用人物锚点，再把变化写成局部增量；优先保持深色凌乱短发、细框眼镜、冷灰夹克、暗青蓝包带、斜挎工具包、双 S 戒指和胸前工作证式 `SummerSec` 铭牌，不把参考图里的标题、布局说明或边角小样照搬到成图。
 - 用户说“生成 / 输出 / 做图 / 帮我生成”：直接生成图片，不停下来等确认。
 - 用户给已有图并说“去标题 / 改图 / 更像 SumSec”：给局部编辑或重生成 prompt，优先保持构图，只修问题。

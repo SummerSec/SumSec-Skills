@@ -112,10 +112,48 @@ SumSec Observer，sumsec.me 的原创个人形象：年轻成人安全研究员 
 
 ## Character sheet prompt
 
-需要一次生成完整角色设定图时，使用这段：
+用户要求“角色设定图 / 设计一套人物形象 / 提取目标图提示词 / 复刻这张设定图的信息密度”时，使用这段。它是从目标形象资产中反推出来的稳定 prompt，不要声称是原始 prompt。正文配图不要默认使用这个多视图布局。
 
 ```text
-Create a clean character sheet for "SumSec Observer", the original personal avatar for sumsec.me. Pure white background, clean minimalist deep charcoal contour line art with restrained low-saturation watercolor/marker washes. Use fewer lines: clean outlines, low-density details, minimal hair strokes, no dense sketch hatching. Show three views on one sheet: (1) bust portrait, (2) 3/4 body working pose, (3) small simplified icon pose. Young adult security researcher / system observer, late 20s to early 30s, not chibi. Dark ink / dark brown-black short hair, slightly messy side-swept bangs partly covering one eyebrow; thin-frame glasses; bright relaxed narrow eyes, clear friendly gaze, subtle small smile, smooth clean-shaven jawline, no facial hair, no mustache, no beard, no stubble. Pale cool-gray short jacket or lightweight hoodie, dark cyan-blue inner lining or crossbody strap, muted gray-brown crossbody tool bag with log papers, clipboard, and tiny cyan cables, very light warm skin-tone face and hands. Add one small SummerSec nameplate on the chest in each main view: tiny work-ID / evidence badge clipped to the jacket chest, near the zipper, or on the crossbody strap where it crosses the chest; readable "SummerSec" text, tiny cyan-blue S mark, optional red-orange header strip, secondary and restrained. One hand near the face in the bust portrait, adjusting glasses or holding a small evidence note, showing exactly two subtle cyan-blue SummerSec S-emblem rings. Add tiny cyan-blue water-S identifiers on ring/tool chip only, and small red-orange evidence tags. Include a few tiny handwritten Chinese notes: 清澈 / 证据 / hook / CodeQL / skill. Lots of blank space, clean white-paper engineering sketch, clear-water transparency, light restrained humor. Do not make the SummerSec nameplate a big title, big logo, advertising badge, or central subject. Do not make it gloomy, stern, deadpan cold, middle-aged, old, bearded, rugged, a mascot, overly cute cartoon, hacker hoodie, cyberpunk poster, anime idol, superhero, children's illustration, vendor logo mascot, flat commercial cartoon, black-and-white-only sketch, dense pencil sketch, pixel art, or 8-bit style.
+为“SumSec Observer”创建一张干净的角色设定图。SumSec Observer 是 sumsec.me 的原创个人形象。
+
+画面为方形构图，纯白背景，大量留白，像手绘概念设定稿。使用极简深炭黑轮廓线，搭配克制的水彩 / marker 低饱和上色。线条略带草图感但保持干净，细节密度低，带一点精致的动漫插画气质和技术笔记式角色设定图感觉。添加少量中英文手写标注。
+
+主体角色：
+年轻成人安全研究员 / 系统观测员，年龄感约 late 20s 到 early 30s。气质冷静、清澈、放松但专注，聪明，有一点工作中的疲惫感，但不要阴郁。深墨色 / 深棕黑短发，略凌乱，轻微侧分，柔软碎发遮住一部分额头。细框眼镜，清醒的窄眼，干净无胡子的脸，年轻平滑的下颌，很浅的暖肤色。表情安静、清醒、克制，带一点轻微认真感。
+
+服装与装备：
+浅冷灰色轻量连帽夹克，暗青蓝内衬，黑色内搭，深色裤子。胸前有一条暗青蓝斜挎包带。侧身背着灰褐色斜挎工具包，包里露出日志纸、便签、小工具、夹子和细小青蓝线缆。工具包上有小证据标签和标记。角色手持黑色夹板 / 平板，正在记录或查看笔记，看起来处于工作中。
+
+身份细节：
+手指上有两枚低调银色戒指，每枚戒指上都有青蓝色 SummerSec S 标识。角色身上有一个小工作证 / 证据牌 / 铭牌，写着 “SummerSec”，白色或浅灰底，带红橙色小标题条和小青蓝 S 标记。另有一个黑色工具芯片，上面有青蓝 S 标识，仅用于记录与分析。青蓝识别元素必须小而克制，不要变成大 logo。
+
+设定图布局：
+在同一张图中展示多个视图：
+1. 左侧为较大的半身头像，一只手靠近眼镜，露出两枚 S 标识戒指，并拿着一张小证据纸。
+2. 中间或右侧为全身 / 3/4 工作姿态，角色手持夹板，穿灰色夹克，背斜挎工具包。
+3. 右下角有一个小尺寸图标形态，仍能看出眼镜、深色短发、灰色夹克、青蓝包带和小工具包。
+4. 下方或旁边有戒指与 S 工具芯片的小物件 callout。
+
+手写标注：
+左上角手写标题：“SumSec Observer” 和 “sumsec.me”。
+画面中添加少量中文手写标注：“清澈”、“工作中”、“图标形态”、“两枚戒指，SummerSec S 标识”、“工具芯片”、“仅用于记录与分析”。
+右侧有小项目符号列表：“hook”、“CodeQL”、“skill”。
+
+颜色：
+主线稿使用深炭黑。夹克为浅冷灰色，内衬和包带为暗青蓝色，工具包为灰褐色，皮肤为很浅的暖色，头发为深墨色。S 标识使用小面积青蓝色，证据标签使用少量红橙色。所有颜色都要稀疏、透明、克制，像淡水彩或 marker。
+
+整体氛围：
+干净的白纸工程草图，个人技术作者形象，安全研究、日志、CodeQL、hooks、skills、冷静观察、清水般透明、低调聪明。
+
+反向约束：
+不要赛博朋克，不要黑客反派，不要吉祥物，不要 Q 版，不要儿童化，不要超级英雄，不要商业矢量插画，不要扁平企业插画，不要密集铅笔素描，不要写实肖像，不要黑暗戏剧海报，不要过度可爱的动漫偶像，不要中年侦探，不要胡子男，不要杂乱背景，不要 UI 界面，不要霓虹灯，不要大 logo，不要广告牌式徽章，不要拥挤的信息图。
+```
+
+更贴近目标图布局时，可以追加：
+
+```text
+保持角色参考设定图的构图，而不是单张肖像：大半身头像、全身工作姿态、小图标版本、戒指和工具芯片 callout，全部安排在一张干净的白色画布上。
 ```
 
 ## 气质
