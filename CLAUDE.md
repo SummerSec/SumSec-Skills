@@ -64,19 +64,25 @@ python .claude/skills/sync-skills/scripts/sync-skills.py   # 仅维护者升级 
 
 ## 多平台版本管理
 
-版本号统一在多个 manifest 中维护，bump 时需同步：
+版本号统一在多个 manifest / marketplace 中维护，发布 bump 时需把所有对外安装入口对齐到同一版本（例如 `1.0.34`），避免 marketplace 条目与插件自身 manifest 脱节：
 
 | 文件 | 用途 |
 |------|------|
 | `package.json` | npm 包版本 |
-| `plugin.json` | Claude Code marketplace 入口 |
-| `.claude-plugin/plugin.json` | 根 marketplace 注册 |
-| `<plugin>/.claude-plugin/plugin.json` | 各独立插件的 manifest |
+| `plugin.json` | 根插件元数据 |
+| `.claude-plugin/plugin.json` | Claude 根插件 manifest |
+| `.claude-plugin/marketplace.json` | Claude marketplace，每个 `plugins[].version` |
+| `.cursor-plugin/plugin.json` | Cursor 根插件 manifest |
+| `.cursor-plugin/marketplace.json` | Cursor marketplace，每个条目 `version` |
+| `.codex-plugin/plugin.json` | Codex 根插件 manifest |
+| `.agents/plugins/marketplace.json` | Codex repo-scoped marketplace，每个条目 `version` |
+| `<plugin>/.claude-plugin/plugin.json` | 各独立 Claude 插件 manifest |
+| `<plugin>/.codex-plugin/plugin.json` | 各独立 Codex 插件 manifest |
 | `opencode/plugins/sumsec-skills.mjs` | OpenCode 插件入口 |
 | `openclaw.plugin.json` | OpenClaw 清单 |
 | `hermes/skills/sumsec-skills/SKILL.md` | Hermes 入口 |
 
-版本 bump 的详细清单见 `agents-dev/skills/multi-platform-plugin-guide/SKILL.md`。
+当前需要纳入版本对齐的独立插件包括 `writing-zh`、`media-tools`、`dev-tools`、`agents-dev`、`claude-code-setup`、`claude-md-management`、`hookify`、`plugin-dev`。版本 bump 的详细清单见 `agents-dev/skills/multi-platform-plugin-guide/SKILL.md`。
 
 ## 原创 Skill 约定
 
