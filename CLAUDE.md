@@ -181,13 +181,14 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | `.cursor-plugin/plugin.json` | Cursor manifest |
 | `.cursor-plugin/marketplace.json` | Cursor marketplace 条目版本 |
 | `.codex-plugin/plugin.json` | Codex 插件 manifest |
-| `.agents/plugins/marketplace.json` | Codex repo-scoped marketplace |
-| `<plugin>/.claude-plugin/plugin.json` | 各独立插件 manifest |
+| `.agents/plugins/marketplace.json` | Codex repo-scoped marketplace，每个条目 `version` |
+| `<plugin>/.claude-plugin/plugin.json` | 各独立 Claude 插件 manifest |
+| `<plugin>/.codex-plugin/plugin.json` | 各独立 Codex 插件 manifest |
 | `openclaw.plugin.json` | OpenClaw 清单 |
 | `opencode/plugins/sumsec-skills.mjs` | OpenCode 插件入口 |
 | `hermes/skills/sumsec-skills/SKILL.md` | Hermes 入口 |
 
-版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致。若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。
+版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致。若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。多插件仓发布时，marketplace 条目版本必须和对应子插件 manifest 版本一致，不要只改根 manifest。
 
 ## Codex 规范补充
 

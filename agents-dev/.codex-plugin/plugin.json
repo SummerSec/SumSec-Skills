@@ -1,6 +1,6 @@
 {
   "name": "agents-dev",
-  "version": "1.0.31",
+  "version": "1.0.34",
   "description": "Agent development skills for skill creation, skill optimization, workflow skill design, hook writing, and multi-platform plugin metadata maintenance.",
   "author": {
     "name": "SummerSec",

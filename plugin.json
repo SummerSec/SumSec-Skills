@@ -1,6 +1,6 @@
 {
   "name": "sumsec",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "SummerSec personal Agent Skills collection. Plugins: writing-zh, media-tools, dev-tools, agents-dev.",
   "author": {
     "name": "SummerSec",

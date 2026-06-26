@@ -55,16 +55,19 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 ## 版本同步清单
 
-发布更新时，同步 bump 下列版本字段，否则 marketplace/cache 可能不会拉取新内容：
+发布更新时，同步 bump 下列版本字段，否则 marketplace/cache 可能不会拉取新内容。多插件仓尤其要确认 marketplace 条目版本和对应子插件 manifest 版本完全一致，不要只改根 manifest：
 
 1. `package.json`
 2. `plugin.json`
 3. `.claude-plugin/plugin.json`
-4. `.claude-plugin/marketplace.json`
+4. `.claude-plugin/marketplace.json` → 每个 `plugins[].version`
 5. `.codex-plugin/plugin.json`
-6. `.cursor-plugin/plugin.json`
-7. `.cursor-plugin/marketplace.json`
-8. `openclaw.plugin.json`
+6. `.agents/plugins/marketplace.json` → 每个 Codex 插件条目 `version`
+7. `.cursor-plugin/plugin.json`
+8. `.cursor-plugin/marketplace.json` → 每个条目 `version`
+9. 各子插件 `.claude-plugin/plugin.json`
+10. 各子插件 `.codex-plugin/plugin.json`
+11. `openclaw.plugin.json`
 
 ## Claude Code 插件规范摘要
 
@@ -162,7 +165,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 ## SumSec-Skills 发布清单（本仓）
 
-**SumSec-Skills** 为「多 plugin 源码集合」仓库，按类别分为四个插件目录，每插件有自己的 `.claude-plugin/plugin.json`。已落地的多平台 manifest **包含** OpenClaw / OpenCode / Hermes 专用文件（`openclaw.plugin.json`、`opencode/`、`hermes/`）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
+**SumSec-Skills** 为「多 plugin 源码集合」仓库，当前 marketplace 对外注册多个独立插件目录，每插件有自己的 `.claude-plugin/plugin.json` 与 `.codex-plugin/plugin.json`。已落地的多平台 manifest **包含** OpenClaw / OpenCode / Hermes 专用文件（`openclaw.plugin.json`、`opencode/`、`hermes/`）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
 
 1. `package.json`（根）
 2. `plugin.json`（根）
@@ -171,13 +174,20 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 5. `.cursor-plugin/plugin.json`
 6. `.cursor-plugin/marketplace.json` → 每个条目 `version`
 7. `.codex-plugin/plugin.json`
-8. `writing-zh/.claude-plugin/plugin.json`
-9. `media-tools/.claude-plugin/plugin.json`
-10. `dev-tools/.claude-plugin/plugin.json`
-11. `agents-dev/.claude-plugin/plugin.json`
-12. `openclaw.plugin.json` — OpenClaw manifest
-13. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
-14. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
+8. `.agents/plugins/marketplace.json` → 每个 Codex 插件条目 `version`
+9. `writing-zh/.claude-plugin/plugin.json`、`writing-zh/.codex-plugin/plugin.json`
+10. `media-tools/.claude-plugin/plugin.json`、`media-tools/.codex-plugin/plugin.json`
+11. `dev-tools/.claude-plugin/plugin.json`、`dev-tools/.codex-plugin/plugin.json`
+12. `agents-dev/.claude-plugin/plugin.json`、`agents-dev/.codex-plugin/plugin.json`
+13. `claude-code-setup/.claude-plugin/plugin.json`、`claude-code-setup/.codex-plugin/plugin.json`
+14. `claude-md-management/.claude-plugin/plugin.json`、`claude-md-management/.codex-plugin/plugin.json`
+15. `hookify/.claude-plugin/plugin.json`、`hookify/.codex-plugin/plugin.json`
+16. `plugin-dev/.claude-plugin/plugin.json`、`plugin-dev/.codex-plugin/plugin.json`
+17. `openclaw.plugin.json` — OpenClaw manifest
+18. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
+19. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
+
+注意：Codex 的 `.agents/plugins/marketplace.json` 是用户安装时看到的版本，子目录内 `.codex-plugin/plugin.json` 是实际插件包 manifest；二者版本必须一起更新。Claude/Cursor marketplace 也同理，条目版本不能和插件 manifest 分叉。
 
 
 **Codex**：本仓 `.agents/plugins/marketplace.json` 与 Claude/Cursor 一样采用多插件条目；每个条目使用 **`source.source: "local"`** + 对应子目录 **`path`**（如 `./writing-zh`、`./media-tools`、`./dev-tools`）。通过 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` 拉取 marketplace 后，Codex 会从该 checkout 的子目录加载各插件目录内的 `.codex-plugin/plugin.json`。若未来维护单独 marketplace 仓库，或希望某个 entry 直接指向远端插件包，可使用官方 Git-backed entry：`source: "url"`（插件在仓库根）或 `source: "git-subdir"`（插件在仓库子目录），并配合 `url`、`ref` / `sha`。
