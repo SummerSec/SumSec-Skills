@@ -4,6 +4,7 @@
 
 - 是 16:9 横版。
 - 背景是干净白底。
+- 只要本轮有实际生图/重生成/改图输出，就确实附带了 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 作为参考图；它被当作人物生成形象模板图使用，而不是仅在文字里提到。
 - 有 SumSec Observer 原创人物。
 - SumSec Observer 承担核心动作，不只是装饰。
 - 角色像 SumSec / sumsec.me 的个人化作者分身：年轻成人安全研究员 / 系统观测员，清醒、安静、低情绪、工作中略疲惫但不阴郁、克制。
@@ -32,6 +33,7 @@
 出现以下情况，重生成或局部编辑：
 
 - 左上角有“常见坑 / Workflow / 系统架构图 / 路线图”等标题。
+- 明明进入了实际生图流程，却没有把 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 一起传给生图工具，只靠文字 prompt 硬生。
 - 角色像吉祥物、表情包、儿童卡通或外部 IP 角色。
 - 角色过于泛化，看不出 SumSec 的个人形象锚点。
 - 角色像普通安全研究员，没有清水 S、双戒指、深墨短发、细框眼镜、暗青蓝包带、胸前铭牌、手靠近脸部等来源转译特征。
@@ -69,6 +71,7 @@
 ## 迭代方法
 
 - 太普通：让 SumSec Observer 成为动作主体，加入一个奇怪但成立的工程隐喻。
+- 人设漂移：先检查本轮是否真的附带了 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`；如果没有，先补上模板图参考，再重生成。
 - 太复杂：删节点，只保留一个动作和 3-5 个短标注。
 - 太可爱：强调 restrained slight smile、clear relaxed eyes、not childish、not mascot。
 - 太老/有胡子：重生成并强调 young adult, late 20s to early 30s, clean-shaven, smooth jawline, no beard, no mustache, no stubble, no chin shadow, no age lines。

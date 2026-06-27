@@ -14,7 +14,7 @@
 ## 插图生成注意
 
 - 使用 `sumsec-illustrations` 前先读 `SKILL.md` 及其直接链接的 `references/style-dna.md`、`references/sumsec-observer.md`、`references/prompt-template.md`、`references/qa-checklist.md`。
-- 生成 SumSec Observer 时，以 `skills/sumsec-illustrations/assets/sumsec-observer-target.png` 为人物、衣服、工具包、夹板、戒指与低情绪工作状态的优先参考。
+- `skills/sumsec-illustrations/assets/sumsec-observer-target.png` 是 SumSec Observer 的人物生成形象模板图；只要实际生成/重生成图片，就必须把它作为参考图一并传入，而不是只在 prompt 里口头描述。
 - 项目或文章配图落到 `assets/<slug>-illustrations/`，保留原始生成图，不覆盖已有资产，除非用户明确要求替换。
 
 ## 安装路径

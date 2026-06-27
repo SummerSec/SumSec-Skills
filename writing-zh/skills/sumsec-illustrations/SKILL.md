@@ -9,7 +9,7 @@ description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配�
 
 为 sumsec.me 风格中文文章设计和生成 16:9 横版正文配图，也可产出单张图的生成 prompt 或修改建议。目标不是做商业插画、PPT 信息图或可爱卡通，而是把安全研究、AI Agent、Skill 仓库、工具链和工程实践里的关键判断、流程、结构、状态或隐喻，变成一张清爽、冷幽默、有记忆点、可读但不说明书的手绘解释图。
 
-默认人物角色是“SumSec Observer”：SumSec 在白纸工程草图里的个人化分身。它是克制、冷静、长期写 sumsec.me、做安全研究、Agent 工程和个人 Skill 仓库的人，而不是品牌吉祥物。`${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 是人物情绪、衣服、装备和信息密度的最高优先参考；生成正文配图时可以换构图，但不要重设计角色。
+默认人物角色是“SumSec Observer”：SumSec 在白纸工程草图里的个人化分身。它是克制、冷静、长期写 sumsec.me、做安全研究、Agent 工程和个人 Skill 仓库的人，而不是品牌吉祥物。`${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 是 SumSec Observer 的人物生成形象模板图，也是所有实际生图/重生成时必须携带的参考图；生成正文配图时可以换构图，但不要重设计角色。
 
 稳定外观必须贴近目标图：年轻成人比例、自然挺直的脊背与稳定站姿、深炭干净轮廓线、少量发丝线、深墨或深棕黑短发、略凌乱侧分、柔软碎发压住部分额头、细框眼镜、窄而清醒的低情绪眼神、安静克制的轻微工作疲惫感、干净下颌、无胡子/胡茬/小胡子。稳定服装与物件必须保留：浅冷灰高领轻量连帽夹克、暗青蓝内衬和拉绳、黑色内搭、深色裤子、胸前暗青蓝斜挎包带、侧身灰褐工具包、黑色夹板/平板、日志纸、便签、小夹子、细小青蓝线缆、红橙证据标签、小工作证式 `SummerSec` 铭牌、两枚青蓝 S 戒指和一个黑色 S 工具芯片。人物本身不能只是黑白线稿；默认要有克制的色彩锚点：浅冷灰夹克、暗青蓝内衬/包带、很浅的暖肤色面部与手部、深墨色头发、灰褐工具包。SummerSec 铭牌默认优先做成胸前工作证/调查牌，挂在胸前拉链旁、夹克胸口或斜挎包带经过胸前的位置；全身构图中可移到工具包或卡扣，但仍要小而可读。SummerSec 徽记以人物手指上的两个低调 S 徽记戒指作为固定识别件出现，也可作为工具芯片、证据封签或小铭牌参与结构，但不能取代人物。
 
@@ -22,7 +22,7 @@ description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配�
 - `${CLAUDE_SKILL_DIR}/references/composition-patterns.md`：结构类型、原创隐喻方法和反复刻规则。
 - `${CLAUDE_SKILL_DIR}/references/prompt-template.md`：单张生图提示词模板。
 - `${CLAUDE_SKILL_DIR}/references/qa-checklist.md`：生成后检查和迭代规则。
-- `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`：SumSec Observer 目标形象参考资产；优先提取表情、发型、夹克结构、暗青蓝包带、工具包、夹板、日志纸、证据牌、戒指、工具芯片与设定图信息密度。生成正文配图时不要复刻整张 character sheet 布局，但必须保持人物情绪、衣服物件系统和身份锚点；用户明确要“角色设定图 / 个人形象 prompt / 提取图片提示词”时，可复用“大半身 + 3/4 工作姿态 + 小图标形态 + 戒指/工具芯片 callout”的设定图结构。
+- `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`：SumSec Observer 人物生成形象模板图；优先提取表情、发型、夹克结构、暗青蓝包带、工具包、夹板、日志纸、证据牌、戒指、工具芯片与设定图信息密度。只要进入“实际生成图片 / 重生成图片 / 局部改图后输出成图”流程，就必须把这张图作为参考图一起提供给生图工具，不能只靠文字 prompt。生成正文配图时不要复刻整张 character sheet 布局，但必须保持人物情绪、衣服物件系统和身份锚点；用户明确要“角色设定图 / 个人形象 prompt / 提取图片提示词”时，可复用“大半身 + 3/4 工作姿态 + 小图标形态 + 戒指/工具芯片 callout”的设定图结构。
 不要依赖旧案例图生成角色；本 skill 当前以文字规则定义 SumSec 专属人物角色。
 
 ## 工作流
@@ -41,7 +41,7 @@ description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配�
 ### 2. 判断输出类型
 
 - 用户说“分析怎么配图 / 哪些地方需要配图 / shot list”：只输出配图策略，不生成图片。
-- 用户说“给我 prompt / 优化个人形象 prompt / SumSec Observer 设定 / 设计一套人物形象 / 提取这张图的提示词”：输出可直接用于生图的角色 prompt、character sheet prompt 或单图 prompt，优先读取 `${CLAUDE_SKILL_DIR}/references/sumsec-observer.md` 与 `${CLAUDE_SKILL_DIR}/references/prompt-template.md`。如果用户给的是 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 或同类角色设定图，使用“角色设定图提示”分支：保留大半身、3/4 工作姿态、小图标形态、双 S 戒指、工具芯片、手写 callout、冷灰夹克、暗青蓝包带、工具包和工作中气质；说明这是基于画面反推的稳定 prompt，不要声称是原始 prompt。
+- 用户说“给我 prompt / 优化个人形象 prompt / SumSec Observer 设定 / 设计一套人物形象 / 提取这张图的提示词”：输出可直接用于生图的角色 prompt、character sheet prompt 或单图 prompt，优先读取 `${CLAUDE_SKILL_DIR}/references/sumsec-observer.md` 与 `${CLAUDE_SKILL_DIR}/references/prompt-template.md`。如果用户给的是 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 或同类角色设定图，使用“角色设定图提示”分支：保留大半身、3/4 工作姿态、小图标形态、双 S 戒指、工具芯片、手写 callout、冷灰夹克、暗青蓝包带、工具包和工作中气质；说明这是基于画面反推的稳定 prompt，不要声称是原始 prompt。若后续真的执行生图，仍必须把 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 作为参考图一并传入。
 - 用户给参考图并说“提取人物特征 / 基于这个角色 / 增加铭牌”：先提取可复用人物锚点，再把变化写成局部增量；优先保持深色凌乱短发、细框眼镜、冷灰夹克、暗青蓝包带、斜挎工具包、双 S 戒指和胸前工作证式 `SummerSec` 铭牌，不把参考图里的标题、布局说明或边角小样照搬到成图。
 - 用户说“生成 / 输出 / 做图 / 帮我生成”：直接生成图片，不停下来等确认。
 - 用户给已有图并说“去标题 / 改图 / 更像 SumSec”：给局部编辑或重生成 prompt，优先保持构图，只修问题。
@@ -63,6 +63,12 @@ description: 为 SumSec / sumsec.me 中文技术文章设计或生成正文配�
 ### 4. 单张生成
 
 如果用户明确要求“生成 / 输出 / 做图 / 帮我生成”，不要停下来等确认；用内置 `image_gen` 每张单独生成。不要把多张图拼在一张里。
+
+实际生图前先执行这个硬门槛：
+
+- 把 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 当作人物生成形象模板图附带给生图工具，不能省略。
+- 文字 prompt 负责描述当前这张图的主题、结构和动作；人物一致性以这张模板图为最高优先级约束。
+- 如果当前执行面无法把参考图一并传入，就不要假装已经满足要求；明确说明受限，并退回只输出 prompt、shot list 或修改建议。
 
 每张图只讲一个核心结构。提示词必须包含：
 
