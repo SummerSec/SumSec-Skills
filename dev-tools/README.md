@@ -1,16 +1,31 @@
 # Dev-Tools Plugin
 
-开发工具插件。包含：
+Developer tooling plugin. Includes:
 
-- **git-commit-pr** — 在真实仓库中安全完成 commit、push、PR/MR
-- **agent-chat-history** — 按日期检索本机 Agent 历史对话（JSONL / SQLite）
-- **context7-cli** — context7 CLI 工具
-- **context7-mcp** — context7 MCP 服务器
-- **find-docs** — 查找库文档（context7）
-- **frontend-design** — 生成高质量前端界面、页面和应用代码
-- **baoyu-design** — 生成 UI mockup、交互原型、线框图、PPT/HTML 设计稿
+- **git-commit-pr** - safe commit, push, and PR/MR workflows
+- **agent-chat-history** - search local agent history by date
+- **context7-cli** - Context7 CLI docs lookup
+- **context7-mcp** - Context7 MCP integration guidance
+- **find-docs** - current library and API documentation lookup
+- **ponytail** - minimal-solution coding mode: YAGNI, reuse, stdlib, native first
+- **ponytail-review** - review diffs only for over-engineering
+- **ponytail-audit** - repo-wide over-engineering audit
+- **ponytail-help** - quick reference for Ponytail modes and companion skills
+- **frontend-design** - high-quality frontend implementation
+- **baoyu-design** - UI mockups, interactive prototypes, and HTML deck artifacts
 
-## 安装
+## MCP
+
+The plugin also bundles a **Ponytail MCP** server:
+
+- server: `ponytail`
+- prompt: `ponytail`
+- tool: `ponytail_instructions`
+
+This is a pull-based Ponytail context source for MCP-capable hosts. It is not
+a replacement for always-on hooks.
+
+## Install
 
 ```bash
 /plugin install dev-tools@sumsec-skills

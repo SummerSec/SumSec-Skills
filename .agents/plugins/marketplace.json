@@ -47,7 +47,7 @@
       },
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
-      "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, polished frontend implementation, and UI prototype generation.",
+      "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, Ponytail minimal-solution skills, a bundled Ponytail MCP server, polished frontend implementation, and UI prototype generation.",
       "version": "1.0.35",
       "policy": {
         "installation": "AVAILABLE",

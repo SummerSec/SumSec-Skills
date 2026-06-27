@@ -28,7 +28,7 @@
     },
     {
       "name": "dev-tools",
-      "description": "Developer tools: git-commit-pr (commit & PR), agent-chat-history (browse agent logs), context7-cli/mcp/find-docs (library doc lookup), frontend-design (polished frontend implementation), and baoyu-design (UI mockups/prototypes/decks).",
+      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, Ponytail minimal-solution skills, a bundled Ponytail MCP server, frontend-design, and baoyu-design.",
       "version": "1.0.35",
       "source": "./dev-tools",
       "author": {

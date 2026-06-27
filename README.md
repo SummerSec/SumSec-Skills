@@ -183,3 +183,14 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 ## 许可
 
 Apache-2.0
+
+## Ponytail in dev-tools
+
+The `dev-tools` plugin now also bundles Ponytail-focused assets:
+
+- `dev-tools/skills/ponytail/`
+- `dev-tools/skills/ponytail-review/`
+- `dev-tools/skills/ponytail-audit/`
+- `dev-tools/skills/ponytail-help/`
+- `dev-tools/.mcp.json`
+- `dev-tools/ponytail-mcp/`

@@ -46,7 +46,7 @@
     },
     {
       "name": "dev-tools",
-      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design, baoyu-design.",
+      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, Ponytail minimal-solution skills, a bundled Ponytail MCP server, frontend-design, baoyu-design.",
       "version": "1.0.35",
       "source": "./dev-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
