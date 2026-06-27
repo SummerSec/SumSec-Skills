@@ -11,7 +11,7 @@
     {
       "name": "writing-zh",
       "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), khazix-writer, sumsec-illustrations.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./writing-zh",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -29,7 +29,7 @@
     {
       "name": "media-tools",
       "description": "Media generation: draw-image-generation (AI images), remotion-best-practices (React video).",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./media-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -47,7 +47,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design, baoyu-design.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./dev-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -65,7 +65,7 @@
     {
       "name": "agents-dev",
       "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, agent-sdk-dev, and multi-platform-plugin-guide.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./agents-dev",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -83,7 +83,7 @@
     {
       "name": "plugin-dev",
       "description": "Plugin development toolkit: 7 skills (agent/command/hook/skill/MCP/structure/settings) + 3 agents (agent-creator, plugin-validator, skill-reviewer) + /plugin-dev:create-plugin guided workflow.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./plugin-dev",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -101,7 +101,7 @@
     {
       "name": "claude-code-setup",
       "description": "Analyze codebases and recommend tailored Claude Code automations: hooks, skills, MCP servers, subagents, and slash commands.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./claude-code-setup",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -119,7 +119,7 @@
     {
       "name": "claude-md-management",
       "description": "Maintain and improve CLAUDE.md files: audit quality (claude-md-improver) and capture session learnings (/revise-claude-md).",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./claude-md-management",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
@@ -137,7 +137,7 @@
     {
       "name": "hookify",
       "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns. Supports regex matching, multiple event types, and interactive rule management.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./hookify",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",

@@ -1,7 +1,7 @@
 ---
 name: sumsec-skills
 description: "SummerSec personal Agent Skills collection — writing-zh, media-tools, dev-tools, agents-dev."
-version: "1.0.34"
+version: "1.0.35"
 category: skills-collection
 tags:
   - skills

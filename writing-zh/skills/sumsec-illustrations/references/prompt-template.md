@@ -2,7 +2,7 @@
 
 每张图单独生成。根据正文内容替换变量，不要把多张图拼在一起。
 
-实际调用生图工具时，必须同时附带 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 作为参考图片。它是 SumSec Observer 的人物生成形象模板图；下面的文字 prompt 只负责约束主题、构图、动作和禁忌，不能替代这张参考图。
+实际调用生图工具时，必须参考 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 作为人物生成形象模板图。它负责锁定 SumSec Observer 的人物一致性；下面的文字 prompt 只负责约束主题、构图、动作和禁忌。若当前工具支持参考图输入，优先把这张图一并传入；若不支持，也要按它提炼出的角色约束来写 prompt。
 
 ```text
 Generate one standalone 16:9 horizontal Chinese article illustration for a sumsec.me style technical blog.
@@ -46,7 +46,7 @@ One image explains only one core structure. Keep the main subject around 40%-60%
 
 当用户只要求优化 SumSec 个人形象、头像、角色设定或角色 prompt，而不是为具体文章生成配图时，使用更窄的角色提示：
 
-如果后续要把这段 prompt 真正拿去生图，仍然必须附带 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 作为参考图片。
+如果后续要把这段 prompt 真正拿去生图，仍然必须参考 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`；若工具支持参考图输入，优先一并传入。
 
 ```text
 Create a clean character study of SumSec Observer, the original personal avatar for sumsec.me. Pure white background, clean minimalist deep charcoal contour line art with restrained low-saturation watercolor / marker character color. Use fewer lines: clean outline, low-detail face, minimal hair strokes, no dense sketch hatching. Young adult security researcher / system observer, late 20s to early 30s. Preserve the reference character identity strictly: quiet sober eyes, low-key melancholic working expression, slightly tired from work but not dramatic or depressed, focused, intelligent, restrained, no cheerful smile, no sweet smile, no mascot expression. Smooth clean-shaven jawline, no facial hair, no mustache, no beard, no stubble, no chin shadow, no age lines. Dark ink / dark brown-black short hair, slightly messy side-swept bangs partly covering the forehead and one eyebrow, thin-frame glasses. Natural upright posture with relaxed shoulders; do not make the character hunched, round-backed, slumped, collapsed, or neck-forward. Young adult proportions, not chibi.
@@ -58,7 +58,7 @@ Do not redesign the outfit or equipment. Use a pale cool-gray high-collar lightw
 
 当用户要求“角色设定图 / 设计一套人物形象 / 提取目标图提示词 / 复刻这张设定图的信息密度”时，优先使用英文版。它适合方图或设定图，不适合正文 16:9 配图；正文配图仍使用上面的文章插图模板。这类输出应说明：这是基于画面反推的稳定 prompt，不是原始 prompt。中文标注必须用引号保留原文。
 
-如果要实际生成这类设定图，也必须附带 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png` 作为参考图片。
+如果要实际生成这类设定图，也必须参考 `${CLAUDE_SKILL_DIR}/assets/sumsec-observer-target.png`；若工具支持参考图输入，优先一并传入。
 
 ```text
 Create a clean character design sheet for "SumSec Observer", an original personal avatar for sumsec.me.

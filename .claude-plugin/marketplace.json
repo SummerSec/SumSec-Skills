@@ -9,7 +9,7 @@
     {
       "name": "writing-zh",
       "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), khazix-writer (personal voice long-form writing), and sumsec-illustrations (SumSec article illustrations).",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./writing-zh",
       "author": {
         "name": "SummerSec",
@@ -19,7 +19,7 @@
     {
       "name": "media-tools",
       "description": "Media generation: draw-image-generation (AI images via Right.Codes API) and remotion-best-practices (React video).",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./media-tools",
       "author": {
         "name": "SummerSec",
@@ -29,7 +29,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr (commit & PR), agent-chat-history (browse agent logs), context7-cli/mcp/find-docs (library doc lookup), frontend-design (polished frontend implementation), and baoyu-design (UI mockups/prototypes/decks).",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./dev-tools",
       "author": {
         "name": "SummerSec",
@@ -39,7 +39,7 @@
     {
       "name": "agents-dev",
       "description": "Agent development ecosystem: skill-creator, plugin-dev (7 skills), hookify, agent-sdk-dev, and multi-platform-plugin-guide.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./agents-dev",
       "author": {
         "name": "SummerSec",
@@ -49,7 +49,7 @@
     {
       "name": "claude-code-setup",
       "description": "Analyze codebases and recommend tailored Claude Code automations: hooks, skills, MCP servers, subagents, and slash commands.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./claude-code-setup",
       "author": {
         "name": "Anthropic",
@@ -59,7 +59,7 @@
     {
       "name": "claude-md-management",
       "description": "Maintain and improve CLAUDE.md files: audit quality (claude-md-improver) and capture session learnings (/revise-claude-md).",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./claude-md-management",
       "author": {
         "name": "Anthropic",
@@ -69,7 +69,7 @@
     {
       "name": "hookify",
       "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns. Supports regex matching, multiple event types, and interactive rule management.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./hookify",
       "author": {
         "name": "Anthropic",
@@ -79,7 +79,7 @@
     {
       "name": "plugin-dev",
       "description": "Plugin development toolkit: 7 skills (agent/command/hook/skill/MCP/structure/settings) + 3 agents (agent-creator, plugin-validator, skill-reviewer) + /plugin-dev:create-plugin guided workflow.",
-      "version": "1.0.34",
+      "version": "1.0.35",
       "source": "./plugin-dev",
       "author": {
         "name": "Anthropic",
