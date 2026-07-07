@@ -115,6 +115,13 @@ export function validate(
     }
   }
 
+  if (mode === "screenshots" && (setup.animCount ?? 0) > 0) {
+    flags.push({
+      kind: "animations_ignored_screenshots",
+      message: `${setup.animCount} data-anim element(s) found, but mode="screenshots" exports flat images — animations were ignored. Use the editable mode to export them as native PowerPoint animations.`,
+    });
+  }
+
   const failed = perSlide.reduce((sum, r) => sum + r.imagesFailed, 0);
   if (failed > 0) {
     const waited = perSlide.reduce((sum, r) => sum + r.imagesWaited, 0);

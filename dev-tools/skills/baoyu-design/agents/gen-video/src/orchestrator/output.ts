@@ -4,6 +4,7 @@
 import { mkdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import type { VideoFormat } from "../types.ts";
+import { safeBasename } from "./filename.ts";
 
 export async function resolveOutputPath(
   outDir: string,
@@ -11,7 +12,8 @@ export async function resolveOutputPath(
   format: VideoFormat,
 ): Promise<string> {
   const ext = format === "webm" ? "webm" : format === "gif" ? "gif" : "mp4";
-  const name = `${(filename || "video").replace(/[^\w-]/g, "_")}.${ext}`;
+  const base = safeBasename(filename, "video").replace(new RegExp(`\\.${ext}$`, "i"), "") || "video";
+  const name = `${base}.${ext}`;
   const dir = resolve(outDir);
   await mkdir(dir, { recursive: true });
   return join(dir, name);

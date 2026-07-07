@@ -39,5 +39,5 @@ export async function buildScreenshotPptx(
   }
 
   const buffer = (await pptx.write({ outputType: "nodebuffer" })) as Buffer;
-  return { buffer, bytes: buffer.length, slides: slideTiles.length, warnings };
+  return { buffer, bytes: buffer.length, slides: slideTiles.length, warnings, animations: 0, animHidden: [] };
 }

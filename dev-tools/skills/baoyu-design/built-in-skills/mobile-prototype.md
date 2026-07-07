@@ -20,7 +20,7 @@ Always include these, otherwise the "pin to home screen" banner won't trigger in
 
 ## App icon
 
-Create an icon.png in the project root (512×512, square, no transparency on the edges — iOS masks it to a rounded square itself). Make a simple, bold mark that reads at small sizes: a single glyph or monogram on a solid or two-tone background. Avoid photo backgrounds, tiny type, or gradient washes that muddy at 60×60. If the user hasn't specified a brand, pick a deliberate single accent color and use it consistently across the icon and the prototype UI.
+Create an icon.png in the project root (512×512, square, no transparency on the edges — iOS masks it to a rounded square itself). Make a simple, bold mark that reads at small sizes: a single glyph or monogram on a solid or two-tone background. Avoid photo backgrounds, tiny type, or gradient washes that muddy at 60×60. If the user hasn't specified a brand, pick a deliberate single accent color and use it consistently across the icon and the prototype UI. If an image backend is available you can **generate** this icon — see [`generate-images.md`](generate-images.md) — still favoring a simple, bold mark that reads at 60×60; save it as `icon.png` in the project root. With no backend, draw a simple mark instead.
 
 ## Layout — full-bleed with device inset on desktop
 

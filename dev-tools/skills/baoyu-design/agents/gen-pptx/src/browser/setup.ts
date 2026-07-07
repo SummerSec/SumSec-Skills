@@ -292,5 +292,8 @@ export async function setup(input: SetupInput): Promise<SetupResult> {
     notes = json;
   }
 
-  return { notes, fontsReady, resetRect, fontSwapMisses: swapMisses };
+  // Advisory count for the screenshots-mode "animations were ignored" flag.
+  const animCount = document.querySelectorAll("[data-anim]").length;
+
+  return { notes, fontsReady, resetRect, fontSwapMisses: swapMisses, animCount };
 }

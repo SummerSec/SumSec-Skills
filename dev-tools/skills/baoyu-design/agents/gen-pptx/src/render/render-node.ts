@@ -15,7 +15,13 @@ import {
   isPreserveWhitespace,
   trimBlockNewlines,
 } from "../core/css.ts";
-import { type RenderContext, rectToPptx } from "./context.ts";
+import {
+  type RenderContext,
+  type SlideAnimEntry,
+  rectToPptx,
+  mintAnimName,
+  recordAnimShape,
+} from "./context.ts";
 import { imageKey } from "./media-cache.ts";
 import {
   type TextRun,
@@ -33,8 +39,25 @@ type Opts = Record<string, unknown>;
 
 const PT_PER_INCH = 72;
 
-// Render a captured node (and its subtree) into the slide. (←ce)
-export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
+// Render a captured node (and its subtree) into the slide. `inheritedOpacity` is
+// the multiplied opacity of all ancestors — CSS `opacity` forms a group that
+// fades the whole subtree, but a flattened .pptx has no groups, so we propagate
+// it down and multiply each element's own opacity by it. (←ce)
+export function renderNodeToPptx(
+  node: SlideNode,
+  ctx: RenderContext,
+  inheritedOpacity = 1,
+  activeAnim?: SlideAnimEntry,
+): void {
+  // A data-anim node opens a manifest entry that tags every shape its subtree
+  // emits; a nested data-anim replaces the outer one (inner wins — flagged at
+  // capture time as animation_nested).
+  let anim = activeAnim;
+  if (node.anim) {
+    anim = { def: node.anim, spids: [], shapeNames: [], minted: 0 };
+    ctx.animEntries.push(anim);
+  }
+
   // ---- text leaf ----
   if (node.tag === "#text") {
     const style = node.style;
@@ -43,30 +66,33 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
     const coords = rectToPptx(node.rect, ctx);
     const fmt = textFormat(style, ctx.fontMap);
     const fontSize = fmt.fontSize ?? clamp(pxToPoints(extractPx(style.fontSize) || 16), 1, 400);
-    const opacity = clamp(parseFloat(style.opacity ?? "1") || 1, 0, 1);
+    const opacity = inheritedOpacity * clamp(parseFloat(style.opacity ?? "1") || 1, 0, 1);
     const widthPad = pxToInches(Math.max(8, node.rect.w * 0.03));
+    const opts: Opts = {
+      x: coords.x,
+      y: coords.y,
+      w: coords.w + widthPad,
+      h: coords.h + pxToInches(4),
+      margin: 0,
+      fontFace: fmt.fontFace,
+      fontSize,
+      bold: fmt.bold,
+      italic: fmt.italic,
+      underline: fmt.underline,
+      strike: fmt.strike,
+      color: fmt.color,
+      transparency: opacityToTransparency((1 - fmt.transparency / 100) * opacity),
+      align: textAlign(style.textAlign),
+      valign: "top",
+      fit: "shrink",
+      wrap: !noWrap(style),
+      lineSpacingMultiple: lineSpacingMultiple(style.lineHeight, fontSize),
+      charSpacing: letterSpacingPoints(style.letterSpacing),
+    };
+    if (anim) opts.objectName = mintAnimName(ctx, anim);
     try {
-      ctx.slide.addText(textTransformFn(style.textTransform)(text), {
-        x: coords.x,
-        y: coords.y,
-        w: coords.w + widthPad,
-        h: coords.h + pxToInches(4),
-        margin: 0,
-        fontFace: fmt.fontFace,
-        fontSize,
-        bold: fmt.bold,
-        italic: fmt.italic,
-        underline: fmt.underline,
-        strike: fmt.strike,
-        color: fmt.color,
-        transparency: opacityToTransparency((1 - fmt.transparency / 100) * opacity),
-        align: textAlign(style.textAlign),
-        valign: "top",
-        fit: "shrink",
-        wrap: !noWrap(style),
-        lineSpacingMultiple: lineSpacingMultiple(style.lineHeight, fontSize),
-        charSpacing: letterSpacingPoints(style.letterSpacing),
-      });
+      ctx.slide.addText(textTransformFn(style.textTransform)(text), opts);
+      if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
     } catch (err) {
       ctx.warnings.push(`addText(#text) failed: ${errMsg(err)}`);
     }
@@ -74,13 +100,14 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
   }
 
   const style = node.style;
+  const opacity = inheritedOpacity * clamp(parseFloat(style.opacity ?? "1") || 1, 0, 1);
   if (node.rect.w < 0.5 || node.rect.h < 0.5) {
-    for (const child of node.children) renderNodeToPptx(child, ctx);
+    for (const child of node.children) renderNodeToPptx(child, ctx, opacity, anim);
     return;
   }
   if (style.display === "none" || style.opacity === "0") return;
   if (style.visibility === "hidden") {
-    for (const child of node.children) renderNodeToPptx(child, ctx);
+    for (const child of node.children) renderNodeToPptx(child, ctx, opacity, anim);
     return;
   }
 
@@ -90,9 +117,13 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
   const minSide = Math.min(box.w, box.h);
   const radiusPx = parseBorderRadius(style.borderTopLeftRadius || style.borderRadius, minSide);
   const radiusRatio = minSide > 0 ? radiusPx / minSide : 0;
-  const opacity = clamp(parseFloat(style.opacity ?? "1") || 1, 0, 1);
 
-  const bgColor = parseColor(style.backgroundColor) || (node.imageUrl ? null : parseGradient(style.backgroundImage));
+  // A rasterized gradient (drawn as an image below) replaces the flat first-stop
+  // fill; fall back to that flat fill only when rasterization was unavailable.
+  const hasRasterGradient = !!node.gradient && !!ctx.mediaCache.get(imageKey(node) ?? "");
+  const bgColor =
+    parseColor(style.backgroundColor) ||
+    (node.imageUrl || hasRasterGradient ? null : parseGradient(style.backgroundImage));
   const bgFill = bgColor ? { hex: bgColor.hex, alpha: bgColor.alpha * opacity } : null;
 
   const topW = extractPx(style.borderTopWidth || style.borderWidth);
@@ -157,8 +188,10 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
       shapeName = "roundRect";
       opts.rectRadius = pxToInches(radiusPx);
     }
+    if (anim) opts.objectName = mintAnimName(ctx, anim);
     try {
       ctx.slide.addShape(shapeName, opts);
+      if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
     } catch (err) {
       ctx.warnings.push(`addShape failed for <${node.tag}>: ${errMsg(err)}`);
     }
@@ -200,7 +233,9 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
           line: { type: "none" },
         };
         if (rotation !== undefined) opts.rotate = rotation;
+        if (anim) opts.objectName = mintAnimName(ctx, anim);
         ctx.slide.addShape("rect", opts);
+        if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
       } catch {
         /* per-side border is best-effort */
       }
@@ -244,11 +279,14 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
           opts.h = pxToInches(entry.h);
         }
       }
-      if (radiusRatio >= 0.4) opts.rounding = true;
+      // Gradient PNGs are already clipped to their corner radius in canvas.
+      if (radiusRatio >= 0.4 && !node.gradient) opts.rounding = true;
       if (opacity < 1) opts.transparency = clamp(Math.round((1 - opacity) * 100), 0, 100);
       if (rotation !== undefined) opts.rotate = rotation;
+      if (anim) opts.objectName = mintAnimName(ctx, anim);
       try {
         ctx.slide.addImage(opts);
+        if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
       } catch (err) {
         ctx.warnings.push(`addImage failed for <${node.tag}>: ${errMsg(err)}`);
       }
@@ -310,8 +348,10 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
         breakLine: i < listItems.length - 1,
       },
     }));
+    if (anim) opts.objectName = mintAnimName(ctx, anim);
     try {
       ctx.slide.addText(textObjs, opts);
+      if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
     } catch (err) {
       ctx.warnings.push(`addText(list) failed: ${errMsg(err)}`);
     }
@@ -395,8 +435,10 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
         color: run.fmt.color,
         transparency: opacityToTransparency(alpha),
       });
+      if (anim) opts.objectName = mintAnimName(ctx, anim);
       try {
         ctx.slide.addText(transform(run.text), opts);
+        if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
       } catch (err) {
         ctx.warnings.push(`addText failed for <${node.tag}>: ${errMsg(err)}`);
       }
@@ -458,15 +500,36 @@ export function renderNodeToPptx(node: SlideNode, ctx: RenderContext): void {
           });
         });
       });
+      if (anim) opts.objectName = mintAnimName(ctx, anim);
       try {
         ctx.slide.addText(textObjs, opts);
+        if (anim) recordAnimShape(ctx, anim, opts.objectName as string);
       } catch (err) {
         ctx.warnings.push(`addText(runs) failed for <${node.tag}>: ${errMsg(err)}`);
       }
     }
   }
 
-  for (const child of node.children) if (!consumed.has(child)) renderNodeToPptx(child, ctx);
+  for (const child of orderByZIndex(node.children))
+    if (!consumed.has(child)) renderNodeToPptx(child, ctx, opacity, anim);
+}
+
+// Paint children in CSS stacking order: positioned siblings with a numeric
+// z-index layer by that value (higher = painted later = on top); everything
+// else keeps DOM order. Returns the original array untouched when no positioned
+// child carries a non-zero z-index, so the common case is unaffected.
+function orderByZIndex(children: SlideNode[]): SlideNode[] {
+  const zOf = (n: SlideNode): number => {
+    const pos = n.style.position;
+    if (pos !== "relative" && pos !== "absolute" && pos !== "fixed" && pos !== "sticky") return 0;
+    const v = parseInt(n.style.zIndex ?? "", 10);
+    return Number.isNaN(v) ? 0 : v;
+  };
+  if (children.every((c) => zOf(c) === 0)) return children;
+  return children
+    .map((c, i) => ({ c, z: zOf(c), i }))
+    .sort((a, b) => a.z - b.z || a.i - b.i)
+    .map((x) => x.c);
 }
 
 function errMsg(err: unknown): string {

@@ -8,6 +8,8 @@ START by calling `copy_starter_component` with `kind: "animations.jsx"` — it g
 
 Animations are complex code! Make reusable JSX components for each visual element and each scene. Invest in tweaking the timeline iteratively.
 
+Need a character, prop, or background still? If an image backend is available, generate it — see [`generate-images.md`](generate-images.md) — then animate it with `ImageSprite`.
+
 Animation tips:
 - Storytelling is KEY! Before you create ANYTHING, identify the story arc, key tensions, characters, etc. Align on the message you want to convey. Run it by the user.
 - Use good animation principles... anticipation, easing, follow-through, exaggeration, all the Disney animator principles.

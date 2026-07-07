@@ -161,9 +161,9 @@ Asking good questions is CRITICAL. Tips:
 
 ## Verification
 
-When you're finished, surface the HTML to the user (your harness's show-file capability — see your reference doc). **Treat the final preview as part of delivery, not only private validation:** proactively present the running result — surface the file, share a screenshot, and give the served `http://localhost:…` URL so the user lands on the live prototype (in harnesses with a user-visible browser, open it visibly for them; see your reference doc). To launch it in a browser, serve it over HTTP and open its `http://localhost:…` URL (see below) rather than opening the file directly. The user should always land on a view that doesn't crash.
+When you're finished, surface the HTML to the user (your harness's show-file capability — see your reference doc). **Treat the final preview as part of delivery, not only private validation:** proactively present the running result — surface the file and give the served `http://localhost:…` URL so the user lands on the live prototype (in harnesses with a user-visible browser, open it visibly for them; see your reference doc). Share a screenshot only when your harness reference says image input is supported or has passed its capability probe; otherwise save any screenshot as a file and give the path without reading it back into the model. To launch it in a browser, serve it over HTTP and open its `http://localhost:…` URL (see below) rather than opening the file directly. The user should always land on a view that doesn't crash.
 
-**Always preview and screenshot over HTTP — start a local web server first and load the HTML via its `http://localhost:…` URL; never open the file directly (`file://`).** This is required for multi-file prototypes (their `<script type="text/babel" src="…jsx">` components load only over HTTP, so `file://` silently fails) and is the standard for self-contained single files too, so previews and screenshots stay consistent. Serve a single `designs` server for the whole `designs/` directory (`python3 -m http.server 4311 --directory designs`) so every project shares one server, open `http://localhost:4311/<project>/<file>.html`, check the console for JS errors, and screenshot to inspect layout. Fix any errors and surface it again. The exact preview / console / screenshot tools — and the preview-harness gotchas (React `onClick` delegation, keyboard-event dispatch, screenshot desync) plus the MCP-unavailable `file://` fallback for self-contained files — are in your selected harness reference doc.
+**Always preview and screenshot over HTTP — start a local web server first and load the HTML via its `http://localhost:…` URL; never open the file directly (`file://`).** This is required for multi-file prototypes (their `<script type="text/babel" src="…jsx">` components load only over HTTP, so `file://` silently fails) and is the standard for self-contained single files too, so previews and screenshots stay consistent. Serve a single `designs` server for the whole `designs/` directory (`python3 -m http.server 4311 --directory designs`) so every project shares one server, open `http://localhost:4311/<project>/<file>.html`, and check the console for JS errors. If image input is available, inspect screenshots for layout and fix any errors before surfacing again. If image input is not available, do not read screenshots back into the model; use text/DOM checks from your harness reference and tell the user visual review was skipped. The exact preview / console / screenshot tools — and the preview-harness gotchas (React `onClick` delegation, keyboard-event dispatch, screenshot desync) plus the MCP-unavailable `file://` fallback for self-contained files — are in your selected harness reference doc.
 
 For thorough or directed checks ("screenshot and check the spacing"), spawn a verification subagent (its prompt lives in `agents/fork-verifier-agent.md`) only when your harness reference says one is available and the user has asked for that level of verification. Otherwise, do the browser check yourself.
 
@@ -184,7 +184,7 @@ Slide decks, presentations, videos, and other fixed-size content must implement 
 
 For slide decks specifically, don't hand-roll this — start from the `starter-components/deck-stage.js` scaffold and put each slide as a direct child `<section>` of the `<deck-stage>` element; its in-file usage notes cover the slide markup, scaling, keyboard/thumbnail navigation, speaker notes, and print-to-PDF, plus how to keep slides directly editable. (It carries some host-persistence assumptions — see the Starter Components caveat — but the scaling and nav work standalone.) If you'd rather build the stage yourself: compute `transform: scale()` from `window.innerWidth/innerHeight` vs the canvas size (recompute on resize), make each slide a direct child `<section>` of the stage, and wire keyboard + click prev/next to switch the active slide (slide position can live in the URL hash so refreshes keep your place).
 
-Slide entrance animations: make the visible end-state the base style and animate *from* hidden, gating the animation on `[data-deck-active]` and `@media (prefers-reduced-motion: no-preference)` — so print, PDF export, and reduced-motion show content instead of the pre-animation `opacity:0`. Avoid infinite decorative loops on slide content.
+Slide animations: for `deck-stage` decks, prefer the `data-anim` convention (see `built-in-skills/make-a-deck.md` → *Animations*) — the component previews the builds and they export as native PowerPoint animations. Either way, make the visible end-state the base style. Hand-written CSS entrance animations gated on `[data-deck-active]` and `@media (prefers-reduced-motion: no-preference)` still work — print, PDF export, and reduced-motion show content instead of the pre-animation `opacity:0` — but they do not export to PPTX. Avoid infinite decorative loops on slide content.
 
 ## Starter Components
 Ready-made HTML/JS/JSX scaffolds live in the `starter-components/` directory next to this file — use them instead of hand-drawing device frames, deck shells, canvases, or animation timelines. To use one, copy it into your project (`cp starter-components/<file> designs/<project>/`) or read it and adapt; each file carries its own usage notes at the top.
@@ -196,7 +196,7 @@ Ready-made HTML/JS/JSX scaffolds live in the `starter-components/` directory nex
 - **[browser-window.jsx](starter-components/browser-window.jsx)** — Browser window chrome with tabs, URL bar, controls.
 - **[animations.jsx](starter-components/animations.jsx)** — Timeline-based animation engine (Stage, Sprite, easing, scrubber).
 - **[tweaks-panel.jsx](starter-components/tweaks-panel.jsx)** — Tweaks shell: form-control helpers + host-protocol wiring. *(Host-coupled — it only opens on the host's `__activate_edit_mode` postMessage, which no agent harness sends; drive its visibility from your own in-page Show/Hide toggle, or build a plain in-page control panel instead.)*
-- **[deck-stage.js](starter-components/deck-stage.js)** — Slide-deck shell: scaling, keyboard nav, thumbnail rail (click to jump, drag to reorder, right-click to skip/move/delete), speaker notes, print-to-PDF. Programmatic nav: `document.querySelector('deck-stage').goTo(n)` (0-indexed).
+- **[deck-stage.js](starter-components/deck-stage.js)** — Slide-deck shell: scaling, keyboard nav, thumbnail rail (click to jump, drag to reorder, right-click to skip/move/delete), speaker notes, print-to-PDF, and per-element build animations via `data-anim` (exported to PPTX). Programmatic nav: `document.querySelector('deck-stage').goTo(n)` (0-indexed).
 - **[image-slot.js](starter-components/image-slot.js)** — User-fillable image placeholder: a drag-and-drop target that persists the dropped image; shape/mask/size are author-controlled.
 
 ## GitHub
@@ -218,7 +218,7 @@ Importing a repo *as a design source* (project reference or design-system materi
 **Use appropriate scales:** for 1920x1080 slides, text should never be smaller than 24px; ideally much larger. 12pt is the minimum for print documents. Mobile mockup hit targets should never be less than 44px.
 
 **Avoid AI slop tropes:** incl. but not limited to aggressive use of gradient backgrounds, emoji (unless explicitly part of the brand), containers with rounded corners and left-border accent color, overused font families (Inter, Roboto, Arial, Fraunces.)
-Avoid drawing imagery using SVG; use placeholders and ask for real materials
+Avoid drawing imagery using SVG. Use placeholders and ask the user for real materials — or, when an image would genuinely help and an image backend is available, generate one (see built-in-skills/generate-images.md). Never hand-roll SVG/HTML as a substitute for a raster image you decided to generate.
 
 **CSS**: text-wrap: pretty, CSS grid and other advanced CSS effects are your friends!
 
@@ -240,7 +240,7 @@ You have the following built-in skill prompts, located in the `built-in-skills/`
 - **[Interactive prototype](built-in-skills/interactive-prototype.md)** — Working app with real interactions
 - **[Make a deck](built-in-skills/make-a-deck.md)** — Slide presentation in HTML
 - **[Make a doc](built-in-skills/make-a-doc.md)** — Page-style document (resume, memo, letter, report), printable out of the box
-- **[Gemini image](built-in-skills/gemini-image.md)** — AI-generated images via Google
+- **[Generate images](built-in-skills/generate-images.md)** — Detect an image backend and generate raster art, icons, illustrations, infographics (decks, mobile icons, hi-fi, docs, animation)
 - **[Sound effects](built-in-skills/sound-effects.md)** — AI-generated audio via ElevenLabs
 - **[read_pdf](built-in-skills/read-pdf.md)** — Extract text from PDF files
 - **[Something cool](built-in-skills/something-cool.md)** — Surprise the user with something impressive (only on an explicit "show me something cool" request)
@@ -252,7 +252,7 @@ You have the following built-in skill prompts, located in the `built-in-skills/`
 - **[Wireframe](built-in-skills/wireframe.md)** — Explore many ideas with wireframes and storyboards
 - **[Hi-fi design](built-in-skills/hi-fi-design.md)** — Polished, production-quality mockups
 - **[Speaker notes](built-in-skills/speaker-notes.md)** — Presenter script alongside visual-first slides
-- **[Export as PPTX (editable)](built-in-skills/export-as-pptx-editable.md)** — Native text & shapes — editable in PowerPoint
+- **[Export as PPTX (editable)](built-in-skills/export-as-pptx-editable.md)** — Native text & shapes — editable in PowerPoint, including `data-anim` slide animations
 - **[Export as PPTX (screenshots)](built-in-skills/export-as-pptx-screenshots.md)** — Flat images — pixel-perfect but not editable
 - **[Export as video](built-in-skills/export-as-video.md)** — Render a timeline animation to a real .mp4 file
 - **[Design system authoring](built-in-skills/design-system-authoring-guide.md)** — Set up or import a design system (full flow + portable compiler & read-only checker)

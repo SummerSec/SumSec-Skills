@@ -52,7 +52,7 @@ Replaces hand-written todo lists. Use it for multi-step jobs (3+ steps): create 
 
 ## GenerateImage (AI images)
 
-Cursor has a native `GenerateImage` tool that writes an image file from a text prompt (optionally with reference images). Use it **only when the user explicitly asks for an image asset** (icon, illustration, texture, mockup art) — never for charts/plots/data viz, and never "just to be helpful". For the broader AI-image workflow and provider-specific options, the built-in skills still apply (`built-in-skills/gemini-image.md`). The chat renders the generated image automatically; don't re-embed it.
+Cursor has a native `GenerateImage` tool that writes an image file from a text prompt (optionally with reference images). Use it **only when the user explicitly asks for an image asset** (icon, illustration, texture, mockup art) — never for charts/plots/data viz, and never "just to be helpful". For the broader AI-image workflow and provider-specific options, the built-in skills still apply (`built-in-skills/generate-images.md`). The chat renders the generated image automatically; don't re-embed it.
 
 ## Showing files & preview
 

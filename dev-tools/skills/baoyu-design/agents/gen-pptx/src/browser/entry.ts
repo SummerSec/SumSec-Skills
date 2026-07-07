@@ -1,7 +1,8 @@
 // esbuild IIFE bundle root. Attaches the capture API to window so the Node
 // orchestrator can drive it via page.evaluate(). Imports only sibling browser/
-// modules + type-only declarations — never render/ or core/, keeping the bundle
-// sealed from the Node graph.
+// modules + type-only declarations — never render/ or core/ (exception:
+// core/anim.ts, which is pure and dependency-free), keeping the bundle sealed
+// from the Node graph.
 
 import { setup, type SetupInput } from "./setup.ts";
 import { captureEditable, type EditableCapture } from "./capture-editable.ts";

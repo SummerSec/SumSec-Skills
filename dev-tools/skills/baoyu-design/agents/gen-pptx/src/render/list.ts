@@ -57,6 +57,9 @@ export function detectList(node: SlideNode): string[] | null {
   const items: string[] = [];
   const first = node.children[0];
   for (const li of node.children) {
+    // An animated <li> must stay its own shape so the timing tree can target
+    // it — the one-box shortcut would swallow the build.
+    if (li.anim) return null;
     if (
       li.tag !== "li" ||
       li.style.visibility === "hidden" ||

@@ -14,8 +14,9 @@ file" or "evaluate JS in-page" maps to your harness's preview / eval tool.
 You are given the **project directory**, the **path(s) of the HTML file(s)** the
 main agent built or edited, and the served
 `http://localhost:<port>/<project>/<file>.html` URL to load (always over HTTP —
-never `file://`). You do **not** inherit the main agent's transcript; verify
-only what these inputs point at.
+never `file://`). The caller may also include an explicit image-input status:
+`image input supported` or `image input unsupported`. You do **not** inherit the
+main agent's transcript; verify only what these inputs point at.
 
 ## What to do
 
@@ -23,7 +24,10 @@ only what these inputs point at.
    tool — upstream `show_html`).
 2. Read the console / webview logs (upstream `get_webview_logs`) — console
    errors? failed loads?
-3. Screenshot — layout / spacing / type / content look right?
+3. Screenshot — layout / spacing / type / content look right? Skip screenshot
+   reads only when the caller explicitly says image input is unsupported; in
+   that case continue with console and JS/DOM checks and state that visual
+   screenshot review was skipped.
 4. Evaluate JS in-page (upstream `eval_js`) to probe if something seems off. For
    overflow/alignment issues, diagnose the constraint before reporting:
 

@@ -17,6 +17,7 @@ import {
   noWrap,
 } from "../src/core/css.ts";
 import { resolveFontFamily } from "../src/core/fonts.ts";
+import { safeBasename } from "../src/core/filename.ts";
 
 test("parseColor: hex forms", () => {
   assert.deepEqual(parseColor("#fff"), { hex: "FFFFFF", alpha: 1 });
@@ -189,4 +190,28 @@ test("resolveFontFamily", () => {
   assert.equal(resolveFontFamily(undefined), "Arial");
   // swap map (case-insensitive)
   assert.equal(resolveFontFamily("BrandSans", { brandsans: "Poppins" }), "Poppins");
+});
+
+test("safeBasename: preserves Unicode, sanitizes unsafe chars", () => {
+  // CJK / Cyrillic / accented Latin survive verbatim
+  assert.equal(safeBasename("小米SU7-外观与价格", "deck"), "小米SU7-外观与价格");
+  assert.equal(safeBasename("спам", "deck"), "спам");
+  assert.equal(safeBasename("café-déjà", "deck"), "café-déjà".normalize("NFC"));
+  // empty / undefined → fallback
+  assert.equal(safeBasename("", "deck"), "deck");
+  assert.equal(safeBasename(undefined, "deck"), "deck");
+  // path separators and reserved chars → underscore
+  assert.equal(safeBasename("a/b\\c", "deck"), "a_b_c");
+  assert.equal(safeBasename('a<b>c:d|e?f*g"h', "deck"), "a_b_c_d_e_f_g_h");
+  // leading/trailing dots & spaces stripped; internal whitespace collapsed
+  assert.equal(safeBasename("  спам  ", "deck"), "спам");
+  assert.equal(safeBasename(".hidden", "deck"), "hidden");
+  assert.equal(safeBasename("a   b", "deck"), "a b");
+  // spaces preserved (per design)
+  assert.equal(safeBasename("My Deck", "deck"), "My Deck");
+  // dotted names preserved (extension handling is the caller's job)
+  assert.equal(safeBasename("v1.2", "deck"), "v1.2");
+  assert.equal(safeBasename("deck.pptx", "deck"), "deck.pptx");
+  // all-illegal collapses to underscores (not fallback)
+  assert.equal(safeBasename("///", "deck"), "___");
 });

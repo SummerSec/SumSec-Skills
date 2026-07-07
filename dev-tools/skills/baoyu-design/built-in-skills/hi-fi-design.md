@@ -17,4 +17,4 @@ Give options: try to give 3+ variations across several dimensions. Mix by-the-bo
 
 CSS, HTML, JS and SVG are amazing. Users often don't know what they can do. Surprise the user.
 
-If you do not have an icon, asset or component, draw a placeholder: in hi-fi design, a placeholder is better than a bad attempt at the real thing.
+If you do not have an icon, asset or component, draw a placeholder: in hi-fi design, a placeholder is better than a bad attempt at the real thing. When a real asset (illustration, texture, hero image, icon) would clearly beat a placeholder *and* an image backend is available, generate it — see [`generate-images.md`](generate-images.md). A clean placeholder still beats a bad generated attempt, so generate only when it genuinely helps.

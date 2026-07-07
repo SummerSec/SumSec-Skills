@@ -104,6 +104,7 @@ async function main(): Promise<void> {
         ok: true,
         file: savedPath,
         slides: result.slides,
+        animations: result.animations,
         bytes: result.bytes,
         flags: result.validation.map((v) => ({ code: v.kind, message: v.message })),
         warnings: result.warnings,

@@ -6,9 +6,10 @@ import type {
 } from "../types.ts";
 import { pxToInches } from "../core/units.ts";
 import { parseColor } from "../core/color.ts";
-import type { PptxSlide } from "./context.ts";
+import type { PptxSlide, SlideAnimEntry } from "./context.ts";
 import { renderNodeToPptx } from "./render-node.ts";
 import { buildMediaCache } from "./media-cache.ts";
+import { buildTimingXml } from "./timing.ts";
 
 export interface EditableBuildInput {
   width: number;
@@ -22,6 +23,10 @@ export interface BuildResult {
   bytes: number;
   slides: number;
   warnings: string[];
+  /** data-anim animations written into the deck's timing trees. */
+  animations: number;
+  /** data-anim elements that emitted no shapes (animation dropped). */
+  animHidden: string[];
 }
 
 // Assemble the editable .pptx from captured slide trees: define the custom
@@ -41,13 +46,16 @@ export async function buildEditablePptx(
 
   const mediaCache = await buildMediaCache(input.slides, warnings, resolveMedia);
 
-  for (const captured of input.slides) {
+  let animations = 0;
+  const animHidden: string[] = [];
+  for (const [i, captured] of input.slides.entries()) {
     const slide = pptx.addSlide() as unknown as PptxSlide;
     const rootBg = parseColor(captured.root.style.backgroundColor);
     if (rootBg && rootBg.alpha === 1) {
       slide.background = { color: rootBg.hex };
       captured.root.style.backgroundColor = "transparent";
     }
+    const animEntries: SlideAnimEntry[] = [];
     try {
       renderNodeToPptx(captured.root, {
         slide,
@@ -57,6 +65,8 @@ export async function buildEditablePptx(
         originY: captured.rect.y,
         mediaCache,
         warnings,
+        slideNo: i + 1,
+        animEntries,
         fontMap: input.fontMap,
       });
     } catch (err) {
@@ -69,8 +79,32 @@ export async function buildEditablePptx(
         warnings.push(`addNotes failed: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
+    // Animation manifest → timing tree. Entries whose subtree emitted no shapes
+    // (hidden at capture, empty element) have nothing to target and are dropped.
+    const live = animEntries.filter((e) => e.spids.length > 0);
+    for (const dead of animEntries) {
+      if (dead.spids.length === 0) {
+        animHidden.push(
+          `Slide ${i + 1}: data-anim "${dead.def.effect}" element produced no exported shapes — animation dropped`,
+        );
+      }
+    }
+    if (live.length > 0) {
+      try {
+        slide._timingXml = buildTimingXml(
+          live.map((e) => ({ def: e.def, spids: e.spids })),
+          input.width,
+          input.height,
+        );
+        animations += live.length;
+      } catch (err) {
+        warnings.push(
+          `Slide ${i + 1} exported without animations — timing build failed: ${err instanceof Error ? err.message : String(err)}`,
+        );
+      }
+    }
   }
 
   const buffer = (await pptx.write({ outputType: "nodebuffer" })) as Buffer;
-  return { buffer, bytes: buffer.length, slides: input.slides.length, warnings };
+  return { buffer, bytes: buffer.length, slides: input.slides.length, warnings, animations, animHidden };
 }

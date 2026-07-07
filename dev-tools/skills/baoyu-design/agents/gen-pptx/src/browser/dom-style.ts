@@ -57,6 +57,8 @@ export const STYLE_KEYS = [
   "alignItems",
   "justifyContent",
   "verticalAlign",
+  "position",
+  "zIndex",
 ] as const;
 
 // Keys whose value is a color, normalized through a canvas round-trip. (←At)

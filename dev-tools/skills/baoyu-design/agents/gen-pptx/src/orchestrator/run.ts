@@ -70,6 +70,8 @@ export async function runGenPptx(rawInput: GenPptxInput, driver: PlaywrightDrive
   if (mode === "editable") {
     const captures: SlideHashResult[] = [];
     const capturedSlides: CapturedSlide[] = [];
+    const animInvalid: string[] = [];
+    const animNested: string[] = [];
     for (let i = 0; i < input.slides.length; i++) {
       let cap: EditableCapture;
       try {
@@ -85,12 +87,28 @@ export async function runGenPptx(rawInput: GenPptxInput, driver: PlaywrightDrive
       if (note?.trim()) captured.notes = note;
       capturedSlides.push(captured);
       captures.push({ hash: cap.hash, imagesWaited: cap.imagesWaited, imagesFailed: cap.imagesFailed });
+      for (const w of cap.animWarnings ?? []) animInvalid.push(`Slide ${i + 1}: ${w}`);
+      for (const w of cap.animNested ?? []) animNested.push(`Slide ${i + 1}: ${w}`);
     }
     const build = await buildEditablePptx(
       { width: input.width, height: input.height, slides: capturedSlides },
       (refs) => callResolveMedia(page, refs),
     );
     const validation = validate(setupRes, captures, capturedSlides, input, "editable");
+    const capped = (items: string[]): string =>
+      items.slice(0, 8).join(" | ") + (items.length > 8 ? ` … and ${items.length - 8} more` : "");
+    if (animInvalid.length > 0) {
+      validation.push({ kind: "animation_invalid", message: capped(animInvalid) });
+    }
+    if (animNested.length > 0) {
+      validation.push({
+        kind: "animation_nested",
+        message: `${capped(animNested)} — the innermost data-anim wins for that subtree`,
+      });
+    }
+    if (build.animHidden.length > 0) {
+      validation.push({ kind: "animation_hidden_target", message: capped(build.animHidden) });
+    }
     return {
       buffer: build.buffer,
       result: {
@@ -99,6 +117,7 @@ export async function runGenPptx(rawInput: GenPptxInput, driver: PlaywrightDrive
         warnings: build.warnings,
         validation,
         speakerNotes: setupRes.notes.slice(0, input.slides.length),
+        animations: build.animations,
       },
     };
   }
@@ -137,6 +156,7 @@ export async function runGenPptx(rawInput: GenPptxInput, driver: PlaywrightDrive
       warnings: build.warnings,
       validation,
       speakerNotes: setupRes.notes.slice(0, input.slides.length),
+      animations: 0,
     },
   };
 }

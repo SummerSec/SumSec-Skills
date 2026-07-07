@@ -2,6 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildFfmpegArgs } from "../src/orchestrator/encode.ts";
 import { validate } from "../src/validate/validate.ts";
+import { safeBasename } from "../src/orchestrator/filename.ts";
+import { resolveOutputPath } from "../src/orchestrator/output.ts";
 
 const common = { width: 1920, height: 1080, fps: 30, crf: 18, outPath: "/tmp/out" };
 
@@ -75,4 +77,25 @@ test("validate: zero duration warns", () => {
 test("validate: fonts timeout warns", () => {
   const flags = validate({ ...facts, fontsReady: false });
   assert.ok(flags.some((f) => f.kind === "fonts_timeout"));
+});
+
+test("safeBasename: preserves Unicode, sanitizes unsafe chars", () => {
+  assert.equal(safeBasename("小米SU7-外观与价格", "video"), "小米SU7-外观与价格");
+  assert.equal(safeBasename("спам", "video"), "спам");
+  assert.equal(safeBasename("", "video"), "video");
+  assert.equal(safeBasename(undefined, "video"), "video");
+  assert.equal(safeBasename("a/b\\c", "video"), "a_b_c");
+  assert.equal(safeBasename("  спам  ", "video"), "спам");
+  assert.equal(safeBasename(".hidden", "video"), "hidden");
+  assert.equal(safeBasename("v1.2", "video"), "v1.2");
+  assert.equal(safeBasename("clip.mp4", "video"), "clip.mp4");
+});
+
+test("resolveOutputPath: Unicode basename + ext de-dup", async () => {
+  // own ext stripped, not doubled; Unicode preserved
+  assert.equal(await resolveOutputPath("/tmp", "小米.mp4", "mp4"), "/tmp/小米.mp4");
+  // path separators sanitized
+  assert.equal(await resolveOutputPath("/tmp", "a/b", "webm"), "/tmp/a_b.webm");
+  // non-matching ext left intact in the basename
+  assert.equal(await resolveOutputPath("/tmp", "a.gif", "webm"), "/tmp/a.gif.webm");
 });

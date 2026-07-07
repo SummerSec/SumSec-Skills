@@ -3,13 +3,15 @@
 
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
+import { safeBasename } from "../core/filename.ts";
 
 export async function writeOutput(
   buffer: Buffer,
   outDir: string,
   filename: string | undefined,
 ): Promise<string> {
-  const name = `${(filename || "deck").replace(/[^\w-]/g, "_")}.pptx`;
+  const base = safeBasename(filename, "deck").replace(/\.pptx$/i, "") || "deck";
+  const name = `${base}.pptx`;
   const dir = resolve(outDir);
   await mkdir(dir, { recursive: true });
   const path = join(dir, name);

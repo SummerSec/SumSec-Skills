@@ -3,6 +3,7 @@
 // base64 data URLs to Node. (←$e/ft/ut/Ie/pt/de + mt's 6-way pool.)
 
 import type { MediaRef, ResolvedMedia, MediaEntry } from "../types.ts";
+import { rasterizeGradient } from "./gradient.ts";
 
 const POOL = 6;
 const MAX_RASTER = 2048;
@@ -166,10 +167,16 @@ export async function resolveMedia(refs: MediaRef[]): Promise<ResolvedMedia[]> {
   const out: ResolvedMedia[] = refs.map((r) => ({ key: r.key, value: null, warnings: [] }));
   const tasks = refs.map((ref, idx) => async (): Promise<void> => {
     const warnings: string[] = [];
-    const value =
-      ref.kind === "url"
-        ? await inlineImageRef(ref.url, warnings)
-        : await inlineSvgMarkup(ref.svg, ref.w, ref.h, warnings);
+    let value: MediaEntry | null;
+    if (ref.kind === "url") {
+      value = await inlineImageRef(ref.url, warnings);
+    } else if (ref.kind === "svg") {
+      value = await inlineSvgMarkup(ref.svg, ref.w, ref.h, warnings);
+    } else {
+      const dataUrl = rasterizeGradient(ref.css, ref.w, ref.h, ref.radius);
+      value = dataUrl ? { dataUrl } : null;
+      if (!dataUrl) warnings.push(`Failed to rasterize gradient: ${ref.css.slice(0, 80)}…`);
+    }
     out[idx] = { key: ref.key, value, warnings };
   });
   let i = 0;

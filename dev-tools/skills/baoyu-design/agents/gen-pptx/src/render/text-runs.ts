@@ -74,6 +74,12 @@ export function textTransformFn(value: string | null | undefined): (s: string) =
 
 const INLINE_MERGE_KEYS = ["textTransform", "letterSpacing"];
 
+// Any data-anim in the subtree? Such a node must emit its own shapes — folding
+// it into an ancestor's text box would leave the animation nothing to target.
+function subtreeHasAnim(node: SlideNode): boolean {
+  return node.anim !== undefined || node.children.some(subtreeHasAnim);
+}
+
 // Can this child fold into the parent's single text box without losing meaning? (←bt/wt)
 function isRunMergeable(node: SlideNode, parentStyle: StyleMap): boolean {
   if (node.tag === "#text") return true;
@@ -197,7 +203,7 @@ export function extractTextRuns(
   if (ownText) collected.push({ text: ownText, fmt: textFormat(node.style, swapMap), rect: node.rect });
 
   const allMergeable = (n: SlideNode): boolean =>
-    isRunMergeable(n, node.style) ? n.children.every(allMergeable) : false;
+    !subtreeHasAnim(n) && isRunMergeable(n, node.style) ? n.children.every(allMergeable) : false;
 
   const absorb = (n: SlideNode, inherited?: InheritedRunCtx): void => {
     consumed.add(n);
@@ -230,7 +236,7 @@ export function extractTextRuns(
     const hasMedia = (n: SlideNode): boolean => !!imageKey(n) || n.children.some(hasMedia);
     const allInlineNoMedia = node.children.every((c) => {
       if (c.tag === "#text") return true;
-      if (hasMedia(c)) return false;
+      if (hasMedia(c) || subtreeHasAnim(c)) return false;
       const display = c.style.display || "";
       return (
         display === "inline" ||

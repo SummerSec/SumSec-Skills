@@ -8,15 +8,16 @@
     "gen-pptx": "dist/cli.mjs"
   },
   "scripts": {
-    "build:cli": "esbuild src/cli.ts --bundle --platform=node --target=node18 --format=esm --outfile=dist/cli.mjs --external:playwright --external:pptxgenjs --banner:js=\"#!/usr/bin/env node\"",
+    "build:cli": "esbuild src/cli.ts --bundle --platform=node --target=node18 --format=esm --outfile=dist/cli.mjs --external:playwright --external:jszip --alias:pptxgenjs=./vendor/pptxgenjs/src/pptxgen.ts --banner:js=\"#!/usr/bin/env node\"",
     "build:page": "esbuild src/browser/entry.ts --bundle --platform=browser --target=es2020 --format=iife --outfile=dist/capture.iife.js",
     "build": "npm run build:cli && npm run build:page",
     "typecheck": "tsc --noEmit",
+    "pretest": "esbuild vendor/pptxgenjs/src/pptxgen.ts --bundle --platform=node --target=node18 --format=esm --external:jszip --outfile=dist/vendor-bundle.test.mjs --log-level=warning",
     "test": "node --test"
   },
   "dependencies": {
-    "playwright": "^1.49.0",
-    "pptxgenjs": "3.12.0"
+    "jszip": "^3.10.1",
+    "playwright": "^1.49.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
