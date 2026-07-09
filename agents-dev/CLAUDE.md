@@ -9,6 +9,7 @@ Agent 开发生态技能集合。继承自 claude-plugins-official 及本仓库 
 | `skill-creator` | `skills/skill-creator/SKILL.md` | 技能创建全流程（claude-plugins-official） |
 | `writing-rules` | `skills/writing-rules/SKILL.md` | Hook 编写与 rules 生成（hookify 插件） |
 | `agent-sdk-dev` | `skills/agent-sdk-dev/` | Agent SDK 开发（claude-plugins-official 插件） |
+| `claude-agents-symlink` | `skills/claude-agents-symlink/SKILL.md` | 统一项目根 `CLAUDE.md`/`claude.md` 软链接到 `AGENTS.md`/`agents.md`，兼容 Windows/macOS/Linux |
 | `skill-optimizer` | `skills/skill-optimizer/SKILL.md` | Skill 审计优化：路径 A 确认后改；路径 B 只读八维报告 |
 | `multi-platform-plugin-guide` | `skills/multi-platform-plugin-guide/SKILL.md` | 多平台插件发布指南与版本对齐 |
 | `workflow-skill-creator` | `skills/workflow-skill-creator/SKILL.md` | 复杂流程编排 Skill 设计 |

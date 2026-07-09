@@ -1,6 +1,6 @@
 {
   "name": "plugin-dev",
-  "version": "1.0.34",
+  "version": "1.0.37",
   "description": "Plugin development toolkit with skills for agent, command, hook, skill, MCP, plugin structure, and plugin settings development.",
   "author": {
     "name": "Anthropic",

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CLAUDE 软链接统一"
+  short_description: "让 CLAUDE.md 指向 AGENTS.md。"
+  default_prompt: "把这个仓库的 CLAUDE.md 统一成指向 AGENTS.md 的软链接。"

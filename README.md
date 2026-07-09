@@ -29,6 +29,7 @@ SumSec-Skills/
 │       ├── skill-creator/         技能创建（claude-plugins-official）
 │       ├── writing-rules/         Hook rules 生成（hookify）
 │       ├── agent-sdk-dev/         Agent SDK 开发
+│       ├── claude-agents-symlink/ CLAUDE.md 指向 AGENTS.md
 │       ├── skill-optimizer/       Skill 审计优化
 │       ├── multi-platform-plugin-guide/  多平台版本对齐
 │       └── workflow-skill-creator/       流程编排 Skill 设计
@@ -135,6 +136,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [skill-creator](agents-dev/skills/skill-creator/) | claude-plugins-official | 技能创建全流程 |
 | [writing-rules](agents-dev/skills/writing-rules/) | hookify | Hook 编写与 rules 生成 |
 | [agent-sdk-dev](agents-dev/skills/agent-sdk-dev/) | claude-plugins-official | Agent SDK 开发 |
+| [claude-agents-symlink](agents-dev/skills/claude-agents-symlink/) | 本仓库 | 统一项目根 `CLAUDE.md`/`claude.md` 软链接到 `AGENTS.md`/`agents.md`，适配 Windows/macOS/Linux |
 | [skill-optimizer](agents-dev/skills/skill-optimizer/) | 本仓库 | Skill 审计优化（路径 A 改 / 路径 B 只读八维） |
 | [multi-platform-plugin-guide](agents-dev/skills/multi-platform-plugin-guide/) | 本仓库 | 多平台版本对齐与发布清单 |
 | [workflow-skill-creator](agents-dev/skills/workflow-skill-creator/) | 本仓库 | 复杂流程编排 Skill 设计 |

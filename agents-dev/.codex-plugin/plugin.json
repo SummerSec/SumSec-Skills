@@ -1,7 +1,7 @@
 {
   "name": "agents-dev",
-  "version": "1.0.34",
-  "description": "Agent development skills for skill creation, skill optimization, workflow skill design, hook writing, and multi-platform plugin metadata maintenance.",
+  "version": "1.0.37",
+  "description": "Agent 开发生态技能：技能创建、CLAUDE 到 AGENTS 软链接统一、skill 审计优化、流程型 skill 设计、Hook 编写与多平台插件元数据维护。",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -21,8 +21,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "agents-dev",
-    "shortDescription": "Agent skill and plugin development workflows.",
-    "longDescription": "Agent development ecosystem skills for creating and optimizing skills, designing workflow-oriented skills, writing Hookify rules, and maintaining multi-platform plugin metadata and release checklists.",
+    "shortDescription": "Agent 工作流、软链接修复与插件开发。",
+    "longDescription": "覆盖 Agent 开发生态常见任务：创建和优化 skill、跨平台统一仓库根目录 CLAUDE.md 到 AGENTS.md 的软链接、设计流程编排型 skill、编写 Hookify 规则，以及维护多平台插件元数据和发布清单。",
     "developerName": "SummerSec",
     "category": "Developer Tools",
     "capabilities": [
@@ -30,9 +30,9 @@
     ],
     "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
     "defaultPrompt": [
-      "Create a new agent skill.",
-      "Review this skill for trigger quality.",
-      "Align plugin metadata across platforms."
+      "创建一个新的 agent skill。",
+      "把这个仓库的 CLAUDE.md 统一成指向 AGENTS.md。",
+      "对齐多平台插件元数据。"
     ]
   }
 }

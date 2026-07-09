@@ -48,7 +48,7 @@ npm run sync:clean
 node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
 
 # 版本残留检查，按目标版本调整表达式
-rg -n "1\.0\.(31|32)" package.json plugin.json .claude-plugin .cursor-plugin .codex-plugin .agents/plugins writing-zh/.claude-plugin media-tools/.claude-plugin dev-tools/.claude-plugin agents-dev/.claude-plugin openclaw.plugin.json opencode/plugins/sumsec-skills.mjs hermes/skills/sumsec-skills/SKILL.md
+rg -n "1\.0\.(36|37)" package.json plugin.json .claude-plugin .cursor-plugin .codex-plugin .agents/plugins writing-zh/.claude-plugin media-tools/.claude-plugin dev-tools/.claude-plugin agents-dev/.claude-plugin openclaw.plugin.json opencode/plugins/sumsec-skills.mjs hermes/skills/sumsec-skills/SKILL.md
 
 # 空白、冲突标记与 symlink 检查
 git diff --check
@@ -92,6 +92,7 @@ SumSec-Skills/
 │       ├── skill-creator/  (claude-plugins-official)
 │       ├── writing-rules/  (hookify)
 │       ├── agent-sdk-dev/  (claude-plugins-official)
+│       ├── claude-agents-symlink/SKILL.md
 │       ├── skill-optimizer/  (本仓库)
 │       ├── multi-platform-plugin-guide/SKILL.md
 │       └── workflow-skill-creator/SKILL.md
@@ -125,7 +126,7 @@ SumSec-Skills/
 | writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、文章转网页 PPT、卡兹克写作风格、SumSec 博客正文配图 |
 | media-tools | `media-tools/` | 媒体生成：AI 图片、Remotion 视频 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、前端界面实现、UI 设计稿生成 |
-| agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、skill-optimizer、版本对齐 |
+| agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、claude-agents-symlink、skill-optimizer、流程编排、版本对齐 |
 | plugin-dev | `plugin-dev/` | 插件开发七件套（agent/command/hook/skill/MCP/structure/settings） |
 | claude-md-management | `claude-md-management/` | CLAUDE.md 维护 |
 | claude-code-setup | `claude-code-setup/` | Claude Code 自动化建议 |
