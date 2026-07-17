@@ -16,6 +16,7 @@ process.stdin.on("end", () => {
 const state = {
   buffer: "",
   initialized: false,
+  transport: "content-length",
 };
 
 function pump(flush = false) {
@@ -23,44 +24,64 @@ function pump(flush = false) {
   input = "";
 
   while (true) {
-    const headerEnd = state.buffer.indexOf("\r\n\r\n");
-    if (headerEnd === -1) {
-      if (flush) state.buffer = "";
-      return;
-    }
+    if (!state.buffer) return;
 
-    const header = state.buffer.slice(0, headerEnd);
-    const lengthMatch = header.match(/Content-Length:\s*(\d+)/i);
-    if (!lengthMatch) {
-      state.buffer = state.buffer.slice(headerEnd + 4);
+    if (/^Content-Length:/i.test(state.buffer)) {
+      const headerEnd = state.buffer.indexOf("\r\n\r\n");
+      if (headerEnd === -1) return;
+
+      const header = state.buffer.slice(0, headerEnd);
+      const lengthMatch = header.match(/Content-Length:\s*(\d+)/i);
+      if (!lengthMatch) {
+        state.buffer = state.buffer.slice(headerEnd + 4);
+        continue;
+      }
+
+      const contentLength = Number(lengthMatch[1]);
+      const totalLength = headerEnd + 4 + contentLength;
+      if (state.buffer.length < totalLength) return;
+
+      const body = state.buffer.slice(headerEnd + 4, totalLength);
+      state.buffer = state.buffer.slice(totalLength);
+      state.transport = "content-length";
+      parseMessage(body);
       continue;
     }
 
-    const contentLength = Number(lengthMatch[1]);
-    const totalLength = headerEnd + 4 + contentLength;
-    if (state.buffer.length < totalLength) return;
+    const newline = state.buffer.indexOf("\n");
+    if (newline === -1 && !flush) return;
 
-    const body = state.buffer.slice(headerEnd + 4, totalLength);
-    state.buffer = state.buffer.slice(totalLength);
+    const body = (newline === -1 ? state.buffer : state.buffer.slice(0, newline)).trim();
+    state.buffer = newline === -1 ? "" : state.buffer.slice(newline + 1);
+    if (!body) continue;
 
-    try {
-      handleMessage(JSON.parse(body));
-    } catch (error) {
-      writeMessage({
-        jsonrpc: "2.0",
-        error: {
-          code: -32700,
-          message: "Parse error",
-          data: String(error && error.message ? error.message : error),
-        },
-        id: null,
-      });
-    }
+    state.transport = "jsonl";
+    parseMessage(body);
+  }
+}
+
+function parseMessage(body) {
+  try {
+    handleMessage(JSON.parse(body));
+  } catch (error) {
+    writeMessage({
+      jsonrpc: "2.0",
+      error: {
+        code: -32700,
+        message: "Parse error",
+        data: String(error && error.message ? error.message : error),
+      },
+      id: null,
+    });
   }
 }
 
 function writeMessage(message) {
   const json = JSON.stringify(message);
+  if (state.transport === "jsonl") {
+    process.stdout.write(`${json}\n`);
+    return;
+  }
   process.stdout.write(`Content-Length: ${Buffer.byteLength(json, "utf8")}\r\n\r\n${json}`);
 }
 

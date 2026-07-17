@@ -1,8 +1,11 @@
 {
-  "ponytail": {
-    "command": "node",
-    "args": [
-      "${CLAUDE_PLUGIN_ROOT}/ponytail-mcp/index.js"
-    ]
+  "mcpServers": {
+    "ponytail": {
+      "command": "node",
+      "args": [
+        "ponytail-mcp/index.js"
+      ],
+      "cwd": "."
+    }
   }
 }
