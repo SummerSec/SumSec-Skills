@@ -1,6 +1,6 @@
 {
   "name": "dev-tools",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "description": "Developer utilities plugin with git workflows, agent history lookup, Context7 docs, Ponytail minimal-solution skills, frontend implementation, UI prototyping, and a bundled Ponytail MCP server.",
   "author": {
     "name": "SummerSec",

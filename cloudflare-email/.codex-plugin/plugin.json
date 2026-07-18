@@ -1,0 +1,37 @@
+{
+  "name": "cloudflare-email",
+  "version": "1.0.39",
+  "description": "Cloudflare temp mail agent skill for reading inbox messages, fetching parsed mail, and sending email with an Address JWT.",
+  "author": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "homepage": "https://github.com/SummerSec/SumSec-Skills",
+  "repository": "https://github.com/SummerSec/SumSec-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent-skills",
+    "sumsec",
+    "codex",
+    "cloudflare",
+    "email",
+    "temp-mail"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "cloudflare-email",
+    "shortDescription": "Read and send Cloudflare temp mail with an Address JWT.",
+    "longDescription": "Agent skill for cloudflare_temp_email deployments. It validates an Address JWT, lists parsed inbox messages, fetches a specific parsed mail, sends email when sending is enabled, and documents the raw-mail fallback path.",
+    "developerName": "SummerSec",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
+    "defaultPrompt": [
+      "Use my Cloudflare temp mail JWT to list recent emails.",
+      "Fetch this temp mail message by id.",
+      "Send an email through my Cloudflare temp mail deployment."
+    ]
+  }
+}

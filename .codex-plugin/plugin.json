@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
-  "version": "1.0.38",
-  "description": "SummerSec personal Agent Skills collection for Codex.",
+  "version": "1.0.39",
+  "description": "SummerSec personal Agent Skills collection for Codex, including cloudflare-email and taste-skill.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -17,13 +17,19 @@
     "dev-tools",
     "agents-dev",
     "sumsec",
-    "codex"
+    "codex",
+    "cloudflare-email",
+    "cloudflare",
+    "email",
+    "temp-mail",
+    "taste-skill",
+    "frontend-design"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "SumSec Skills",
-    "shortDescription": "Personal Agent Skills for writing, media, dev tools, and agent development.",
-    "longDescription": "A personal Agent Skills collection for Codex, including Chinese writing workflows, media generation guidance, developer utilities, documentation lookup, git workflows, and agent/plugin development practices.",
+    "shortDescription": "Personal Agent Skills for writing, media, development, email, and frontend design.",
+    "longDescription": "A personal Agent Skills collection for Codex, including Chinese writing workflows, media generation guidance, developer utilities, documentation lookup, git workflows, agent/plugin development practices, Cloudflare temp mail operations, and frontend design taste skills.",
     "developerName": "SummerSec",
     "category": "Productivity",
     "capabilities": [
@@ -33,7 +39,9 @@
     "defaultPrompt": [
       "Use the relevant SumSec skill for this task.",
       "Help me polish a Chinese technical article.",
-      "Review this repo's agent plugin metadata."
+      "Review this repo's agent plugin metadata.",
+      "Read messages from my Cloudflare temp mail inbox.",
+      "Use Taste Skill to design a distinctive frontend."
     ]
   }
 }

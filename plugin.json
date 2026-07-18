@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
-  "version": "1.0.38",
-  "description": "SummerSec personal Agent Skills collection. Plugins: writing-zh, media-tools, dev-tools, agents-dev.",
+  "version": "1.0.39",
+  "description": "SummerSec personal Agent Skills collection. Plugins: writing-zh, media-tools, dev-tools, agents-dev, cloudflare-email, taste-skill.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -23,6 +23,12 @@
     "sumsec",
     "claude-code",
     "codex",
-    "cursor"
+    "cursor",
+    "cloudflare-email",
+    "cloudflare",
+    "email",
+    "temp-mail",
+    "taste-skill",
+    "frontend-design"
   ]
 }

@@ -62,5 +62,9 @@
   {
     "source": "claude-plugins-official/plugins/claude-code-setup",
     "target": "claude-code-setup"
+  },
+  {
+    "source": "taste-skill-upstream/skills",
+    "target": "taste-skill/skills"
   }
 ]

@@ -1,17 +1,19 @@
 ---
 name: sumsec-skills
-description: "SummerSec personal Agent Skills collection. Contains reusable SKILL.md files organized by category. Use when you need to leverage skills from writing-zh, media-tools, dev-tools, or agents-dev plugins."
+description: "SummerSec personal Agent Skills collection. Contains reusable SKILL.md files organized by category. Use when you need skills from writing-zh, media-tools, dev-tools, agents-dev, cloudflare-email, or taste-skill plugins."
 source: "https://github.com/SummerSec/SumSec-Skills.git"
 ---
 
 # SumSec-Skills (OpenClaw)
 
-A collection of reusable Agent Skills organized into four plugin directories:
+A collection of reusable Agent Skills organized into plugin directories:
 
-- **writing-zh/** — Chinese writing: humanizer-zh (de-AI-fy text), creating-blog-web-ppt (markdown to web slides)
-- **media-tools/** — Media generation: draw-image-generation (AI text-to-image), remotion-best-practices (React video)
-- **dev-tools/** — Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design, baoyu-design
-- **agents-dev/** — Agent ecosystem: skill-creator, writing-rules, plugin-dev skills, agent-sdk-dev, skill-optimizer, multi-platform-plugin-guide
+- **writing-zh/**: Chinese writing: humanizer-zh, creating-blog-web-ppt, khazix-writer, sumsec-illustrations
+- **media-tools/**: Media generation: draw-image-generation, remotion-best-practices
+- **dev-tools/**: Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design, baoyu-design
+- **agents-dev/**: Agent ecosystem: skill-creator, writing-rules, plugin-dev skills, agent-sdk-dev, skill-optimizer, multi-platform-plugin-guide
+- **cloudflare-email/**: cf-temp-mail-agent-mail
+- **taste-skill/**: frontend design taste, redesign, image-to-code, brand-kit, and visual-style skills
 
 ## Usage
 

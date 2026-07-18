@@ -183,14 +183,16 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 14. `claude-md-management/.claude-plugin/plugin.json`、`claude-md-management/.codex-plugin/plugin.json`
 15. `hookify/.claude-plugin/plugin.json`、`hookify/.codex-plugin/plugin.json`
 16. `plugin-dev/.claude-plugin/plugin.json`、`plugin-dev/.codex-plugin/plugin.json`
-17. `openclaw.plugin.json` — OpenClaw manifest
-18. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
-19. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
+17. `cloudflare-email/.claude-plugin/plugin.json`、`cloudflare-email/.codex-plugin/plugin.json`、`cloudflare-email/.cursor-plugin/plugin.json`
+18. `taste-skill/.claude-plugin/plugin.json`、`taste-skill/.codex-plugin/plugin.json`、`taste-skill/.cursor-plugin/plugin.json`
+19. `openclaw.plugin.json` — OpenClaw manifest
+20. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
+21. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
 
 注意：Codex 的 `.agents/plugins/marketplace.json` 是用户安装时看到的版本，子目录内 `.codex-plugin/plugin.json` 是实际插件包 manifest；二者版本必须一起更新。Claude/Cursor marketplace 也同理，条目版本不能和插件 manifest 分叉。
 
 
-**Codex**：本仓 `.agents/plugins/marketplace.json` 与 Claude/Cursor 一样采用多插件条目；每个条目使用 **`source.source: "local"`** + 对应子目录 **`path`**（如 `./writing-zh`、`./media-tools`、`./dev-tools`）。通过 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` 拉取 marketplace 后，Codex 会从该 checkout 的子目录加载各插件目录内的 `.codex-plugin/plugin.json`。若未来维护单独 marketplace 仓库，或希望某个 entry 直接指向远端插件包，可使用官方 Git-backed entry：`source: "url"`（插件在仓库根）或 `source: "git-subdir"`（插件在仓库子目录），并配合 `url`、`ref` / `sha`。
+**Codex**：本仓 `.agents/plugins/marketplace.json` 与 Claude/Cursor 一样采用多插件条目；每个条目使用 **`source.source: "local"`** + 对应子目录 **`path`**（如 `./writing-zh`、`./media-tools`、`./dev-tools`）。通过 `codex plugin marketplace add SummerSec/SumSec-Skills --ref master` 拉取 marketplace 后，Codex 会从该 checkout 的子目录加载各插件目录内的 `.codex-plugin/plugin.json`。若未来维护单独 marketplace 仓库，或希望某个 entry 直接指向远端插件包，可使用官方 Git-backed entry：`source: "url"`（插件在仓库根）或 `source: "git-subdir"`（插件在仓库子目录），并配合 `url`、`ref` / `sha`。
 
 **Cursor**：`.cursor-plugin/marketplace.json` 与 **「Codex 与 Cursor：marketplace 的 `source` 与『从 Git 安装』」** 一节保持一致（`source: "./"` + 条目级 `repository` 等）。**SumSec-Skills** 下可选规则在 `.cursor/rules/`，由 `.cursor-plugin/plugin.json` 的 `rules` 引用。
 

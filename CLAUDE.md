@@ -100,6 +100,8 @@ SumSec-Skills/
 ├── claude-md-management/    # 镜像：CLAUDE.md 维护
 ├── claude-code-setup/       # 镜像：Claude Code 自动化建议
 ├── hookify/                 # Hook 创建工具
+├── cloudflare-email/        # Cloudflare 临时邮箱插件
+├── taste-skill/             # Taste Skill 跨平台插件封装
 ├── openclaw.plugin.json     # OpenClaw 插件清单
 ├── openclaw/                # OpenClaw 插件入口 & skills
 ├── opencode/                # OpenCode 插件入口 & rules
@@ -112,6 +114,7 @@ SumSec-Skills/
 ├── skills/                  # 通用 skill 聚合入口
 ├── .cursor/rules/
 ├── khazix-skills/           # submodule: KKKKhazix/khazix-skills
+├── taste-skill-upstream/    # submodule: Leonxlnx/taste-skill
 ├── AGENTS.md -> CLAUDE.md
 ├── CLAUDE.md
 ├── README.md
@@ -131,6 +134,8 @@ SumSec-Skills/
 | claude-md-management | `claude-md-management/` | CLAUDE.md 维护 |
 | claude-code-setup | `claude-code-setup/` | Claude Code 自动化建议 |
 | hookify | `hookify/` | Hook 创建工具 |
+| cloudflare-email | `cloudflare-email/` | 通过 Address JWT 读取、获取和发送 Cloudflare 临时邮箱邮件 |
+| taste-skill | `taste-skill/` | 前端设计品味、重设计、image-to-code、品牌系统与视觉方向 Skill 集合 |
 
 ## 同步机制
 
@@ -198,7 +203,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 - 本仓根 `skills/` 是通用聚合入口，用 symlink 指向各插件目录下的真实 skill 源。
 - `.codex-plugin/plugin.json` 是 Codex 插件 manifest；`name` 使用稳定 kebab-case，`skills` 路径相对插件根，例如 `"./"` 或 `"./skills/"`。
 - `.agents/plugins/marketplace.json` 是 Codex marketplace 清单。Codex 解析 `source.path` 时相对 marketplace root，不是相对 `.agents/plugins/` 目录；本仓 Codex 条目与 Claude/Cursor 一样拆为多个插件，因此使用 `path: "./writing-zh"`、`path: "./media-tools"` 等子目录路径。
-- Git 安装 marketplace 用 `codex plugin marketplace add SummerSec/SumSec-Skills --ref main`；不要在 marketplace 插件条目里写自定义 `source.url/ref` 当作 Git 安装语法。
+- Git 安装 marketplace 用 `codex plugin marketplace add SummerSec/SumSec-Skills --ref master`；不要在 marketplace 插件条目里写自定义 `source.url/ref` 当作 Git 安装语法。
 - Codex hooks 从 `.codex/hooks.json` 或 `.codex/config.toml` 发现。事件名使用官方大小写，例如 `SessionStart`、`PreToolUse`、`PermissionRequest`、`PostToolUse`、`PreCompact`、`PostCompact`、`UserPromptSubmit`、`SubagentStart`、`SubagentStop`、`Stop`。
 - repo-local hook 命令优先从 git root 定位脚本，避免 Codex 从子目录启动时相对路径失效；非托管 hook 变更后需要在 Codex 中重新 review/trust。
 
@@ -210,3 +215,4 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | `context7/` | `https://github.com/upstash/context7.git` |
 | `khazix-skills/` | `https://github.com/KKKKhazix/khazix-skills.git` |
 | `baoyu-design/` | `https://github.com/JimLiu/baoyu-design.git` |
+| `taste-skill-upstream/` | `https://github.com/Leonxlnx/taste-skill.git` |

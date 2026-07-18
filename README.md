@@ -38,6 +38,8 @@ SumSec-Skills/
 ├── claude-md-management/    # 镜像：CLAUDE.md 维护
 ├── claude-code-setup/       # 镜像：Claude Code 自动化建议
 ├── hookify/                 # 原创：Hook 创建工具
+├── cloudflare-email/        # Cloudflare 临时邮箱插件
+├── taste-skill/             # Taste Skill 跨平台插件封装
 ├── openclaw.plugin.json       # OpenClaw 插件清单
 ├── openclaw/                  # OpenClaw 插件入口 & skills
 ├── opencode/                  # OpenCode 插件入口 & rules
@@ -48,6 +50,7 @@ SumSec-Skills/
 ├── .agents/plugins/
 ├── .cursor/rules/
 ├── khazix-skills/             # submodule: KKKKhazix/khazix-skills
+├── taste-skill-upstream/      # submodule: Leonxlnx/taste-skill
 ├── AGENTS.md
 ├── README.md
 ├── package.json
@@ -69,15 +72,17 @@ SumSec-Skills/
 /plugin install claude-md-management@sumsec-skills
 /plugin install claude-code-setup@sumsec-skills
 /plugin install hookify@sumsec-skills
+/plugin install cloudflare-email@sumsec-skills
+/plugin install taste-skill@sumsec-skills
 ```
 
 ### OpenAI Codex
 
 ```bash
-codex plugin marketplace add SummerSec/SumSec-Skills --ref main
+codex plugin marketplace add SummerSec/SumSec-Skills --ref master
 ```
 
-然后在 Codex 的 `/plugins` 里选择 `SumSec Skills`，按需安装 `writing-zh`、`media-tools`、`dev-tools`、`agents-dev`、`plugin-dev`、`claude-md-management`、`claude-code-setup`、`hookify` 等插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，每个插件条目使用 `source: "local"` + 对应子目录 `path`（如 `./writing-zh`）指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。
+然后在 Codex 的 `/plugins` 里选择 `SumSec Skills`，按需安装 `writing-zh`、`media-tools`、`dev-tools`、`agents-dev`、`plugin-dev`、`claude-md-management`、`claude-code-setup`、`hookify`、`cloudflare-email`、`taste-skill` 等插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，每个插件条目使用 `source: "local"` + 对应子目录 `path`（如 `./writing-zh`）指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。
 
 Codex 也会直接扫描仓库级 `.agents/skills/`，适合放仅服务本仓的工具型 skill；需要分发给其他项目或团队时，应打包进 `.codex-plugin/plugin.json` 所描述的插件。
 
@@ -93,7 +98,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 |--------|-------------------|
 | Claude Code | `/plugin install <plugin>@sumsec-skills` |
 | Cursor | `.cursor-plugin/marketplace.json` 导入 |
-| OpenAI Codex CLI | `codex plugin marketplace add SummerSec/SumSec-Skills --ref main` |
+| OpenAI Codex CLI | `codex plugin marketplace add SummerSec/SumSec-Skills --ref master` |
 | OpenClaw | `openclaw.plugin.json` + `openclaw/` 插件加载 |
 | OpenCode | `opencode/plugins/sumsec-skills.js` 插件注册 |
 | Hermes | `hermes/skills/sumsec-skills/SKILL.md` 复制加载 |
@@ -164,6 +169,8 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [claude-md-management](claude-md-management/) | 维护和改进 CLAUDE.md：质量审计 + 会话学习捕获 |
 | [claude-code-setup](claude-code-setup/) | 分析代码库，推荐定制化的 Claude Code 自动化（hooks/skills/MCP/agents/commands） |
 | [hookify](hookify/) | 通过对话模式分析创建 hooks，支持正则匹配与多事件类型 |
+| [cloudflare-email](cloudflare-email/) | 通过 Address JWT 读取、获取和发送 Cloudflare 临时邮箱邮件 |
+| [taste-skill](taste-skill/) | 来自 Leonxlnx/taste-skill 的 13 个前端设计、重设计、image-to-code、品牌与视觉方向 Skill |
 
 ## Git Submodule 与 Skill 同步
 
@@ -174,6 +181,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | claude-plugins-official | anthropics | skill-creator, frontend-design, plugin-dev 系列, hookify, agent-sdk-dev, claude-md-management, claude-code-setup |
 | context7 | upstash | context7-cli, context7-mcp, find-docs |
 | khazix-skills | KKKKhazix | khazix-writer |
+| taste-skill-upstream | Leonxlnx | taste-skill 插件的 13 个设计 Skill |
 
 ```bash
 # 新机器安装

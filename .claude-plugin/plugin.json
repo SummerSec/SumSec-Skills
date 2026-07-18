@@ -1,7 +1,7 @@
 {
   "name": "sumsec-skills",
-  "version": "1.0.38",
-  "description": "SumSec-Skills 插件市场。插件：writing-zh（中文写作）、media-tools（媒体生成）、dev-tools（开发工具）、agents-dev（Agent 开发生态）。",
+  "version": "1.0.39",
+  "description": "SumSec-Skills plugin marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev, claude-code-setup, claude-md-management, hookify, plugin-dev, cloudflare-email, taste-skill.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"

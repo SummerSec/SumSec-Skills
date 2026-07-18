@@ -78,5 +78,9 @@
   {
     "source": "claude-plugins-official/plugins/frontend-design/skills/frontend-design",
     "target": "dev-tools/skills/frontend-design"
+  },
+  {
+    "source": "taste-skill-upstream/skills",
+    "target": "taste-skill/skills"
   }
 ]
