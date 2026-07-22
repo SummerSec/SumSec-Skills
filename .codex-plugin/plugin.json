@@ -1,6 +1,6 @@
 {
   "name": "sumsec",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "SummerSec personal Agent Skills collection for Codex, including cloudflare-email and taste-skill.",
   "author": {
     "name": "SummerSec",
@@ -13,7 +13,6 @@
     "agent-skills",
     "skills",
     "writing-zh",
-    "media-tools",
     "dev-tools",
     "agents-dev",
     "sumsec",
@@ -28,8 +27,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "SumSec Skills",
-    "shortDescription": "Personal Agent Skills for writing, media, development, email, and frontend design.",
-    "longDescription": "A personal Agent Skills collection for Codex, including Chinese writing workflows, media generation guidance, developer utilities, documentation lookup, git workflows, agent/plugin development practices, Cloudflare temp mail operations, and frontend design taste skills.",
+    "shortDescription": "Personal Agent Skills for writing, development, email, and frontend design.",
+    "longDescription": "A personal Agent Skills collection for Codex, including Chinese writing workflows, developer utilities, documentation lookup, git workflows, agent/plugin development practices, Cloudflare temp mail operations, and frontend design taste skills.",
     "developerName": "SummerSec",
     "category": "Productivity",
     "capabilities": [

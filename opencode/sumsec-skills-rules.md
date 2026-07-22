@@ -3,7 +3,6 @@
 This repository contains reusable Agent Skills organized into plugin directories:
 
 - `writing-zh/skills/<name>/SKILL.md`
-- `media-tools/skills/<name>/SKILL.md`
 - `dev-tools/skills/<name>/SKILL.md`
 - `agents-dev/skills/<name>/SKILL.md`
 - `cloudflare-email/skills/<name>/SKILL.md`

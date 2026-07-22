@@ -93,7 +93,7 @@ git commit -m "feat(claude-md-management): mirror from upstream"
 
 ### Upstream 升级流程
 
-镜像插件（`claude-code-setup` / `claude-md-management` / `plugin-dev` 等）的内容来自 submodule upstream，**但版本号、发布节奏由本仓库控制**。详见下节「版本与内容分治原则」。
+镜像插件（`claude-md-management` / `plugin-dev` 等）的内容来自 submodule upstream，**但版本号、发布节奏由本仓库控制**。详见下节「版本与内容分治原则」。
 
 **判断 upstream 是否有更新**：
 
@@ -164,16 +164,16 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 ## 规则
 
 - **版本与内容分治原则**：镜像插件（来自 submodule）遵循「**版本号以本仓库为准、内容以 submodule upstream 为准**」。
-  - **Why:** 全仓 manifest 都对齐到本仓库 release 版本（如 `1.0.22`），不让 upstream 各插件的独立版本号（claude-code-setup 1.0.0、plugin-dev 1.0.0……）污染本仓库节奏；同时内容由 `sync-skills.py` 自动从 submodule 复制，不在镜像目录里手改文件——避免 sync 把改动覆盖。
+  - **Why:** 全仓 manifest 都对齐到本仓库 release 版本（如 `1.0.22`），不让 upstream 各插件的独立版本号（plugin-dev 1.0.0、claude-md-management 1.0.0……）污染本仓库节奏；同时内容由 `sync-skills.py` 自动从 submodule 复制，不在镜像目录里手改文件——避免 sync 把改动覆盖。
   - **How to apply:**
-    - **不要**手动编辑镜像目录下的 SKILL.md / scripts / references（如 `claude-code-setup/skills/*`、`plugin-dev/skills/*`）——下次 sync 会被 upstream 覆盖；要改就改 upstream 或加新插件。
+    - **不要**手动编辑镜像目录下的 SKILL.md / scripts / references（如 `claude-md-management/skills/*`、`plugin-dev/skills/*`）——下次 sync 会被 upstream 覆盖；要改就改 upstream 或加新插件。
     - **`<mirror>/.claude-plugin/plugin.json` 被 sync 自动保留**：sync 脚本通过 `PLUGIN_LEVEL_IGNORES` 排除该文件，确保本仓库的 `version` 字段不被 upstream 覆盖（详见 `sync-skills.py` 顶部常量）。手改 plugin.json 版本号是安全的，下次 sync 不会动它。
     - upstream 升级走「Upstream 升级流程」章节，sync 后人工评审 diff 再 commit。
 - **不要自动整合 skill 到聚合插件**：来自 submodule 的 skill 默认按其所属的**独立插件**整体镜像（插件级映射）；不要把它从所属插件里抽出来再塞进 `agents-dev` 这类聚合插件。**仅当用户明确要求「聚合到 X 插件」「合并到 agents-dev」时**，才追加额外的组件级映射。
   - **Why:** 一个 skill 同时存在于「独立插件」和「聚合插件」会造成双轨上架、文档脱节、版本难对齐。
   - **How to apply:** 用户说「同步插件 X」「添加插件 X」时，只加一条插件级映射 `<source>/X → X/`，不动 `agents-dev/` 或其它聚合插件；想聚合必须由用户主动开口。
 - **映射表是唯一来源**：所有 source → target 关系必须记录在 `.claude/skills/sync-skills/scripts/skill-map.json`
-- **目标目录需要提交**：同步生成的目录是 marketplace 上架内容（`./claude-code-setup` 等），不提交会导致远端用户安装时目录为空。upstream submodule 升级后重跑 sync，把 diff 一起 commit。
+- **目标目录需要提交**：同步生成的目录是 marketplace 上架内容（`./claude-md-management`、`./plugin-dev` 等），不提交会导致远端用户安装时目录为空。upstream submodule 升级后重跑 sync，把 diff 一起 commit。
 - **不再使用 `.gitignore` 拦截同步产物**：旧设计曾把这些目录 ignored，导致 marketplace 注册的插件在远端不可装。已废弃，不要再加回去。
 - **插件级映射需 `git rm --cached`**：如果目标目录之前提交过文件，需先从 git 跟踪中移除后再同步
 - **submodule 必须先初始化**：同步前确保 `git submodule update --init --recursive` 已执行
@@ -214,5 +214,5 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | 场景 | 粒度 | 示例 | 需要用户明确同意？ |
 |------|------|------|------|
 | 目标插件含自定义代码，需混入 submodule 的部分内容 | 组件级 | `plugin-dev`（有自写配置） | 否（结构使然） |
-| 目标是 submodule 的完整镜像 | 插件级 | `claude-md-management`、`claude-code-setup` | 否（默认） |
+| 目标是 submodule 的完整镜像 | 插件级 | `claude-md-management`、`plugin-dev` | 否（默认） |
 | 把一个 submodule skill 抽到聚合插件 | 组件级 | `agents-dev/skills/xxx` ← 来自其它插件 | ✅ **必须用户主动要求** |

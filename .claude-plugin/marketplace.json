@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills",
-  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, media-tools, dev-tools, agents-dev, claude-code-setup, claude-md-management, hookify, plugin-dev, cloudflare-email, and taste-skill. Install what you need.",
+  "description": "SummerSec personal Agent Skills marketplace. Plugins: writing-zh, dev-tools, agents-dev, claude-md-management, hookify, plugin-dev, cloudflare-email, and taste-skill. Install what you need.",
   "owner": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -8,19 +8,9 @@
   "plugins": [
     {
       "name": "writing-zh",
-      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), khazix-writer (personal voice long-form writing), and sumsec-illustrations (SumSec article illustrations).",
-      "version": "1.0.39",
+      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), and sumsec-illustrations (SumSec article illustrations).",
+      "version": "1.0.40",
       "source": "./writing-zh",
-      "author": {
-        "name": "SummerSec",
-        "url": "https://github.com/SummerSec"
-      }
-    },
-    {
-      "name": "media-tools",
-      "description": "Media generation: draw-image-generation (AI images via Right.Codes API) and remotion-best-practices (React video).",
-      "version": "1.0.39",
-      "source": "./media-tools",
       "author": {
         "name": "SummerSec",
         "url": "https://github.com/SummerSec"
@@ -29,7 +19,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, Ponytail minimal-solution skills, a bundled Ponytail MCP server, frontend-design, and baoyu-design.",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./dev-tools",
       "author": {
         "name": "SummerSec",
@@ -39,7 +29,7 @@
     {
       "name": "agents-dev",
       "description": "Agent 开发生态：skill-creator、plugin-dev（7 个技能）、hookify、agent-sdk-dev、claude-agents-symlink、multi-platform-plugin-guide、workflow-skill-creator。",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./agents-dev",
       "author": {
         "name": "SummerSec",
@@ -47,19 +37,9 @@
       }
     },
     {
-      "name": "claude-code-setup",
-      "description": "Analyze codebases and recommend tailored Claude Code automations: hooks, skills, MCP servers, subagents, and slash commands.",
-      "version": "1.0.39",
-      "source": "./claude-code-setup",
-      "author": {
-        "name": "Anthropic",
-        "email": "support@anthropic.com"
-      }
-    },
-    {
       "name": "claude-md-management",
       "description": "Maintain and improve CLAUDE.md files: audit quality (claude-md-improver) and capture session learnings (/revise-claude-md).",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./claude-md-management",
       "author": {
         "name": "Anthropic",
@@ -69,7 +49,7 @@
     {
       "name": "hookify",
       "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns. Supports regex matching, multiple event types, and interactive rule management.",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./hookify",
       "author": {
         "name": "Anthropic",
@@ -79,7 +59,7 @@
     {
       "name": "plugin-dev",
       "description": "Plugin development toolkit: 7 skills (agent/command/hook/skill/MCP/structure/settings) + 3 agents (agent-creator, plugin-validator, skill-reviewer) + /plugin-dev:create-plugin guided workflow.",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./plugin-dev",
       "author": {
         "name": "Anthropic",
@@ -89,7 +69,7 @@
     {
       "name": "cloudflare-email",
       "description": "Cloudflare temp mail agent skill for reading inbox messages, fetching parsed mail, and sending email with an Address JWT.",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./cloudflare-email",
       "author": {
         "name": "SummerSec",
@@ -99,7 +79,7 @@
     {
       "name": "taste-skill",
       "description": "Frontend design taste skills for distinctive layouts, redesigns, image-to-code, brand systems, and visual direction.",
-      "version": "1.0.39",
+      "version": "1.0.40",
       "source": "./taste-skill",
       "author": {
         "name": "leonxlnx",
