@@ -16,7 +16,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Chinese writing tools for de-AIifying text and SumSec article illustrations.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -32,7 +32,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, Ponytail minimal-solution skills, polished frontend implementation, and UI prototype generation.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -48,7 +48,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Agent 开发生态技能：技能创建、CLAUDE 到 AGENTS 软链接统一、skill 审计优化、流程型 skill 设计、Hook 编写与多平台插件元数据维护。",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -64,7 +64,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Tools to maintain and improve CLAUDE.md files, audit quality, capture session learnings, and keep project memory current.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -80,7 +80,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns, with regex matching and multiple event types.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -96,7 +96,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Plugin development toolkit with skills for agent, command, hook, skill, MCP, plugin structure, and plugin settings development.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -112,7 +112,7 @@
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
       "homepage": "https://github.com/SummerSec/SumSec-Skills",
       "description": "Cloudflare temp mail agent skill for reading inbox messages, fetching parsed mail, and sending email with an Address JWT.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -128,7 +128,7 @@
       "repository": "https://github.com/Leonxlnx/taste-skill",
       "homepage": "https://tasteskill.dev",
       "description": "Frontend design taste skills for distinctive layouts, redesigns, image-to-code, brand systems, and visual direction.",
-      "version": "1.0.40",
+      "version": "1.0.41",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"

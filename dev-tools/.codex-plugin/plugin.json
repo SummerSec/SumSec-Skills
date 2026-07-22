@@ -1,6 +1,6 @@
 {
   "name": "dev-tools",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, Ponytail minimal-solution workflows, frontend interface implementation, and UI prototype generation.",
   "author": {
     "name": "SummerSec",

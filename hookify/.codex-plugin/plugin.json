@@ -1,6 +1,6 @@
 {
   "name": "hookify",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns, with regex matching and multiple event types.",
   "author": {
     "name": "Anthropic",
