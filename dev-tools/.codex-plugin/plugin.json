@@ -1,7 +1,7 @@
 {
   "name": "dev-tools",
   "version": "1.0.40",
-  "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, Ponytail minimal-solution workflows, frontend interface implementation, UI prototype generation, and a bundled Ponytail MCP server.",
+  "description": "Developer utilities for git commit and PR workflows, local agent history lookup, current library docs, Ponytail minimal-solution workflows, frontend interface implementation, and UI prototype generation.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -23,11 +23,10 @@
     "frontend-design"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "dev-tools",
     "shortDescription": "Git, history, docs lookup, Ponytail minimalism, and frontend design utilities.",
-    "longDescription": "Developer tools for safe commit and PR workflows, browsing local agent conversation history, fetching current library documentation through Context7, using Ponytail's minimal-solution coding style and bundled MCP prompt server, creating polished frontend interfaces, and generating UI mockups or prototypes.",
+    "longDescription": "Developer tools for safe commit and PR workflows, browsing local agent conversation history, fetching current library documentation through Context7, using Ponytail's minimal-solution coding style, creating polished frontend interfaces, and generating UI mockups or prototypes.",
     "developerName": "SummerSec",
     "category": "Developer Tools",
     "capabilities": [

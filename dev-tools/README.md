@@ -14,17 +14,6 @@ Developer tooling plugin. Includes:
 - **frontend-design** - high-quality frontend implementation
 - **baoyu-design** - UI mockups, interactive prototypes, and HTML deck artifacts
 
-## MCP
-
-The plugin also bundles a **Ponytail MCP** server:
-
-- server: `ponytail`
-- prompt: `ponytail`
-- tool: `ponytail_instructions`
-
-This is a pull-based Ponytail context source for MCP-capable hosts. It is not
-a replacement for always-on hooks.
-
 ## Install
 
 ```bash

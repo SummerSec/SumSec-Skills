@@ -7,7 +7,6 @@
 | 命令 | 技能目录 | 来源 | 说明 |
 |------|---------|------|------|
 | `humanizer-zh` | `skills/humanizer-zh/SKILL.md` | 本仓库 | 去 AI 味：本地 CLI 深度指南，反 AI 审查二遍工作流 |
-| `creating-blog-web-ppt` | `skills/creating-blog-web-ppt/SKILL.md` | 本仓库 | Markdown 文章转网页版 PPT（slide-writer + blog-sumsec 主题） |
 | `sumsec-illustrations` | `skills/sumsec-illustrations/SKILL.md` | 本仓库 | 为 sumsec.me 风格文章生成 SumSec Observer 正文配图 |
 
 ## 插图生成注意

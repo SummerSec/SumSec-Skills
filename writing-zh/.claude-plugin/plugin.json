@@ -1,7 +1,7 @@
 {
   "name": "writing-zh",
   "version": "1.0.40",
-  "description": "中文写作辅助插件：去 AI 味的文本润色（humanizer-zh）、Markdown 转网页 PPT（creating-blog-web-ppt）、SumSec 正文配图（sumsec-illustrations）",
+  "description": "中文写作辅助插件：去 AI 味的文本润色（humanizer-zh）、SumSec 正文配图（sumsec-illustrations）",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"

@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "writing-zh",
-      "description": "Chinese writing tools: humanizer-zh (de-AIify text), creating-blog-web-ppt (Markdown to HTML slides), and sumsec-illustrations.",
+      "description": "Chinese writing tools: humanizer-zh (de-AIify text) and sumsec-illustrations.",
       "version": "1.0.40",
       "source": "./writing-zh",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",
@@ -28,7 +28,7 @@
     },
     {
       "name": "dev-tools",
-      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, Ponytail minimal-solution skills, a bundled Ponytail MCP server, frontend-design, baoyu-design.",
+      "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, Ponytail minimal-solution skills, frontend-design, baoyu-design.",
       "version": "1.0.40",
       "source": "./dev-tools",
       "repository": "https://github.com/SummerSec/SumSec-Skills.git",

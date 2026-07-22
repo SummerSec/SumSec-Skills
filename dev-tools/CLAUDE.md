@@ -17,11 +17,3 @@ Developer utilities plugin for this monorepo.
 | `ponytail-help` | `skills/ponytail-help/SKILL.md` | Quick reference for Ponytail modes and companion skills |
 | `frontend-design` | `skills/frontend-design/SKILL.md` | High-quality frontend implementation |
 | `baoyu-design` | `skills/baoyu-design/SKILL.md` | UI mockups, prototypes, and deck-style HTML deliverables |
-
-## MCP
-
-- `.mcp.json` registers the bundled `ponytail` stdio MCP server.
-- `ponytail-mcp/` contains the zero-dependency MCP implementation.
-- Exposed MCP capabilities:
-  - prompt: `ponytail`
-  - tool: `ponytail_instructions`

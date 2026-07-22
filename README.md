@@ -11,7 +11,6 @@ SumSec-Skills/
 ├── writing-zh/              # 中文写作插件
 │   └── skills/
 │       ├── humanizer-zh/       去 AI 味润色
-│       ├── creating-blog-web-ppt/  文章转网页 PPT
 │       └── sumsec-illustrations/  SumSec 博客正文配图
 ├── dev-tools/               # 开发工具插件
 │   └── skills/
@@ -102,7 +101,6 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | 技能 | 来源 | 说明 |
 |------|------|------|
 | [humanizer-zh](writing-zh/skills/humanizer-zh/) | 本仓库 | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
-| [creating-blog-web-ppt](writing-zh/skills/creating-blog-web-ppt/) | 本仓库 | Markdown 文章转网页 PPT（slide-writer + blog-sumsec 主题） |
 | [sumsec-illustrations](writing-zh/skills/sumsec-illustrations/) | 本仓库 | 为 sumsec.me 风格文章生成 SumSec Observer 正文配图 |
 
 ### dev-tools（开发工具）
@@ -177,11 +175,9 @@ Apache-2.0
 
 ## Ponytail in dev-tools
 
-The `dev-tools` plugin now also bundles Ponytail-focused assets:
+The `dev-tools` plugin bundles Ponytail-focused skills:
 
 - `dev-tools/skills/ponytail/`
 - `dev-tools/skills/ponytail-review/`
 - `dev-tools/skills/ponytail-audit/`
 - `dev-tools/skills/ponytail-help/`
-- `dev-tools/.mcp.json`
-- `dev-tools/ponytail-mcp/`

@@ -14,7 +14,7 @@ source: "https://github.com/SummerSec/SumSec-Skills.git"
 
 Reusable Agent Skills organized by plugin category. Each skill lives at `<plugin>/skills/<name>/SKILL.md`.
 
-- **writing-zh/**: humanizer-zh, creating-blog-web-ppt, sumsec-illustrations
+- **writing-zh/**: humanizer-zh, sumsec-illustrations
 - **dev-tools/**: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design, baoyu-design
 - **agents-dev/**: skill-creator, writing-rules, plugin-dev skills, agent-sdk-dev, skill-optimizer, multi-platform-plugin-guide
 - **cloudflare-email/**: cf-temp-mail-agent-mail
