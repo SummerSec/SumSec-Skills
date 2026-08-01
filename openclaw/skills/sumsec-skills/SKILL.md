@@ -10,7 +10,7 @@ A collection of reusable Agent Skills organized into plugin directories:
 
 - **writing-zh/**: Chinese writing: humanizer-zh, khazix-writer, sumsec-illustrations
 - **media-tools/**: Media generation: draw-image-generation, remotion-best-practices
-- **dev-tools/**: Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design, baoyu-design
+- **dev-tools/**: Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design
 - **agents-dev/**: Agent ecosystem: skill-creator, writing-rules, plugin-dev skills, agent-sdk-dev, skill-optimizer, multi-platform-plugin-guide
 - **cloudflare-email/**: cf-temp-mail-agent-mail
 - **taste-skill/**: frontend design taste, redesign, image-to-code, brand-kit, and visual-style skills

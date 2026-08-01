@@ -4,9 +4,6 @@
 [submodule "context7"]
 	path = context7
 	url = https://github.com/upstash/context7.git
-[submodule "baoyu-design"]
-	path = baoyu-design
-	url = git@github.com:JimLiu/baoyu-design.git
 [submodule "taste-skill-upstream"]
 	path = taste-skill-upstream
 	url = https://github.com/Leonxlnx/taste-skill.git

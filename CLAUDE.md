@@ -3,7 +3,7 @@
 本仓库为 **SummerSec 个人 Agent Skills 集合**，与具体业务代码仓库分离，仅存放可复用的 `SKILL.md` 及附属资源。仓库以多插件 monorepo 结构管理，Skill 来源包括：
 
 - 本仓库原创 skill。
-- submodule 同步：`claude-plugins-official`、`context7`、`baoyu-design`。
+- submodule 同步：`claude-plugins-official`、`context7`。
 
 ## 默认 Git 规则
 
@@ -72,8 +72,7 @@ SumSec-Skills/
 │   └── skills/
 │       ├── git-commit-pr/SKILL.md
 │       ├── agent-chat-history/SKILL.md
-│       ├── frontend-design/SKILL.md
-│       └── baoyu-design/SKILL.md
+│       └── frontend-design/SKILL.md
 ├── agents-dev/              # Agent 开发生态插件
 │   ├── .claude-plugin/plugin.json
 │   ├── CLAUDE.md
@@ -115,7 +114,7 @@ SumSec-Skills/
 | 插件 | 目录 | 用途 |
 |------|------|------|
 | writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、SumSec 博客正文配图 |
-| dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、前端界面实现、UI 设计稿生成 |
+| dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、前端界面实现 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、claude-agents-symlink、skill-optimizer、流程编排、版本对齐 |
 | plugin-dev | `plugin-dev/` | 插件开发七件套（agent/command/hook/skill/MCP/structure/settings） |
 | claude-md-management | `claude-md-management/` | CLAUDE.md 维护 |
@@ -199,5 +198,4 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 |-----------|------|
 | `claude-plugins-official/` | `git@github.com:anthropics/claude-plugins-official.git` |
 | `context7/` | `https://github.com/upstash/context7.git` |
-| `baoyu-design/` | `https://github.com/JimLiu/baoyu-design.git` |
 | `taste-skill-upstream/` | `https://github.com/Leonxlnx/taste-skill.git` |

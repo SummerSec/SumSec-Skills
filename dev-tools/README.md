@@ -12,7 +12,6 @@ Developer tooling plugin. Includes:
 - **ponytail-audit** - repo-wide over-engineering audit
 - **ponytail-help** - quick reference for Ponytail modes and companion skills
 - **frontend-design** - high-quality frontend implementation
-- **baoyu-design** - UI mockups, interactive prototypes, and HTML deck artifacts
 
 ## Install
 

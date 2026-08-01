@@ -16,4 +16,3 @@ Developer utilities plugin for this monorepo.
 | `ponytail-audit` | `skills/ponytail-audit/SKILL.md` | Repo-wide over-engineering audit |
 | `ponytail-help` | `skills/ponytail-help/SKILL.md` | Quick reference for Ponytail modes and companion skills |
 | `frontend-design` | `skills/frontend-design/SKILL.md` | High-quality frontend implementation |
-| `baoyu-design` | `skills/baoyu-design/SKILL.md` | UI mockups, prototypes, and deck-style HTML deliverables |

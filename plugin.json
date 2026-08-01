@@ -1,6 +1,6 @@
 {
   "name": "sumsec",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "SummerSec personal Agent Skills collection. Plugins: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill.",
   "author": {
     "name": "SummerSec",
