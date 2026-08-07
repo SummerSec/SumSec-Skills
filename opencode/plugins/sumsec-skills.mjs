@@ -5,7 +5,7 @@ import fs from "node:fs";
  * @type {import("@opencode-ai/plugin").Plugin}
  */
 export default async function sumsecSkillsPlugin() {
-  const SKILL_DIRS = ["writing-zh", "dev-tools", "agents-dev", "cloudflare-email", "taste-skill"];
+  const SKILL_DIRS = ["writing-zh", "dev-tools", "agents-dev", "cloudflare-email", "taste-skill", "semantic-linter"];
   const root = path.resolve(import.meta.dirname, "../..");
 
   function discoverSkills() {
@@ -29,7 +29,7 @@ export default async function sumsecSkillsPlugin() {
 
   return {
     name: "sumsec-skills",
-    version: "1.0.42",
+    version: "1.0.43",
     config: (cfg) => {
       const skillPaths = discoverSkills();
       const existing = cfg.skills?.paths ?? [];

@@ -7,3 +7,6 @@
 [submodule "taste-skill-upstream"]
 	path = taste-skill-upstream
 	url = https://github.com/Leonxlnx/taste-skill.git
+[submodule "semantic-linter-upstream"]
+	path = semantic-linter-upstream
+	url = https://github.com/SummerSec/semantic-linter.git

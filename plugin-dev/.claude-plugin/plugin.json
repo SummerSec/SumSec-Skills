@@ -1,6 +1,6 @@
 {
   "name": "plugin-dev",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "description": "Claude Code 插件开发工具箱：7 个核心 skill（agent/command/hook/skill/MCP/插件结构与设置）+ 3 个 agent（agent-creator、plugin-validator、skill-reviewer）+ /plugin-dev:create-plugin 引导式工作流。",
   "author": {
     "name": "Anthropic",

@@ -1,0 +1,26 @@
+{
+  "name": "semantic-linter",
+  "version": "1.3.4",
+  "description": "Semantic-Linter detects semantic trap words in LLM instruction files (Skill/Prompt/Agent). Identifies wide-boundary vocabulary that may cause hallucination or scope creep.",
+  "license": "MIT",
+  "author": {
+    "name": "SummerSec",
+    "url": "https://github.com/SummerSec"
+  },
+  "repository": "https://github.com/SummerSec/semantic-linter",
+  "homepage": "https://github.com/SummerSec/semantic-linter",
+  "keywords": [
+    "semantic-trap",
+    "linter",
+    "prompt-engineering",
+    "hallucination-prevention",
+    "instruction-quality",
+    "skill-development",
+    "lexicon",
+    "wide-boundary-words",
+    "claude-code-hook"
+  ],
+  "hooks": "./hooks/hooks.json",
+  "skills": "./skills/",
+  "commands": "./commands/"
+}

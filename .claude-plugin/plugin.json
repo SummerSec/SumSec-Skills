@@ -1,7 +1,7 @@
 {
   "name": "sumsec-skills",
-  "version": "1.0.42",
-  "description": "SumSec-Skills plugin marketplace. Plugins: writing-zh, dev-tools, agents-dev, claude-md-management, hookify, plugin-dev, cloudflare-email, taste-skill.",
+  "version": "1.0.43",
+  "description": "SumSec-Skills plugin marketplace. Plugins: writing-zh, dev-tools, agents-dev, claude-md-management, hookify, plugin-dev, cloudflare-email, taste-skill, semantic-linter.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"

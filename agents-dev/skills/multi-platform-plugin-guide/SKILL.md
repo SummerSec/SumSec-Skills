@@ -183,9 +183,10 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 14. `plugin-dev/.claude-plugin/plugin.json`、`plugin-dev/.codex-plugin/plugin.json`
 15. `cloudflare-email/.claude-plugin/plugin.json`、`cloudflare-email/.codex-plugin/plugin.json`、`cloudflare-email/.cursor-plugin/plugin.json`
 16. `taste-skill/.claude-plugin/plugin.json`、`taste-skill/.codex-plugin/plugin.json`、`taste-skill/.cursor-plugin/plugin.json`
-17. `openclaw.plugin.json` — OpenClaw manifest
-18. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
-19. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
+17. `semantic-linter/.claude-plugin/plugin.json`、`semantic-linter/.codex-plugin/plugin.json`、`semantic-linter/.cursor-plugin/plugin.json`
+18. `openclaw.plugin.json` — OpenClaw manifest
+19. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
+20. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
 
 注意：Codex 的 `.agents/plugins/marketplace.json` 是用户安装时看到的版本，子目录内 `.codex-plugin/plugin.json` 是实际插件包 manifest；二者版本必须一起更新。Claude/Cursor marketplace 也同理，条目版本不能和插件 manifest 分叉。
 

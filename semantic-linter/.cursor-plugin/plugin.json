@@ -1,0 +1,6 @@
+{
+  "name": "semantic-linter",
+  "version": "1.3.4",
+  "description": "Semantic-Linter detects wide-boundary wording in Skill, Prompt, and Agent instruction files.",
+  "skills": "./skills/"
+}

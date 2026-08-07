@@ -32,6 +32,7 @@ SumSec-Skills/
 ├── hookify/                 # 原创：Hook 创建工具
 ├── cloudflare-email/        # Cloudflare 临时邮箱插件
 ├── taste-skill/             # Taste Skill 跨平台插件封装
+├── semantic-linter/         # Semantic-Linter 跨平台插件封装
 ├── openclaw.plugin.json       # OpenClaw 插件清单
 ├── openclaw/                  # OpenClaw 插件入口 & skills
 ├── opencode/                  # OpenCode 插件入口 & rules
@@ -42,6 +43,7 @@ SumSec-Skills/
 ├── .agents/plugins/
 ├── .cursor/rules/
 ├── taste-skill-upstream/      # submodule: Leonxlnx/taste-skill
+├── semantic-linter-upstream/  # submodule: SummerSec/semantic-linter
 ├── AGENTS.md
 ├── README.md
 ├── package.json
@@ -63,6 +65,7 @@ SumSec-Skills/
 /plugin install hookify@sumsec-skills
 /plugin install cloudflare-email@sumsec-skills
 /plugin install taste-skill@sumsec-skills
+/plugin install semantic-linter@sumsec-skills
 ```
 
 ### OpenAI Codex
@@ -71,7 +74,7 @@ SumSec-Skills/
 codex plugin marketplace add SummerSec/SumSec-Skills --ref master
 ```
 
-然后在 Codex 的 `/plugins` 里选择 `SumSec Skills`，按需安装 `writing-zh`、`dev-tools`、`agents-dev`、`plugin-dev`、`claude-md-management`、`hookify`、`cloudflare-email`、`taste-skill` 等插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，每个插件条目使用 `source: "local"` + 对应子目录 `path`（如 `./writing-zh`）指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。
+然后在 Codex 的 `/plugins` 里选择 `SumSec Skills`，按需安装 `writing-zh`、`dev-tools`、`agents-dev`、`plugin-dev`、`claude-md-management`、`hookify`、`cloudflare-email`、`taste-skill`、`semantic-linter` 等插件。仓库内的 `.agents/plugins/marketplace.json` 是 repo-scoped marketplace，每个插件条目使用 `source: "local"` + 对应子目录 `path`（如 `./writing-zh`）指向当前 checkout；Git 获取由 `codex plugin marketplace add` 管理，不在插件条目里写 `url/ref`。
 
 Codex 也会直接扫描仓库级 `.agents/skills/`，适合放仅服务本仓的工具型 skill；需要分发给其他项目或团队时，应打包进 `.codex-plugin/plugin.json` 所描述的插件。
 
@@ -149,6 +152,16 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | [hookify](hookify/) | 通过对话模式分析创建 hooks，支持正则匹配与多事件类型 |
 | [cloudflare-email](cloudflare-email/) | 通过 Address JWT 读取、获取和发送 Cloudflare 临时邮箱邮件 |
 | [taste-skill](taste-skill/) | 来自 Leonxlnx/taste-skill 的 13 个前端设计、重设计、image-to-code、品牌与视觉方向 Skill |
+| [semantic-linter](semantic-linter/) | 检测 Skill/Prompt/Agent 指令中的宽边界用词；含 hooks、CLI 扫描、词典与项目规则安装 |
+
+### semantic-linter（语义边界检测）
+
+| 技能 | 说明 |
+|------|------|
+| [semantic-analyzer](semantic-linter/skills/semantic-analyzer/) | 词典之外的深度语义审阅 |
+| [semantic-linter-shot](semantic-linter/skills/semantic-linter-shot/) | 单文件宽边界词速查 |
+| [lexicon-manager](semantic-linter/skills/lexicon-manager/) | 维护语义陷阱词典 |
+| [rules-installer](semantic-linter/skills/rules-installer/) | 安装项目级 semantic-rules 与托管指令块 |
 
 ## Git Submodule 与 Skill 同步
 
@@ -159,6 +172,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | claude-plugins-official | anthropics | skill-creator, frontend-design, plugin-dev 系列, hookify, agent-sdk-dev, claude-md-management |
 | context7 | upstash | context7-cli, context7-mcp, find-docs |
 | taste-skill-upstream | Leonxlnx | taste-skill 插件的 13 个设计 Skill |
+| semantic-linter-upstream | SummerSec | semantic-linter 插件（skills/hooks/commands/lib/bin） |
 
 ```bash
 # 新机器安装

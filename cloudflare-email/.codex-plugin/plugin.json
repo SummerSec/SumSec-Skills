@@ -1,6 +1,6 @@
 {
   "name": "cloudflare-email",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "description": "Cloudflare temp mail agent skill for reading inbox messages, fetching parsed mail, and sending email with an Address JWT.",
   "author": {
     "name": "SummerSec",

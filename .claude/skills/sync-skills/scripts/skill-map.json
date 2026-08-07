@@ -70,5 +70,33 @@
   {
     "source": "taste-skill-upstream/skills",
     "target": "taste-skill/skills"
+  },
+  {
+    "source": "semantic-linter-upstream/skills",
+    "target": "semantic-linter/skills"
+  },
+  {
+    "source": "semantic-linter-upstream/hooks",
+    "target": "semantic-linter/hooks"
+  },
+  {
+    "source": "semantic-linter-upstream/commands",
+    "target": "semantic-linter/commands"
+  },
+  {
+    "source": "semantic-linter-upstream/lib",
+    "target": "semantic-linter/lib"
+  },
+  {
+    "source": "semantic-linter-upstream/bin",
+    "target": "semantic-linter/bin"
+  },
+  {
+    "source": "semantic-linter-upstream/scripts",
+    "target": "semantic-linter/scripts"
+  },
+  {
+    "source": "semantic-linter-upstream/references",
+    "target": "semantic-linter/references"
   }
 ]

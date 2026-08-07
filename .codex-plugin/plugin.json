@@ -1,7 +1,7 @@
 {
   "name": "sumsec",
-  "version": "1.0.42",
-  "description": "SummerSec personal Agent Skills collection for Codex, including cloudflare-email and taste-skill.",
+  "version": "1.0.43",
+  "description": "SummerSec personal Agent Skills collection for Codex, including cloudflare-email, taste-skill, and semantic-linter.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -22,13 +22,15 @@
     "email",
     "temp-mail",
     "taste-skill",
-    "frontend-design"
+    "frontend-design",
+    "semantic-linter",
+    "semantic-trap"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "SumSec Skills",
-    "shortDescription": "Personal Agent Skills for writing, development, email, and frontend design.",
-    "longDescription": "A personal Agent Skills collection for Codex, including Chinese writing workflows, developer utilities, documentation lookup, git workflows, agent/plugin development practices, Cloudflare temp mail operations, and frontend design taste skills.",
+    "shortDescription": "Personal Agent Skills for writing, development, email, frontend design, and instruction linting.",
+    "longDescription": "A personal Agent Skills collection for Codex, including Chinese writing workflows, developer utilities, documentation lookup, git workflows, agent/plugin development practices, Cloudflare temp mail operations, frontend design taste skills, and semantic-linter for wide-boundary instruction wording.",
     "developerName": "SummerSec",
     "category": "Productivity",
     "capabilities": [

@@ -1,7 +1,7 @@
 {
   "id": "sumsec-skills",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "main": "openclaw/index.js",
-  "description": "SummerSec personal Agent Skills collection: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill.",
+  "description": "SummerSec personal Agent Skills collection: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill, semantic-linter.",
   "skills": "./openclaw/skills/"
 }

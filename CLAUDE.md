@@ -3,7 +3,7 @@
 本仓库为 **SummerSec 个人 Agent Skills 集合**，与具体业务代码仓库分离，仅存放可复用的 `SKILL.md` 及附属资源。仓库以多插件 monorepo 结构管理，Skill 来源包括：
 
 - 本仓库原创 skill。
-- submodule 同步：`claude-plugins-official`、`context7`。
+- submodule 同步：`claude-plugins-official`、`context7`、`taste-skill-upstream`、`semantic-linter-upstream`。
 
 ## 默认 Git 规则
 
@@ -90,6 +90,7 @@ SumSec-Skills/
 ├── hookify/                 # Hook 创建工具
 ├── cloudflare-email/        # Cloudflare 临时邮箱插件
 ├── taste-skill/             # Taste Skill 跨平台插件封装
+├── semantic-linter/         # Semantic-Linter 跨平台插件封装
 ├── openclaw.plugin.json     # OpenClaw 插件清单
 ├── openclaw/                # OpenClaw 插件入口 & skills
 ├── opencode/                # OpenCode 插件入口 & rules
@@ -102,6 +103,7 @@ SumSec-Skills/
 ├── skills/                  # 通用 skill 聚合入口
 ├── .cursor/rules/
 ├── taste-skill-upstream/    # submodule: Leonxlnx/taste-skill
+├── semantic-linter-upstream/ # submodule: SummerSec/semantic-linter
 ├── AGENTS.md -> CLAUDE.md
 ├── CLAUDE.md
 ├── README.md
@@ -121,6 +123,7 @@ SumSec-Skills/
 | hookify | `hookify/` | Hook 创建工具 |
 | cloudflare-email | `cloudflare-email/` | 通过 Address JWT 读取、获取和发送 Cloudflare 临时邮箱邮件 |
 | taste-skill | `taste-skill/` | 前端设计品味、重设计、image-to-code、品牌系统与视觉方向 Skill 集合 |
+| semantic-linter | `semantic-linter/` | 指令语义边界检测：宽边界用词 lint、hooks、CLI、词典与规则安装 |
 
 ## 同步机制
 
@@ -175,6 +178,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | `.agents/plugins/marketplace.json` | Codex repo-scoped marketplace，每个条目 `version` |
 | `<plugin>/.claude-plugin/plugin.json` | 各独立 Claude 插件 manifest |
 | `<plugin>/.codex-plugin/plugin.json` | 各独立 Codex 插件 manifest |
+| `semantic-linter/.claude-plugin/plugin.json` 等 | Semantic-Linter 独立插件 manifest（版本跟随上游） |
 | `openclaw.plugin.json` | OpenClaw 清单 |
 | `opencode/plugins/sumsec-skills.mjs` | OpenCode 插件入口 |
 | `hermes/skills/sumsec-skills/SKILL.md` | Hermes 入口 |
@@ -199,3 +203,4 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | `claude-plugins-official/` | `git@github.com:anthropics/claude-plugins-official.git` |
 | `context7/` | `https://github.com/upstash/context7.git` |
 | `taste-skill-upstream/` | `https://github.com/Leonxlnx/taste-skill.git` |
+| `semantic-linter-upstream/` | `https://github.com/SummerSec/semantic-linter.git` |
