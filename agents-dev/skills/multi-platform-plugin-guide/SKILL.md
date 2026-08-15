@@ -1,11 +1,11 @@
 ---
 name: multi-platform-plugin-guide
-description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单：package.json、plugin.json、Claude/Cursor/Codex manifest、marketplace JSON、版本号、描述、关键词、安装文档。"
+description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单：package.json、plugin.json、Claude/Cursor/Codex/DSH manifest、marketplace JSON、版本号、描述、关键词、安装文档。"
 ---
 
 # 多平台插件开发指南（AI Inner OS）
 
-**本仓入口**：优先执行文末 **SumSec-Skills 发布清单（本仓）**。前半部分保留 AI Inner OS 多平台矩阵作为参考；本仓实际只落地 Claude / Cursor / Codex 相关 manifest。
+**本仓入口**：优先执行文末 **SumSec-Skills 发布清单（本仓）**。前半部分保留 AI Inner OS 多平台矩阵作为参考；本仓还落地 OpenClaw / OpenCode / Hermes / DeepSeek Harness（DSH）专用入口。
 
 **上游矩阵参考**：AI Inner OS 主仓根目录 `CLAUDE.md`。若本技能的通用平台说明与 AI Inner OS 主仓不一致，先更新上游矩阵，再同步本技能。
 
@@ -51,6 +51,8 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 | OpenClaw 插件入口 | `openclaw/index.js` |
 | OpenCode 插件入口 | `opencode/plugins/inner-os.js` |
 | Hermes Skill | `hermes/skills/inner-os/SKILL.md` |
+| DeepSeek Harness bundle manifest | 根 `package.json` 的 `dsh.bundle.patch` |
+| DeepSeek Harness bundle patch | `dsh/cordis.patch.yml` |
 | 仓库级元数据 | `plugin.json` |
 
 ## 版本同步清单
@@ -163,9 +165,17 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 - **全局安装**：`scripts/install.js` 会把共享核心复制到 `~/.inner-os/` 并生成各平台配置，详见 `CLAUDE.md` 的 *Global Install Script*。
 - **协议唯一来源**：`protocol/SKILL.md`。各平台静态副本需要手动同步，详见 `CLAUDE.md` 的 *Single Source of Truth*。
 
+## DeepSeek Harness 插件规范摘要
+
+- profile bundle 是 npm 包，通过 `package.json` 的 `dsh.bundle.patch` 指向 Cordis patch list。
+- bundle patch 按 `dsh.profile.bundles` 顺序组合；`--patch` 是更晚的一次性 overlay。持久安装时应分别说明依赖安装和把包名加入 `dsh.profile.bundles`，不要声称安装命令自动完成 profile 激活。
+- `@deepseek-ai/dsh-skill-filesystem` 的 `customSkillDirs` 可直接挂载多个真实 `<plugin>/skills/` root；其发现深度是一层 `<skill>/SKILL.md`。
+- patch 中的包内路径用 patch `baseUrl` 解析，避免依赖调用时 cwd 或 Git symlink checkout。
+- 本仓用 `npm run validate:dsh` 校验 bundle metadata、patch mount 清单和 Skill root。
+
 ## SumSec-Skills 发布清单（本仓）
 
-**SumSec-Skills** 为「多 plugin 源码集合」仓库，当前 marketplace 对外注册多个独立插件目录，每插件有自己的 `.claude-plugin/plugin.json` 与 `.codex-plugin/plugin.json`。已落地的多平台 manifest **包含** OpenClaw / OpenCode / Hermes 专用文件（`openclaw.plugin.json`、`opencode/`、`hermes/`）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
+**SumSec-Skills** 为「多 plugin 源码集合」仓库，当前 marketplace 对外注册多个独立插件目录，每插件有自己的 `.claude-plugin/plugin.json` 与 `.codex-plugin/plugin.json`。已落地的多平台入口 **包含** OpenClaw / OpenCode / Hermes / DSH 专用文件（`openclaw.plugin.json`、`opencode/`、`hermes/`、`dsh/cordis.patch.yml`）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
 
 1. `package.json`（根）
 2. `plugin.json`（根）
@@ -187,6 +197,8 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 18. `openclaw.plugin.json` — OpenClaw manifest
 19. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
 20. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
+
+DSH 本身不在 patch 中复制版本字段，但每次插件目录增删或安装说明变化时，还必须同步核对根 `package.json` 的 `dsh.bundle.patch` / keywords、`dsh/cordis.patch.yml`、`dsh/README.md` 与 `scripts/validate-dsh.mjs`。
 
 注意：Codex 的 `.agents/plugins/marketplace.json` 是用户安装时看到的版本，子目录内 `.codex-plugin/plugin.json` 是实际插件包 manifest；二者版本必须一起更新。Claude/Cursor marketplace 也同理，条目版本不能和插件 manifest 分叉。
 

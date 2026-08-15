@@ -38,6 +38,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py --list
 npm run sync
 npm run sync:dry
 npm run sync:clean
+npm run validate:dsh
 ```
 
 ## 验证命令
@@ -45,6 +46,9 @@ npm run sync:clean
 ```bash
 # JSON manifest 可解析
 node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
+
+# DeepSeek Harness bundle 元数据、patch roots 与一层 Skill 目录
+npm run validate:dsh
 
 # 版本残留检查，按目标版本调整表达式
 rg -n "1\.0\.(40|41)" package.json plugin.json .claude-plugin .cursor-plugin .codex-plugin .agents/plugins writing-zh/.claude-plugin dev-tools/.claude-plugin agents-dev/.claude-plugin openclaw.plugin.json opencode/plugins/sumsec-skills.mjs hermes/skills/sumsec-skills/SKILL.md
@@ -95,6 +99,7 @@ SumSec-Skills/
 ├── openclaw/                # OpenClaw 插件入口 & skills
 ├── opencode/                # OpenCode 插件入口 & rules
 ├── hermes/                  # Hermes skills & context
+├── dsh/                     # DeepSeek Harness profile bundle patch & 文档
 ├── .claude-plugin/          # 根 marketplace
 ├── .cursor-plugin/
 ├── .codex-plugin/
@@ -159,6 +164,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 6. Cursor marketplace：`.cursor-plugin/marketplace.json`
 7. README 技能一览表与布局树
 8. 本文件中的布局约定与插件一览表（如影响用途描述）
+9. DSH mount 清单与校验脚本：`dsh/cordis.patch.yml`、`scripts/validate-dsh.mjs`
 
 遗漏会导致插件发现、安装文档与实际 skill 列表脱节。
 
@@ -168,7 +174,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 | 文件 | 用途 |
 |------|------|
-| `package.json` | npm 包版本 |
+| `package.json` | npm 包版本、`dsh.bundle.patch` |
 | `plugin.json` | 根元数据 |
 | `.claude-plugin/plugin.json` | Claude 根 marketplace manifest |
 | `.claude-plugin/marketplace.json` | Claude marketplace 条目版本 |
@@ -182,8 +188,17 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | `openclaw.plugin.json` | OpenClaw 清单 |
 | `opencode/plugins/sumsec-skills.mjs` | OpenCode 插件入口 |
 | `hermes/skills/sumsec-skills/SKILL.md` | Hermes 入口 |
+| `dsh/cordis.patch.yml` | DeepSeek Harness profile bundle 层 |
 
 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致。若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。多插件仓发布时，marketplace 条目版本必须和对应子插件 manifest 版本一致，不要只改根 manifest。
+
+## DeepSeek Harness 规范补充
+
+- 根 `package.json` 用 `dsh.bundle.patch` 声明 bundle patch；patch 路径相对安装后的包目录解析。
+- `dsh/cordis.patch.yml` 覆盖 base 已插入的 `skill-filesystem` 行，配置必须完整重述；各 custom root 通过 patch `baseUrl` 指向真实 `<plugin>/skills/` 目录。
+- 保留 `includeDefaultRoots: true`，使项目 `.dsh/skills`、项目 `.agents/skills`、`$DSH_HOME/skills` 与 `~/.agents/skills` 继续生效。
+- DSH filesystem provider 只发现 custom root 下一层的 `<skill>/SKILL.md`；新增或删除插件目录时同步更新 patch、`scripts/validate-dsh.mjs` 与 `dsh/README.md`。
+- `--patch` 只做单次 overlay。持久启用需要安装包，并把 `sumsec-skills` 显式追加到目标 profile 的 `dsh.profile.bundles`；安装命令与 profile 激活不能在文档中合并成一步。
 
 ## Codex 规范补充
 

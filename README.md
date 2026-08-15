@@ -37,6 +37,7 @@ SumSec-Skills/
 ├── openclaw/                  # OpenClaw 插件入口 & skills
 ├── opencode/                  # OpenCode 插件入口 & rules
 ├── hermes/                    # Hermes skills & context
+├── dsh/                       # DeepSeek Harness bundle patch & 文档
 ├── .claude-plugin/            # 根 marketplace
 ├── .cursor-plugin/
 ├── .codex-plugin/
@@ -78,6 +79,16 @@ codex plugin marketplace add SummerSec/SumSec-Skills --ref master
 
 Codex 也会直接扫描仓库级 `.agents/skills/`，适合放仅服务本仓的工具型 skill；需要分发给其他项目或团队时，应打包进 `.codex-plugin/plugin.json` 所描述的插件。
 
+### DeepSeek Harness
+
+临时从当前 checkout 加载全部插件 Skill：
+
+```bash
+dsh --profile headless --patch ./dsh/cordis.patch.yml "使用合适的 SumSec Skill 检查当前项目"
+```
+
+持久启用时，先把本仓库安装到目标 profile，再将包名 `sumsec-skills` 追加到该 profile 的 `dsh.profile.bundles`。完整步骤、Git 安装方式与 prerelease 注意事项见 [dsh/README.md](dsh/README.md)。
+
 ### 手动安装（软链接）
 
 将 `<plugin>/skills/<skill-name>/` 链接到对应客户端 skill 目录：
@@ -91,8 +102,9 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | Claude Code | `/plugin install <plugin>@sumsec-skills` |
 | Cursor | `.cursor-plugin/marketplace.json` 导入 |
 | OpenAI Codex CLI | `codex plugin marketplace add SummerSec/SumSec-Skills --ref master` |
+| DeepSeek Harness | `dsh --profile headless --patch ./dsh/cordis.patch.yml` 或 profile bundle |
 | OpenClaw | `openclaw.plugin.json` + `openclaw/` 插件加载 |
-| OpenCode | `opencode/plugins/sumsec-skills.js` 插件注册 |
+| OpenCode | `opencode/plugins/sumsec-skills.mjs` 插件注册 |
 | Hermes | `hermes/skills/sumsec-skills/SKILL.md` 复制加载 |
 | 通用 symlink | `~/.agents/skills/<name>/ -> <plugin>/skills/<name>/` |
 

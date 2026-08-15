@@ -1,0 +1,19 @@
+# SumSec-Skills bundle layer for DeepSeek Harness.
+# The base bundle already inserts this row; this later layer replaces its
+# complete config and points the official filesystem provider at each plugin's
+# real skill root. baseUrl is the URL of this patch file in the installed bundle.
+- id: skill-filesystem
+  name: '@deepseek-ai/dsh-skill-filesystem'
+  config:
+    providerName: filesystem
+    includeDefaultRoots: true
+    customSkillDirs:
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../writing-zh/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../dev-tools/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../agents-dev/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../plugin-dev/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../claude-md-management/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../hookify/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../cloudflare-email/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../taste-skill/skills/', baseUrl))"
+      - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('../semantic-linter/skills/', baseUrl))"

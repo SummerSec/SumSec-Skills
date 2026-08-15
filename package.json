@@ -1,17 +1,29 @@
 {
   "name": "sumsec-skills",
-  "version": "1.0.43",
-  "description": "SummerSec personal Agent Skills monorepo; version field mirrors plugin manifests for multi-platform releases.",
+  "version": "1.0.44",
+  "description": "SummerSec personal Agent Skills monorepo and DeepSeek Harness profile bundle; version mirrors multi-platform plugin manifests.",
   "license": "Apache-2.0",
   "main": "opencode/plugins/sumsec-skills.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/SummerSec/SumSec-Skills.git"
   },
+  "keywords": [
+    "agent-skills",
+    "dsh",
+    "deepseek-harness",
+    "deepseek"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./dsh/cordis.patch.yml"
+    }
+  },
   "scripts": {
     "sync": "python .claude/skills/sync-skills/scripts/sync-skills.py",
     "sync:dry": "python .claude/skills/sync-skills/scripts/sync-skills.py --dry-run",
     "sync:clean": "python .claude/skills/sync-skills/scripts/sync-skills.py --clean",
+    "validate:dsh": "node scripts/validate-dsh.mjs",
     "postinstall": "python .claude/skills/sync-skills/scripts/sync-skills.py"
   }
 }

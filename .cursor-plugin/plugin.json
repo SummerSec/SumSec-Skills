@@ -1,6 +1,6 @@
 {
   "name": "sumsec-skills-cursor",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "Cursor marketplace for SumSec-Skills: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill, and semantic-linter.",
   "skills": "./",
   "rules": "./.cursor/rules/"
