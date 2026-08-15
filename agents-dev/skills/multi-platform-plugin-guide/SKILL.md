@@ -12,6 +12,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 ## 何时使用
 
 - 修改 `hooks/hooks.json`、`.claude-plugin/`、`.codex-plugin/`、`.cursor-plugin/`、`.agents/plugins/marketplace.json`、根 `plugin.json`、`openclaw.plugin.json` 或 release 版本字段。
+- 修改根 `package.json` 的 `dsh.bundle.patch` / DSH keywords、`dsh/cordis.patch.yml`、`dsh/README.md`、`scripts/validate-dsh.mjs` 或 profile bundle 安装说明。
 - 修改 `hooks/`、`codex/`、`cursor/` 下的 hook 适配器，或共享库 `hooks/lib/`。
 - 更新必须和 manifest 保持一致的安装文档，例如 `cursor/README.md`、`docs/install-cursor.md`、`codex/README.md`、`docs/install-codex.md`。
 - 准备跨平台 release、插件市场发布、插件缓存更新或多平台能力对齐。
@@ -28,6 +29,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 | OpenClaw | [Building plugins](https://docs.openclaw.ai/plugins/building-plugins)、[Skills](https://docs.openclaw.ai/tools/skills) |
 | OpenCode | [Plugins](https://open-code.ai/en/docs/plugins) |
 | Hermes Agent | [Plugins](https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins)、[Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
+| DeepSeek Harness | [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)、[`@deepseek-ai/dsh`](https://www.npmjs.com/package/@deepseek-ai/dsh)；本仓当前按 `0.1.0-rc.6` 验证，该包仍为 prerelease，升级前必须重新检查 package manifest、profile 与 Cordis patch contract。 |
 
 默认流程：
 
@@ -167,11 +169,35 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 ## DeepSeek Harness 插件规范摘要
 
-- profile bundle 是 npm 包，通过 `package.json` 的 `dsh.bundle.patch` 指向 Cordis patch list。
-- bundle patch 按 `dsh.profile.bundles` 顺序组合；`--patch` 是更晚的一次性 overlay。持久安装时应分别说明依赖安装和把包名加入 `dsh.profile.bundles`，不要声称安装命令自动完成 profile 激活。
-- `@deepseek-ai/dsh-skill-filesystem` 的 `customSkillDirs` 可直接挂载多个真实 `<plugin>/skills/` root；其发现深度是一层 `<skill>/SKILL.md`。
+- profile bundle 是 npm 包，通过 `package.json` 的 `dsh.bundle.patch` 指向顶层为 patch list 的 Cordis YAML；bundle patch 按 `dsh.profile.bundles` 顺序组合。
+- 官方 base bundle 先用 `- insert:` 插入 `id: skill-filesystem`。本仓作为后续层按该 id 替换整行配置；Cordis 不会局部 merge `config`，因此必须完整保留 `providerName: filesystem`、`includeDefaultRoots: true` 和全部 `customSkillDirs`，不能只写新增目录。`includeDefaultRoots: true` 保留项目 `.dsh/skills`、项目 `.agents/skills`、`$DSH_HOME/skills` 与 `~/.agents/skills`。
+- `customSkillDirs` 直接挂载真实 `<plugin>/skills/` root；官方 filesystem provider 只发现其下一层的 `<skill>/SKILL.md`，不递归发现嵌套 Skill。插件 root 增删时，必须同时更新 `dsh/cordis.patch.yml`、`scripts/validate-dsh.mjs`、`dsh/README.md` 和根 README 的平台说明。
 - patch 中的包内路径用 patch `baseUrl` 解析，避免依赖调用时 cwd 或 Git symlink checkout。
-- 本仓用 `npm run validate:dsh` 校验 bundle metadata、patch mount 清单和 Skill root。
+- 持久安装分两步。先执行 `dsh plugin --profile <profile> add --workspace-root --ignore-scripts <package>`，该命令只安装 profile 依赖；再编辑 `$DSH_HOME/profiles/<profile>/package.json`，把安装后的 package name 显式追加到现有 `dsh.profile.bundles` 末尾并保留原顺序。`--workspace-root` 明确允许 pnpm 修改 profile workspace 根依赖；`--ignore-scripts` 避免执行本仓仅供 submodule 同步维护的 Python `postinstall`。
+- `dsh --profile <profile> --patch ./dsh/cordis.patch.yml ...` 只是本次启动的后置 overlay，不会持久激活 bundle，不能替代上述 profile 配置。
+
+DSH 变更的发布前验证门禁：
+
+```powershell
+# bundle metadata、完整 mount 清单与一层 Skill 结构
+npm run validate:dsh
+
+# 用独立临时 home 检查官方 prerelease 的真实 Cordis 组合；不要指向用户 DSH_HOME
+$dshVerifyHome = Join-Path ([System.IO.Path]::GetTempPath()) ("sumsec-dsh-verify-" + [guid]::NewGuid().ToString("N"))
+$env:DSH_HOME = $dshVerifyHome
+npx --yes @deepseek-ai/dsh@0.1.0-rc.6 --profile headless --patch ./dsh/cordis.patch.yml --dump-config
+
+# 分发包必须包含 manifest、patch 与各真实 Skill root；不得执行维护型 postinstall
+npm pack --dry-run --ignore-scripts --json
+
+# JSON、同步映射和 diff 基线
+node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json','.agents/plugins/marketplace.json','openclaw.plugin.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
+$env:PYTHONIOENCODING = 'utf-8'
+npm run sync:dry
+git diff --check
+```
+
+检查 `--dump-config` 输出确实包含 `skill-filesystem`、`customSkillDirs` 和首尾 SumSec roots；检查 `npm pack --dry-run` 的 JSON file list 确实包含 `package.json`、`dsh/cordis.patch.yml` 与各插件的 `SKILL.md`。验证完成后清理临时 `$dshVerifyHome`，不要修改用户真实 profile。
 
 ## SumSec-Skills 发布清单（本仓）
 

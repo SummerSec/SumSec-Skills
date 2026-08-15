@@ -1,6 +1,6 @@
 {
   "name": "sumsec",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "SummerSec personal Agent Skills collection for Codex, including cloudflare-email, taste-skill, and semantic-linter.",
   "author": {
     "name": "SummerSec",

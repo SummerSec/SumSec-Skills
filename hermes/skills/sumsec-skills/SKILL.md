@@ -1,7 +1,7 @@
 ---
 name: sumsec-skills
 description: "SummerSec personal Agent Skills collection: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill, semantic-linter."
-version: "1.0.44"
+version: "1.0.45"
 category: skills-collection
 tags:
   - skills

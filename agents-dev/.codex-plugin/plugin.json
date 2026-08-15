@@ -1,6 +1,6 @@
 {
   "name": "agents-dev",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "Agent 开发生态技能：技能创建、CLAUDE 到 AGENTS 软链接统一、skill 审计优化、流程型 skill 设计、Hook 编写与多平台插件元数据维护。",
   "author": {
     "name": "SummerSec",

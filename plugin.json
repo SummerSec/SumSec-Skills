@@ -1,6 +1,6 @@
 {
   "name": "sumsec",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "SummerSec personal Agent Skills collection and DeepSeek Harness profile bundle. Plugins: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill, semantic-linter.",
   "author": {
     "name": "SummerSec",

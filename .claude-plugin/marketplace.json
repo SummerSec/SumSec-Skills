@@ -9,7 +9,7 @@
     {
       "name": "writing-zh",
       "description": "Chinese writing tools: humanizer-zh (de-AIify text) and sumsec-illustrations (SumSec article illustrations).",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./writing-zh",
       "author": {
         "name": "SummerSec",
@@ -19,7 +19,7 @@
     {
       "name": "dev-tools",
       "description": "Developer tools: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, Ponytail minimal-solution skills, and frontend-design.",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./dev-tools",
       "author": {
         "name": "SummerSec",
@@ -29,7 +29,7 @@
     {
       "name": "agents-dev",
       "description": "Agent 开发生态：skill-creator、plugin-dev（7 个技能）、hookify、agent-sdk-dev、claude-agents-symlink、multi-platform-plugin-guide、workflow-skill-creator。",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./agents-dev",
       "author": {
         "name": "SummerSec",
@@ -39,7 +39,7 @@
     {
       "name": "claude-md-management",
       "description": "Maintain and improve CLAUDE.md files: audit quality (claude-md-improver) and capture session learnings (/revise-claude-md).",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./claude-md-management",
       "author": {
         "name": "Anthropic",
@@ -49,7 +49,7 @@
     {
       "name": "hookify",
       "description": "Create hooks to prevent unwanted behaviors by analyzing conversation patterns. Supports regex matching, multiple event types, and interactive rule management.",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./hookify",
       "author": {
         "name": "Anthropic",
@@ -59,7 +59,7 @@
     {
       "name": "plugin-dev",
       "description": "Plugin development toolkit: 7 skills (agent/command/hook/skill/MCP/structure/settings) + 3 agents (agent-creator, plugin-validator, skill-reviewer) + /plugin-dev:create-plugin guided workflow.",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./plugin-dev",
       "author": {
         "name": "Anthropic",
@@ -69,7 +69,7 @@
     {
       "name": "cloudflare-email",
       "description": "Cloudflare temp mail agent skill for reading inbox messages, fetching parsed mail, and sending email with an Address JWT.",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./cloudflare-email",
       "author": {
         "name": "SummerSec",
@@ -79,7 +79,7 @@
     {
       "name": "taste-skill",
       "description": "Frontend design taste skills for distinctive layouts, redesigns, image-to-code, brand systems, and visual direction.",
-      "version": "1.0.44",
+      "version": "1.0.45",
       "source": "./taste-skill",
       "author": {
         "name": "leonxlnx",

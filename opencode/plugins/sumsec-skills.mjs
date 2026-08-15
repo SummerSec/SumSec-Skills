@@ -29,7 +29,7 @@ export default async function sumsecSkillsPlugin() {
 
   return {
     name: "sumsec-skills",
-    version: "1.0.44",
+    version: "1.0.45",
     config: (cfg) => {
       const skillPaths = discoverSkills();
       const existing = cfg.skills?.paths ?? [];
