@@ -7,6 +7,7 @@
 | 命令 | 技能目录 | 来源 | 说明 |
 |------|---------|------|------|
 | `humanizer-zh` | `skills/humanizer-zh/SKILL.md` | 本仓库 | 去 AI 味：本地 CLI 深度指南，反 AI 审查二遍工作流 |
+| `eli5-zh` | `skills/eli5-zh/SKILL.md` | DreambigOu/ELI5 中文改编 | 按听众背景、词汇和兴趣讲解主题、代码、概念或报错 |
 | `sumsec-illustrations` | `skills/sumsec-illustrations/SKILL.md` | 本仓库 | 为 sumsec.me 风格文章生成 SumSec Observer 正文配图 |
 
 ## 插图生成注意

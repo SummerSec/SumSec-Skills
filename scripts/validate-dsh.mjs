@@ -2,20 +2,11 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { PLUGIN_SKILL_ROOTS } from "./plugin-skill-roots.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
-const expectedRoots = [
-  "writing-zh/skills",
-  "dev-tools/skills",
-  "agents-dev/skills",
-  "plugin-dev/skills",
-  "claude-md-management/skills",
-  "hookify/skills",
-  "cloudflare-email/skills",
-  "taste-skill/skills",
-  "semantic-linter/skills",
-];
+const expectedRoots = PLUGIN_SKILL_ROOTS;
 
 assert.equal(packageJson.dsh?.bundle?.patch, "./dsh/cordis.patch.yml");
 assert.ok(packageJson.keywords?.includes("dsh"));

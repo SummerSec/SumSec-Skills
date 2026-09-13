@@ -39,19 +39,23 @@ npm run sync
 npm run sync:dry
 npm run sync:clean
 npm run validate:dsh
+npm run validate:pi
 ```
 
 ## 验证命令
 
 ```bash
 # JSON manifest 可解析
-node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
+node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json','.pi/settings.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
 
 # DeepSeek Harness bundle 元数据、patch roots 与一层 Skill 目录
 npm run validate:dsh
 
+# Pi package：pi.skills、.pi/settings.json 与一层 Skill 目录
+npm run validate:pi
+
 # 版本残留检查，按目标版本调整表达式
-rg -n "1\.0\.(40|41)" package.json plugin.json .claude-plugin .cursor-plugin .codex-plugin .agents/plugins writing-zh/.claude-plugin dev-tools/.claude-plugin agents-dev/.claude-plugin openclaw.plugin.json opencode/plugins/sumsec-skills.mjs hermes/skills/sumsec-skills/SKILL.md
+rg -n "1\.0\.(45|46)" package.json plugin.json .claude-plugin .cursor-plugin .codex-plugin .agents/plugins writing-zh/.claude-plugin dev-tools/.claude-plugin agents-dev/.claude-plugin openclaw.plugin.json opencode/plugins/sumsec-skills.mjs hermes/skills/sumsec-skills/SKILL.md .pi/settings.json
 
 # 空白、冲突标记与 symlink 检查
 git diff --check
@@ -68,6 +72,7 @@ SumSec-Skills/
 │   ├── README.md
 │   └── skills/
 │       ├── humanizer-zh/SKILL.md
+│       ├── eli5-zh/SKILL.md
 │       └── sumsec-illustrations/SKILL.md
 ├── dev-tools/               # 开发工具插件
 │   ├── .claude-plugin/plugin.json
@@ -100,6 +105,8 @@ SumSec-Skills/
 ├── opencode/                # OpenCode 插件入口 & rules
 ├── hermes/                  # Hermes skills & context
 ├── dsh/                     # DeepSeek Harness profile bundle patch & 文档
+├── pi/                      # Pi coding agent 安装说明
+├── .pi/settings.json        # 本仓 checkout 的 Pi 本地 package
 ├── .claude-plugin/          # 根 marketplace
 ├── .cursor-plugin/
 ├── .codex-plugin/
@@ -120,7 +127,7 @@ SumSec-Skills/
 
 | 插件 | 目录 | 用途 |
 |------|------|------|
-| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、SumSec 博客正文配图 |
+| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、按听众讲解、SumSec 博客正文配图 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、前端界面实现 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、claude-agents-symlink、skill-optimizer、流程编排、版本对齐 |
 | plugin-dev | `plugin-dev/` | 插件开发七件套（agent/command/hook/skill/MCP/structure/settings） |
@@ -165,6 +172,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 7. README 技能一览表与布局树
 8. 本文件中的布局约定与插件一览表（如影响用途描述）
 9. DSH mount 清单与校验脚本：`dsh/cordis.patch.yml`、`scripts/validate-dsh.mjs`
+10. Pi Skill 根清单与校验：`scripts/plugin-skill-roots.mjs`、根 `package.json` 的 `pi.skills`、`scripts/validate-pi.mjs`、`pi/README.md`
 
 遗漏会导致插件发现、安装文档与实际 skill 列表脱节。
 
@@ -174,7 +182,7 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 
 | 文件 | 用途 |
 |------|------|
-| `package.json` | npm 包版本、`dsh.bundle.patch` |
+| `package.json` | npm 包版本、`dsh.bundle.patch`、`pi.skills` / `pi-package` |
 | `plugin.json` | 根元数据 |
 | `.claude-plugin/plugin.json` | Claude 根 marketplace manifest |
 | `.claude-plugin/marketplace.json` | Claude marketplace 条目版本 |
@@ -189,6 +197,8 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 | `opencode/plugins/sumsec-skills.mjs` | OpenCode 插件入口 |
 | `hermes/skills/sumsec-skills/SKILL.md` | Hermes 入口 |
 | `dsh/cordis.patch.yml` | DeepSeek Harness profile bundle 层 |
+| `.pi/settings.json` | 本仓 checkout 的 Pi 本地 package 指针 |
+| `pi/README.md` | Pi 安装说明 |
 
 版本号、描述、关键词应与仓库当前插件列表与 README 技能表一致。若本次改动不影响插件对外可见信息，可保持版本不变；若会影响安装、发现或插件说明，优先 bump 并全表对齐。多插件仓发布时，marketplace 条目版本必须和对应子插件 manifest 版本一致，不要只改根 manifest。
 
@@ -197,8 +207,17 @@ python .claude/skills/sync-skills/scripts/sync-skills.py
 - 根 `package.json` 用 `dsh.bundle.patch` 声明 bundle patch；patch 路径相对安装后的包目录解析。
 - `dsh/cordis.patch.yml` 覆盖 base 已插入的 `skill-filesystem` 行，配置必须完整重述；各 custom root 通过 patch `baseUrl` 指向真实 `<plugin>/skills/` 目录。
 - 保留 `includeDefaultRoots: true`，使项目 `.dsh/skills`、项目 `.agents/skills`、`$DSH_HOME/skills` 与 `~/.agents/skills` 继续生效。
-- DSH filesystem provider 只发现 custom root 下一层的 `<skill>/SKILL.md`；新增或删除插件目录时同步更新 patch、`scripts/validate-dsh.mjs` 与 `dsh/README.md`。
+- DSH filesystem provider 只发现 custom root 下一层的 `<skill>/SKILL.md`；新增或删除插件目录时同步更新 `scripts/plugin-skill-roots.mjs`、patch、`scripts/validate-dsh.mjs` 与 `dsh/README.md`。
 - `--patch` 只做单次 overlay。持久启用需要安装包，并把 `sumsec-skills` 显式追加到目标 profile 的 `dsh.profile.bundles`；安装命令与 profile 激活不能在文档中合并成一步。
+
+## Pi 规范补充
+
+- 根 `package.json` 用 `pi.skills` 列出真实 `<plugin>/skills/` 目录，并加上 `pi-package` keyword。不要把根 `skills/` symlink 聚合入口写进 `pi.skills`；Pi glob 不会继续穿越 symlink。
+- 本仓 `.pi/settings.json` 的 `packages` 必须是 `[".."]`，相对该文件解析到仓库根。不要写 `"."`。
+- 其他项目用 `pi install git:github.com/SummerSec/SumSec-Skills` 或 `pi install -l <绝对路径>`。完整步骤见 `pi/README.md`。
+- 当前不注册 Pi extension。Skill 发现只走官方 package `skills` 与 Agent Skills `SKILL.md`。
+- `postinstall` 在 `PI_CODING_AGENT=true` / `AI_AGENT=pi` 或 submodule 未初始化时跳过同步，避免 `pi install` 触发的 `npm install` 因缺少 submodule 失败。
+- 新增或删除插件 Skill 根时，同步更新 `scripts/plugin-skill-roots.mjs`、根 `package.json` 的 `pi.skills`、`scripts/validate-pi.mjs` 与 `pi/README.md`。
 
 ## Codex 规范补充
 

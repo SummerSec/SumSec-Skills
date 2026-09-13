@@ -11,6 +11,7 @@ SumSec-Skills/
 ├── writing-zh/              # 中文写作插件
 │   └── skills/
 │       ├── humanizer-zh/       去 AI 味润色
+│       ├── eli5-zh/            按听众讲解
 │       └── sumsec-illustrations/  SumSec 博客正文配图
 ├── dev-tools/               # 开发工具插件
 │   └── skills/
@@ -38,6 +39,8 @@ SumSec-Skills/
 ├── opencode/                  # OpenCode 插件入口 & rules
 ├── hermes/                    # Hermes skills & context
 ├── dsh/                       # DeepSeek Harness bundle patch & 文档
+├── pi/                        # Pi coding agent 安装说明
+├── .pi/settings.json          # 本仓 checkout 的 Pi 本地 package
 ├── .claude-plugin/            # 根 marketplace
 ├── .cursor-plugin/
 ├── .codex-plugin/
@@ -89,6 +92,18 @@ dsh --profile headless --patch ./dsh/cordis.patch.yml "使用合适的 SumSec Sk
 
 持久启用时，先把本仓库安装到目标 profile，再将包名 `sumsec-skills` 追加到该 profile 的 `dsh.profile.bundles`。完整步骤、Git 安装方式与 prerelease 注意事项见 [dsh/README.md](dsh/README.md)。
 
+### Pi
+
+本仓库 checkout 已提交 `.pi/settings.json`，项目被 Pi 信任后（或本次加 `--approve`）在仓库根启动 `pi` 即可加载各插件 Skill。
+
+安装到其他项目：
+
+```bash
+pi install git:github.com/SummerSec/SumSec-Skills
+```
+
+不要使用 `pi install -l .`：相对路径相对 `.pi/settings.json` 解析。Git 源、绝对路径与验证步骤见 [pi/README.md](pi/README.md)。
+
 ### 手动安装（软链接）
 
 将 `<plugin>/skills/<skill-name>/` 链接到对应客户端 skill 目录：
@@ -103,6 +118,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | Cursor | `.cursor-plugin/marketplace.json` 导入 |
 | OpenAI Codex CLI | `codex plugin marketplace add SummerSec/SumSec-Skills --ref master` |
 | DeepSeek Harness | `dsh --profile headless --patch ./dsh/cordis.patch.yml` 或 profile bundle |
+| Pi | `pi install git:github.com/SummerSec/SumSec-Skills` 或本仓 `.pi/settings.json` |
 | OpenClaw | `openclaw.plugin.json` + `openclaw/` 插件加载 |
 | OpenCode | `opencode/plugins/sumsec-skills.mjs` 插件注册 |
 | Hermes | `hermes/skills/sumsec-skills/SKILL.md` 复制加载 |
@@ -115,6 +131,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 | 技能 | 来源 | 说明 |
 |------|------|------|
 | [humanizer-zh](writing-zh/skills/humanizer-zh/) | 本仓库 | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
+| [eli5-zh](writing-zh/skills/eli5-zh/) | DreambigOu/ELI5 中文改编 | 按听众背景、词汇和兴趣讲解主题、代码、概念或报错 |
 | [sumsec-illustrations](writing-zh/skills/sumsec-illustrations/) | 本仓库 | 为 sumsec.me 风格文章生成 SumSec Observer 正文配图 |
 
 ### dev-tools（开发工具）

@@ -1,11 +1,11 @@
 ---
 name: multi-platform-plugin-guide
-description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单：package.json、plugin.json、Claude/Cursor/Codex/DSH manifest、marketplace JSON、版本号、描述、关键词、安装文档。"
+description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单：package.json、plugin.json、Claude/Cursor/Codex/DSH/Pi manifest、marketplace JSON、版本号、关键词、安装文档。"
 ---
 
 # 多平台插件开发指南（AI Inner OS）
 
-**本仓入口**：优先执行文末 **SumSec-Skills 发布清单（本仓）**。前半部分保留 AI Inner OS 多平台矩阵作为参考；本仓还落地 OpenClaw / OpenCode / Hermes / DeepSeek Harness（DSH）专用入口。
+**本仓入口**：优先执行文末 **SumSec-Skills 发布清单（本仓）**。前半部分保留 AI Inner OS 多平台矩阵作为参考；本仓还落地 OpenClaw / OpenCode / Hermes / DeepSeek Harness（DSH）/ Pi 专用入口。
 
 **上游矩阵参考**：AI Inner OS 主仓根目录 `CLAUDE.md`。若本技能的通用平台说明与 AI Inner OS 主仓不一致，先更新上游矩阵，再同步本技能。
 
@@ -13,6 +13,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 - 修改 `hooks/hooks.json`、`.claude-plugin/`、`.codex-plugin/`、`.cursor-plugin/`、`.agents/plugins/marketplace.json`、根 `plugin.json`、`openclaw.plugin.json` 或 release 版本字段。
 - 修改根 `package.json` 的 `dsh.bundle.patch` / DSH keywords、`dsh/cordis.patch.yml`、`dsh/README.md`、`scripts/validate-dsh.mjs` 或 profile bundle 安装说明。
+- 修改根 `package.json` 的 `pi` / `pi-package` keyword、`pi/README.md`、`.pi/settings.json`、`scripts/plugin-skill-roots.mjs` 或 `scripts/validate-pi.mjs`。
 - 修改 `hooks/`、`codex/`、`cursor/` 下的 hook 适配器，或共享库 `hooks/lib/`。
 - 更新必须和 manifest 保持一致的安装文档，例如 `cursor/README.md`、`docs/install-cursor.md`、`codex/README.md`、`docs/install-codex.md`。
 - 准备跨平台 release、插件市场发布、插件缓存更新或多平台能力对齐。
@@ -30,6 +31,7 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 | OpenCode | [Plugins](https://open-code.ai/en/docs/plugins) |
 | Hermes Agent | [Plugins](https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins)、[Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
 | DeepSeek Harness | [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)、[`@deepseek-ai/dsh`](https://www.npmjs.com/package/@deepseek-ai/dsh)；本仓当前按 `0.1.0-rc.6` 验证，该包仍为 prerelease，升级前必须重新检查 package manifest、profile 与 Cordis patch contract。 |
+| Pi | [Pi Packages](https://pi.dev/docs/latest/packages)、[Skills](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/skills.md)、[Extensions](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/extensions.md) |
 
 默认流程：
 
@@ -55,6 +57,8 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 | Hermes Skill | `hermes/skills/inner-os/SKILL.md` |
 | DeepSeek Harness bundle manifest | 根 `package.json` 的 `dsh.bundle.patch` |
 | DeepSeek Harness bundle patch | `dsh/cordis.patch.yml` |
+| Pi package manifest | 根 `package.json` 的 `pi` |
+| Pi 本仓本地 package | `.pi/settings.json` |
 | 仓库级元数据 | `plugin.json` |
 
 ## 版本同步清单
@@ -171,9 +175,9 @@ description: "用于维护 SumSec-Skills 多平台插件元数据与发布清单
 
 - profile bundle 是 npm 包，通过 `package.json` 的 `dsh.bundle.patch` 指向顶层为 patch list 的 Cordis YAML；bundle patch 按 `dsh.profile.bundles` 顺序组合。
 - 官方 base bundle 先用 `- insert:` 插入 `id: skill-filesystem`。本仓作为后续层按该 id 替换整行配置；Cordis 不会局部 merge `config`，因此必须完整保留 `providerName: filesystem`、`includeDefaultRoots: true` 和全部 `customSkillDirs`，不能只写新增目录。`includeDefaultRoots: true` 保留项目 `.dsh/skills`、项目 `.agents/skills`、`$DSH_HOME/skills` 与 `~/.agents/skills`。
-- `customSkillDirs` 直接挂载真实 `<plugin>/skills/` root；官方 filesystem provider 只发现其下一层的 `<skill>/SKILL.md`，不递归发现嵌套 Skill。插件 root 增删时，必须同时更新 `dsh/cordis.patch.yml`、`scripts/validate-dsh.mjs`、`dsh/README.md` 和根 README 的平台说明。
+- `customSkillDirs` 直接挂载真实 `<plugin>/skills/` root；官方 filesystem provider 只发现其下一层的 `<skill>/SKILL.md`，不递归发现嵌套 Skill。插件 root 增删时，必须同时更新 `scripts/plugin-skill-roots.mjs`、`dsh/cordis.patch.yml`、`scripts/validate-dsh.mjs`、`dsh/README.md` 和根 README 的平台说明。
 - patch 中的包内路径用 patch `baseUrl` 解析，避免依赖调用时 cwd 或 Git symlink checkout。
-- 持久安装分两步。先执行 `dsh plugin --profile <profile> add --workspace-root --ignore-scripts <package>`，该命令只安装 profile 依赖；再编辑 `$DSH_HOME/profiles/<profile>/package.json`，把安装后的 package name 显式追加到现有 `dsh.profile.bundles` 末尾并保留原顺序。`--workspace-root` 明确允许 pnpm 修改 profile workspace 根依赖；`--ignore-scripts` 避免执行本仓仅供 submodule 同步维护的 Python `postinstall`。
+- 持久安装分两步。先执行 `dsh plugin --profile <profile> add --workspace-root --ignore-scripts <package>`，该命令只安装 profile 依赖；再编辑 `$DSH_HOME/profiles/<profile>/package.json`，把安装后的 package name 显式追加到现有 `dsh.profile.bundles` 末尾并保留原顺序。`--workspace-root` 明确允许 pnpm 修改 profile workspace 根依赖；`--ignore-scripts` 避免执行本仓仅供 submodule 同步维护的 `postinstall`。
 - `dsh --profile <profile> --patch ./dsh/cordis.patch.yml ...` 只是本次启动的后置 overlay，不会持久激活 bundle，不能替代上述 profile 配置。
 
 DSH 变更的发布前验证门禁：
@@ -181,6 +185,7 @@ DSH 变更的发布前验证门禁：
 ```powershell
 # bundle metadata、完整 mount 清单与一层 Skill 结构
 npm run validate:dsh
+npm run validate:pi
 
 # 用独立临时 home 检查官方 prerelease 的真实 Cordis 组合；不要指向用户 DSH_HOME
 $dshVerifyHome = Join-Path ([System.IO.Path]::GetTempPath()) ("sumsec-dsh-verify-" + [guid]::NewGuid().ToString("N"))
@@ -191,7 +196,7 @@ npx --yes @deepseek-ai/dsh@0.1.0-rc.6 --profile headless --patch ./dsh/cordis.pa
 npm pack --dry-run --ignore-scripts --json
 
 # JSON、同步映射和 diff 基线
-node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json','.agents/plugins/marketplace.json','openclaw.plugin.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
+node -e "const fs=require('fs'); for (const f of ['package.json','plugin.json','.claude-plugin/plugin.json','.claude-plugin/marketplace.json','.cursor-plugin/plugin.json','.cursor-plugin/marketplace.json','.codex-plugin/plugin.json','.agents/plugins/marketplace.json','openclaw.plugin.json','.pi/settings.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
 $env:PYTHONIOENCODING = 'utf-8'
 npm run sync:dry
 git diff --check
@@ -199,9 +204,20 @@ git diff --check
 
 检查 `--dump-config` 输出确实包含 `skill-filesystem`、`customSkillDirs` 和首尾 SumSec roots；检查 `npm pack --dry-run` 的 JSON file list 确实包含 `package.json`、`dsh/cordis.patch.yml` 与各插件的 `SKILL.md`。验证完成后清理临时 `$dshVerifyHome`，不要修改用户真实 profile。
 
+## Pi 插件规范摘要
+
+- 根 `package.json` 用 `pi.skills` 列出真实 `<plugin>/skills/` 目录，并加上 `pi-package` keyword。路径相对包根；数组支持 glob 与 `!exclusions`。
+- 不要把根 `skills/` symlink 聚合入口写进 `pi.skills`。官方约定：glob 若需要继续穿越 symlink，必须直接列出被链接的资源根。
+- 本仓 `.pi/settings.json` 的 `packages` 必须是 `[".."]`，相对该 settings 文件解析到仓库根。不要写 `"."`。
+- 其他项目安装：`pi install git:github.com/SummerSec/SumSec-Skills`，或 `pi install -l <绝对路径>`。临时试加载：`pi -e git:github.com/SummerSec/SumSec-Skills`。
+- 当前不注册 Pi extension、prompt 或 theme。Skill 发现只走官方 package `skills` 与 Agent Skills `SKILL.md`。
+- Git 安装会执行 `npm install`。`scripts/postinstall.mjs` 在 `PI_CODING_AGENT=true` / `AI_AGENT=pi` 或 submodule 未初始化时跳过同步。
+- 插件 Skill 根增删时，必须同时更新 `scripts/plugin-skill-roots.mjs`、根 `package.json` 的 `pi.skills`、`scripts/validate-pi.mjs`、`pi/README.md`，并与 DSH mount 清单保持同一组根。
+- 保持 `pi/README.md`、根 README 的 Pi 安装段与 `package.json` 的 `pi` 字段一致。
+
 ## SumSec-Skills 发布清单（本仓）
 
-**SumSec-Skills** 为「多 plugin 源码集合」仓库，当前 marketplace 对外注册多个独立插件目录，每插件有自己的 `.claude-plugin/plugin.json` 与 `.codex-plugin/plugin.json`。已落地的多平台入口 **包含** OpenClaw / OpenCode / Hermes / DSH 专用文件（`openclaw.plugin.json`、`opencode/`、`hermes/`、`dsh/cordis.patch.yml`）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
+**SumSec-Skills** 为「多 plugin 源码集合」仓库，当前 marketplace 对外注册多个独立插件目录，每插件有自己的 `.claude-plugin/plugin.json` 与 `.codex-plugin/plugin.json`。已落地的多平台入口 **包含** OpenClaw / OpenCode / Hermes / DSH / Pi 专用文件（`openclaw.plugin.json`、`opencode/`、`hermes/`、`dsh/cordis.patch.yml`、根 `package.json` 的 `pi`、`.pi/settings.json`、`pi/README.md`）。维护者 **bump 版本或调整对外描述** 时，请将下列文件中的 **`version`（及需要的 description / keywords）** 全部对齐：
 
 1. `package.json`（根）
 2. `plugin.json`（根）
@@ -224,7 +240,7 @@ git diff --check
 19. `opencode/plugins/sumsec-skills.mjs` — OpenCode plugin entry (inline `version`)
 20. `hermes/skills/sumsec-skills/SKILL.md` — Hermes skill (inline `version`)
 
-DSH 本身不在 patch 中复制版本字段，但每次插件目录增删或安装说明变化时，还必须同步核对根 `package.json` 的 `dsh.bundle.patch` / keywords、`dsh/cordis.patch.yml`、`dsh/README.md` 与 `scripts/validate-dsh.mjs`。
+DSH 本身不在 patch 中复制版本字段，但每次插件目录增删或安装说明变化时，还必须同步核对根 `package.json` 的 `dsh.bundle.patch` / keywords、`dsh/cordis.patch.yml`、`dsh/README.md` 与 `scripts/validate-dsh.mjs`。Pi 同样不单独存 version 字段，但必须同步核对根 `package.json` 的 `pi` / `pi-package`、`.pi/settings.json`、`pi/README.md`、`scripts/plugin-skill-roots.mjs` 与 `scripts/validate-pi.mjs`。
 
 注意：Codex 的 `.agents/plugins/marketplace.json` 是用户安装时看到的版本，子目录内 `.codex-plugin/plugin.json` 是实际插件包 manifest；二者版本必须一起更新。Claude/Cursor marketplace 也同理，条目版本不能和插件 manifest 分叉。
 

@@ -1,7 +1,7 @@
 ---
 name: sumsec-skills
 description: "SummerSec personal Agent Skills collection: writing-zh, dev-tools, agents-dev, cloudflare-email, taste-skill, semantic-linter."
-version: "1.0.45"
+version: "1.0.46"
 category: skills-collection
 tags:
   - skills
@@ -14,7 +14,7 @@ source: "https://github.com/SummerSec/SumSec-Skills.git"
 
 Reusable Agent Skills organized by plugin category. Each skill lives at `<plugin>/skills/<name>/SKILL.md`.
 
-- **writing-zh/**: humanizer-zh, sumsec-illustrations
+- **writing-zh/**: humanizer-zh, eli5-zh, sumsec-illustrations
 - **dev-tools/**: git-commit-pr, agent-chat-history, context7-cli/mcp/find-docs, frontend-design
 - **agents-dev/**: skill-creator, writing-rules, plugin-dev skills, agent-sdk-dev, skill-optimizer, multi-platform-plugin-guide
 - **cloudflare-email/**: cf-temp-mail-agent-mail

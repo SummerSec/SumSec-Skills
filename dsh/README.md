@@ -22,7 +22,7 @@ dsh --profile headless --patch ./dsh/cordis.patch.yml --dump-config
 
 ## 持久启用为 profile bundle
 
-先安装 bundle 包。根包已有用于仓库维护的 Python `postinstall`，DSH 只需要提交在仓库中的同步结果，因此安装时禁用生命周期脚本：
+先安装 bundle 包。根包已有用于仓库维护的 `postinstall`（`scripts/postinstall.mjs`，会调用 Python sync），DSH 只需要提交在仓库中的同步结果，因此安装时禁用生命周期脚本：
 
 ```bash
 # 在 SumSec-Skills checkout 根目录执行；相对路径由 dsh 固定到调用目录

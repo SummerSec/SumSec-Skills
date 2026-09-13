@@ -1,7 +1,7 @@
 {
   "name": "sumsec-skills",
-  "version": "1.0.45",
-  "description": "SummerSec personal Agent Skills monorepo and DeepSeek Harness profile bundle; version mirrors multi-platform plugin manifests.",
+  "version": "1.0.46",
+  "description": "SummerSec personal Agent Skills monorepo, Pi package, and DeepSeek Harness profile bundle; version mirrors multi-platform plugin manifests.",
   "license": "Apache-2.0",
   "main": "opencode/plugins/sumsec-skills.mjs",
   "repository": {
@@ -12,8 +12,25 @@
     "agent-skills",
     "dsh",
     "deepseek-harness",
-    "deepseek"
+    "deepseek",
+    "pi-package",
+    "pi",
+    "pi-coding-agent"
   ],
+  "pi": {
+    "skills": [
+      "./writing-zh/skills",
+      "./dev-tools/skills",
+      "./agents-dev/skills",
+      "./plugin-dev/skills",
+      "./claude-md-management/skills",
+      "./hookify/skills",
+      "./cloudflare-email/skills",
+      "./taste-skill/skills",
+      "./semantic-linter/skills"
+    ],
+    "image": "https://raw.githubusercontent.com/SummerSec/SumSec-Skills/master/assets/sumsec-skills-illustrations/02-project-introduction.png"
+  },
   "dsh": {
     "bundle": {
       "patch": "./dsh/cordis.patch.yml"
@@ -24,6 +41,7 @@
     "sync:dry": "python .claude/skills/sync-skills/scripts/sync-skills.py --dry-run",
     "sync:clean": "python .claude/skills/sync-skills/scripts/sync-skills.py --clean",
     "validate:dsh": "node scripts/validate-dsh.mjs",
-    "postinstall": "python .claude/skills/sync-skills/scripts/sync-skills.py"
+    "validate:pi": "node scripts/validate-pi.mjs",
+    "postinstall": "node scripts/postinstall.mjs"
   }
 }

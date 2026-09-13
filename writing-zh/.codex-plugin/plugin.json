@@ -1,7 +1,7 @@
 {
   "name": "writing-zh",
-  "version": "1.0.45",
-  "description": "Chinese writing tools for de-AIifying text and SumSec article illustrations.",
+  "version": "1.0.46",
+  "description": "Chinese writing tools for de-AIifying text, audience-tailored explanations, and SumSec article illustrations.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -15,13 +15,14 @@
     "codex",
     "writing-zh",
     "chinese-writing",
+    "eli5",
     "illustrations"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "writing-zh",
-    "shortDescription": "Chinese writing and article illustrations.",
-    "longDescription": "Chinese writing assistant skills for polishing AI-sounding text and designing SumSec Observer article illustrations.",
+    "shortDescription": "Chinese writing, ELI5 explanations, and article illustrations.",
+    "longDescription": "Chinese writing assistant skills for polishing AI-sounding text, explaining topics to a chosen audience, and designing SumSec Observer article illustrations.",
     "developerName": "SummerSec",
     "category": "Productivity",
     "capabilities": [
@@ -30,6 +31,7 @@
     "websiteURL": "https://github.com/SummerSec/SumSec-Skills",
     "defaultPrompt": [
       "Polish this Chinese technical article.",
+      "Explain this to my manager like I am five.",
       "Design illustrations for this SumSec article."
     ]
   }

@@ -27,7 +27,7 @@ Do not edit synced component directories under `semantic-linter/` directly. Upda
 - Cursor: `.cursor-plugin/plugin.json`
 - Upstream version source: `semantic-linter-upstream/package.json`
 
-When the upstream inventory changes, synchronize the plugin directory and update the root README plus Claude, Codex, Cursor, OpenCode, OpenClaw, and Hermes discovery metadata in the same change.
+When the upstream inventory changes, synchronize the plugin directory and update the root README plus Claude, Codex, Cursor, OpenCode, OpenClaw, Hermes, DSH, and Pi discovery metadata in the same change.
 
 ## Runtime Notes
 
