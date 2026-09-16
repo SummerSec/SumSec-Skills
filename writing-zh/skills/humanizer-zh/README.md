@@ -4,7 +4,8 @@
 > - **深度编辑指南**（`SKILL.md` 主体）翻译自 [blader/humanizer](https://github.com/blader/humanizer/tree/main)，并参考 [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop)
 > - 原项目基于维基百科的 [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) 指南
 > - **本地 CLI**（`scripts/`、`examples/`、`evals/`、`claude-code/`）合并自 [voidborne-d/humanize-chinese](https://github.com/voidborne-d/humanize-chinese)（MIT，详见仓库内 [NOTICE](NOTICE)）
-> - **「反 AI 审查」二遍流程**（初稿 → 自问残留痕迹 → 终稿）与 `SKILL.md` 加长示例，同步自 [op7418/Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14) 对上游 humanizer v2.2.0 的合并思路
+> - **「反 AI 审查」二遍流程**（初稿 → 自问残留痕迹 → 终稿）与加长示例，同步自 [op7418/Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14)
+> - **白名单硬边界 / 实证改写规则 /「不作为改写理由」** 合并自 [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone)（MIT；见 `references/hard-boundaries.md`、`references/validated-rewrite-rules.md`）
 
 ---
 
@@ -13,11 +14,11 @@
 Humanizer-zh 用于去除文本中的 AI 生成痕迹，包含两条路径：
 
 1. **Python CLI（零 pip 依赖）**：对中文文本做 0–100 评分、改写、学术降 AIGC、风格转换等，适合批量与可复现流程。
-2. **Agent / 对话内指南**：按 `SKILL.md` 的「深度指南」逐条识别模式并改写，适合无法执行脚本的场景。
+2. **Agent / 对话内指南**：按 `SKILL.md` 深度指南改写。**默认是成稿清理（白名单）**：只改有触发标记的实证规则，未命中原文逐字保留，信息守恒、结构不动；适合无法执行脚本或需要细颗粒度核对的场景。
 
-对话内指南还强调 **最终「反 AI 审查」**：在人性化初稿之后，再问「仍有哪些明显的 AI 痕迹？」并据此修订为终稿，减少「改完仍像机翻」的残留。
+对话内指南还强调 **最终「反 AI 审查」**：在人性化初稿之后，再问「仍有哪些明显的 AI 痕迹？」并据此修订为终稿。审查阶段同样受白名单约束，避免借机扩写或「注入」原文没有的细节。
 
-适用场景包括：编辑审阅、论文/营销文案去「机器味」、学习常见 AI 句式等。
+适用场景包括：编辑审阅、论文/营销文案去「机器味」、成稿清理、学习常见 AI 句式等。
 
 ## 本地 CLI 速览
 
@@ -176,44 +177,49 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 
 ## 文件说明
 
-- **`SKILL.md`** - 技能入口：仅 `name` + `description` 的 frontmatter；CLI 与深度指南主流程；**必读链接**指向 `references/`
-- **`references/pattern-catalog.md`** - 核心速查、个性与灵魂、24 类模式与示例（深度改稿前打开）
+- **`SKILL.md`** - 技能入口：仅 `name` + `description` 的 frontmatter；CLI 与深度指南主流程；策略统一表；**必读链接**指向 `references/`
+- **`references/hard-boundaries.md`** - 硬性边界、信息守恒、风格文档优先、「不作为改写理由」表（成稿清理最高优先级）
+- **`references/validated-rewrite-rules.md`** - 实证改写规则白名单与验收清单（来自 lieflat-less-ai-tone）
+- **`references/pattern-catalog.md`** - 核心速查、24 类模式与示例；「个性与灵魂」仅鲜活改写可选
 - **`references/example-anti-ai-review.md`** - 加长「初稿→审查→终稿」完整示例
 - **`references/attribution.md`** - 上游来源与文档版本
 - **`references/agent-environment.md`** - 建议工具列表（原 YAML `allowed-tools`）
 - **`README.md`** - 本说明文档
-- **`scripts/`** - 检测、改写、学术、风格等 Python 脚本及 `patterns_cn.json`、`ngram_freq_cn.json`
+- **`scripts/`** - 检测、改写、学术、风格等 Python 脚本及 `patterns_cn.json`、`ngram_freq_cn.json`（未改）
 - **`examples/`** - 示例输入文本
 - **`evals/`** - 评测用数据
 - **`claude-code/`** - 可复制到业务仓库 `.claude/commands/` 的斜杠命令说明
 - **`package.json`** - 可选 `npm run detect|humanize|...` 快捷方式（底层仍为 `python scripts/...`）
-- **`NOTICE`** - CLI 相关文件的第三方来源说明
+- **`NOTICE`** - 第三方来源说明（humanize-chinese + lieflat-less-ai-tone）
 
 **注：** 英文原版 humanizer 请参考 [blader/humanizer](https://github.com/blader/humanizer)
 
 ## 手动使用方法
 
-### 基本流程
+### 基本流程（默认成稿清理）
 
-1. **识别 AI 模式** - 对照 `SKILL.md` 中列出的 24 种模式扫描文本
-2. **重写问题片段** - 用自然的表达替换 AI 痕迹
-3. **保留核心含义** - 确保信息完整性
-4. **维持适当语调** - 匹配文本应有的风格
-5. **注入真实个性** - 让文字有"人味"
-6. **最终反 AI 审查** - 对初稿自问「仍有哪些明显的 AI 痕迹？」，再修订为终稿（详见 `SKILL.md` 中「处理流程」与「完整示例」）
+1. **锁定框架** - 不重排标题/段落/列表等结构
+2. **识别 AI 模式** - 先按 `references/validated-rewrite-rules.md` 触发标记；可辅以 pattern-catalog
+3. **只改命中项** - 最小必要改动；未命中逐字保留
+4. **信息守恒** - 不增删事实、数字、限定词
+5. **维持适当语调** - 服从原体裁；不强加口语或「我/你」
+6. **最终反 AI 审查** - 自问残留痕迹，仍按白名单修订终稿
+
+用户**明确**要求「鲜活改写」时，才可参考 pattern-catalog「个性与灵魂」，且仍禁止编造事实。
 
 ### 关键原则
 
-#### ✨ 不仅要"干净"，更要"鲜活"
+#### ✨ 默认要「干净且守恒」，鲜活是可选
 
-避免 AI 模式只是基础，好的写作需要真实的人类声音：
+成稿清理优先遵守硬性边界与「不作为改写理由」表（不要为节奏改句长、不要删问句/比喻本身、不要补虚词装人话）。
 
-- **有观点** - 不要只报告事实，要对它们做出反应
-- **变化节奏** - 混合使用长短句
-- **承认复杂性** - 真实的人有复杂感受
-- **适当使用"我"** - 第一人称是诚实的表现
-- **允许一些混乱** - 完美的结构反而显得机械
-- **对感受要具体** - 用具体细节替代抽象概括
+仅在用户要求鲜活改写时：
+
+- **有观点** - 基于原文已有立场，不要捏造反应
+- **句间同构才动** - 打散相邻句同一骨架；勿为参差而拆段
+- **承认复杂性** - 保留原文的限定与让步
+- **适当使用"我"** - 仅当体裁/用户允许
+- **对感受要具体** - 只用原文已有的具体材料，禁止造细节
 
 #### 示例对比（初稿 → 审查 → 终稿）
 
@@ -240,6 +246,7 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 
 ## 版本历史
 
+- **2.3.0** — 合并 [lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone)：硬性边界、信息守恒、「不作为改写理由」、实证改写规则白名单；默认成稿清理与「鲜活改写」策略分离；CLI 脚本未改
 - **2.2.0+**（SumSec-Skills 内演进）— 按 skill-optimizer 路径 A：**frontmatter 仅 `name`/`description`**；24 类模式与长示例迁至 `references/`；工具与来源元数据迁至 `references/agent-environment.md`、`references/attribution.md`
 - **2.2.0**（见 `SKILL.md` 深度指南与根目录 `package.json`）— 同步 [Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14)：最终「反 AI 审查」+ 三段式交付（初稿 / 痕迹列举 / 终稿），加长完整示例
 - **2.1.0** — 合并 [humanize-chinese](https://github.com/voidborne-d/humanize-chinese) 本地 CLI 与资源
@@ -269,6 +276,7 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 
 ## 参考资源
 
+- [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) - 白名单硬边界与实证改写规则上游（含 RESEARCH.md）
 - [op7418/Humanizer-zh#14](https://github.com/op7418/Humanizer-zh/pull/14) - 反 AI 审查工作流与示例的来源 PR
 - [voidborne-d/humanize-chinese](https://github.com/voidborne-d/humanize-chinese) - 本目录 CLI 与配套资源的上游
 - [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) - 原始指南来源
@@ -282,4 +290,4 @@ git clone https://github.com/op7418/Humanizer-zh.git ~/.claude/skills/humanizer-
 
 ---
 
-**提示：** 这个工具不是为了"欺骗" AI 检测器，而是为了真正提升写作质量。最好的"去 AI 化"方法是让文字有真实的人类思考和声音。
+**提示：** 这个工具不是为了"欺骗" AI 检测器，而是为了真正提升写作质量。默认成稿清理强调信息守恒与可定位规则；需要鲜明个人声音时，请明确开启鲜活改写，并自己提供观点与材料。
