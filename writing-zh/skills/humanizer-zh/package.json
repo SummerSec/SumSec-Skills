@@ -1,7 +1,7 @@
 {
   "name": "humanizer-zh",
-  "version": "2.2.0",
-  "description": "Chinese AI-text de-slopping: bundled zero-dep Python CLI (detect/humanize/academic/style) from voidborne-d/humanize-chinese; SKILL v2.2.0 adds anti-AI-review pass (draft → self-check → final) per op7418/Humanizer-zh#14, plus long-form guidance from blader/humanizer / Wikipedia Signs of AI writing.",
+  "version": "2.3.0",
+  "description": "Chinese AI-text de-slopping: zero-dep Python CLI from voidborne-d/humanize-chinese; SKILL v2.3.0 default whitelist成稿清理 from larashero3-dotcom/lieflat-less-ai-tone (hard boundaries + validated rules + do-not-rewrite table), plus anti-AI-review pass and pattern catalog from blader/humanizer / Wikipedia Signs of AI writing.",
   "main": "SKILL.md",
   "scripts": {
     "detect": "python scripts/detect_cn.py",
@@ -32,6 +32,11 @@
   "cli_upstream": {
     "name": "humanize-chinese",
     "repository": "https://github.com/voidborne-d/humanize-chinese",
+    "license": "MIT"
+  },
+  "lieflat_upstream": {
+    "name": "lieflat-less-ai-tone",
+    "repository": "https://github.com/larashero3-dotcom/lieflat-less-ai-tone",
     "license": "MIT"
   }
 }

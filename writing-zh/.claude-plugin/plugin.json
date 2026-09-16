@@ -1,6 +1,6 @@
 {
   "name": "writing-zh",
-  "version": "1.0.46",
+  "version": "1.0.47",
   "description": "中文写作辅助插件：去 AI 味的文本润色（humanizer-zh）、按听众讲解（eli5-zh）、SumSec 正文配图（sumsec-illustrations）",
   "author": {
     "name": "SummerSec",

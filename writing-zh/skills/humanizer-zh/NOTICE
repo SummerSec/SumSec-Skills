@@ -7,4 +7,12 @@
 - `claude-code/`
 
 上述文件的著作权与许可条件以原仓库为准。`SKILL.md` 中「深度指南」主体仍基于
-blader/humanizer 等来源的中文改编；本 `NOTICE` 仅说明 CLI 相关文件的合并来源。
+blader/humanizer 等来源的中文改编；本 `NOTICE` 仅说明第三方合并来源。
+
+另：以下内容合并自 **lieflat-less-ai-tone**
+（https://github.com/larashero3-dotcom/lieflat-less-ai-tone ，**MIT**，Copyright (c) 2026 shiujan）：
+
+- `references/hard-boundaries.md`（硬性边界、信息守恒、「不作为改写理由」表）
+- `references/validated-rewrite-rules.md`（实证改写规则与验收清单）
+
+上游 RESEARCH.md / README 全文未纳入本 skill；如需复现测量请访问原仓库。
