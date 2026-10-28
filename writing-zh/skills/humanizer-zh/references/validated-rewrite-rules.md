@@ -2,7 +2,7 @@
 
 合并自 [larashero3-dotcom/lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone)（MIT）。先读 [hard-boundaries.md](hard-boundaries.md)；本文件是**允许改写的完整清单**。未命中下列任一规则的文字必须原样保留。
 
-与 [pattern-catalog.md](pattern-catalog.md) 重叠时：以本文件的触发标记与「不改」条款为准；pattern-catalog 主要用于识别与对照示例，不得用来突破硬性边界。
+与 [pattern-catalog.md](pattern-catalog.md) 重叠时：以本文件的触发标记与「不改」条款为准；pattern-catalog 主要用于识别与对照示例，不得用来突破硬性边界。各条规则对应的模式编号（§）见 pattern-catalog 文末「中文规则 ↔ 模式编号」。
 
 实测数据详见上游 [RESEARCH.md](https://github.com/larashero3-dotcom/lieflat-less-ai-tone/blob/main/RESEARCH.md)。
 
