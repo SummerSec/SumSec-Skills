@@ -1,7 +1,7 @@
 {
   "name": "humanizer-zh",
-  "version": "2.3.0",
-  "description": "Chinese AI-text de-slopping: zero-dep Python CLI from voidborne-d/humanize-chinese; SKILL v2.3.0 default whitelist成稿清理 from larashero3-dotcom/lieflat-less-ai-tone (hard boundaries + validated rules + do-not-rewrite table), plus anti-AI-review pass and pattern catalog from blader/humanizer / Wikipedia Signs of AI writing.",
+  "version": "2.4.0",
+  "description": "Chinese AI-text de-slopping: zero-dep Python CLI from voidborne-d/humanize-chinese; SKILL v2.4.0 default whitelist成稿清理 from larashero3-dotcom/lieflat-less-ai-tone (hard boundaries + validated rules + do-not-rewrite table), plus anti-AI-review pass and 26-pattern catalog (A-F, 6 groups) aligned with blader/humanizer v3.1.0 / Wikipedia Signs of AI writing.",
   "main": "SKILL.md",
   "scripts": {
     "detect": "python scripts/detect_cn.py",
