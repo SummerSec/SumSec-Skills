@@ -73,6 +73,7 @@ SumSec-Skills/
 │   └── skills/
 │       ├── humanizer-zh/SKILL.md
 │       ├── eli5-zh/SKILL.md
+│       ├── ste-zh/SKILL.md
 │       └── sumsec-illustrations/SKILL.md
 ├── dev-tools/               # 开发工具插件
 │   ├── .claude-plugin/plugin.json
@@ -127,7 +128,7 @@ SumSec-Skills/
 
 | 插件 | 目录 | 用途 |
 |------|------|------|
-| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、按听众讲解、SumSec 博客正文配图 |
+| writing-zh | `writing-zh/` | 中文写作辅助：去 AI 味润色、按听众讲解、ASD-STE100 汇报规范、SumSec 博客正文配图 |
 | dev-tools | `dev-tools/` | 开发工具：Git 操作、对话历史、文档检索、前端界面实现 |
 | agents-dev | `agents-dev/` | Agent 开发生态：skill-creator、plugin-dev、hookify、agent-sdk-dev、claude-agents-symlink、skill-optimizer、流程编排、版本对齐 |
 | plugin-dev | `plugin-dev/` | 插件开发七件套（agent/command/hook/skill/MCP/structure/settings） |

@@ -1,0 +1,17 @@
+本 skill 的规则正文、术语表与示例复制自 **dualface/ste-zh**：
+
+https://github.com/dualface/ste-zh
+
+许可为 MIT（Copyright (c) 2026 dualface），原文见同目录 LICENSE。
+
+本目录是整份复制，不是改编：
+
+- `SKILL.md` 的 R1–R25 规则、5 种输出模板与自检清单未改动
+- `references/terminology.md`、`examples/` 未改动
+- 术语、示例、规则编号均以上游为准；如需提出修订，请先对照上游是否已修正
+
+本地改动仅限：
+
+- skill 名称与目录名改为 `ste-zh`（上游为 `ste`），`/ste` 触发词保留
+- `README.md` 的安装说明按本仓库（writing-zh 插件）改写，其余保留上游内容
+- 新增本 `NOTICE`

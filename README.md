@@ -12,6 +12,7 @@ SumSec-Skills/
 │   └── skills/
 │       ├── humanizer-zh/       去 AI 味润色
 │       ├── eli5-zh/            按听众讲解
+│       ├── ste-zh/             按 ASD-STE100 汇报
 │       └── sumsec-illustrations/  SumSec 博客正文配图
 ├── dev-tools/               # 开发工具插件
 │   └── skills/
@@ -132,6 +133,7 @@ ln -sf "$(pwd)/dev-tools/skills/git-commit-pr" ~/.claude/skills/git-commit-pr
 |------|------|------|
 | [humanizer-zh](writing-zh/skills/humanizer-zh/) | 本仓库 | 去 AI 味：本地 CLI + 深度指南，反 AI 审查二遍工作流 |
 | [eli5-zh](writing-zh/skills/eli5-zh/) | DreambigOu/ELI5 中文改编 | 按听众背景、词汇和兴趣讲解主题、代码、概念或报错 |
+| [ste-zh](writing-zh/skills/ste-zh/) | dualface/ste-zh 整份复制 | 按 ASD-STE100 原则用中文汇报：关键信息先行、状态固定、验证如实 |
 | [sumsec-illustrations](writing-zh/skills/sumsec-illustrations/) | 本仓库 | 为 sumsec.me 风格文章生成 SumSec Observer 正文配图 |
 
 ### dev-tools（开发工具）

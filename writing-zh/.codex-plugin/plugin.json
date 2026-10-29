@@ -1,7 +1,7 @@
 {
   "name": "writing-zh",
-  "version": "1.0.48",
-  "description": "Chinese writing tools for de-AIifying text, audience-tailored explanations, and SumSec article illustrations.",
+  "version": "1.0.49",
+  "description": "Chinese writing tools for de-AIifying text, audience-tailored explanations, ASD-STE100 result reporting, and SumSec article illustrations.",
   "author": {
     "name": "SummerSec",
     "url": "https://github.com/SummerSec"
@@ -16,13 +16,14 @@
     "writing-zh",
     "chinese-writing",
     "eli5",
+    "asd-ste100",
     "illustrations"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "writing-zh",
-    "shortDescription": "Chinese writing, ELI5 explanations, and article illustrations.",
-    "longDescription": "Chinese writing assistant skills for polishing AI-sounding text, explaining topics to a chosen audience, and designing SumSec Observer article illustrations.",
+    "shortDescription": "Chinese writing, ELI5 explanations, STE reports, and article illustrations.",
+    "longDescription": "Chinese writing assistant skills for polishing AI-sounding text, explaining topics to a chosen audience, reporting results in ASD-STE100 style, and designing SumSec Observer article illustrations.",
     "developerName": "SummerSec",
     "category": "Productivity",
     "capabilities": [
@@ -32,7 +33,8 @@
     "defaultPrompt": [
       "Polish this Chinese technical article.",
       "Explain this to my manager like I am five.",
-      "Design illustrations for this SumSec article."
+      "Design illustrations for this SumSec article.",
+      "Report this result in STE style."
     ]
   }
 }
